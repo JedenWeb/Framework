@@ -1,0 +1,41 @@
+{
+	"name": "jedenweb/framework",
+    "type": "library",
+    "description": "JedenWeb Framework is a framework used by JedenWeb CMS. Based on Nette Framework",
+    "keywords": ["framework", "nette"],
+    "homepage": "http://jedenweb.cz",
+    "authors":[
+        {
+            "name":"Pavel Jurásek",
+            "homepage":"http://paveljurasek.cz"
+        }
+    ],
+	"repositories": [
+		{
+            "type":"vcs",
+            "url":"git://github.com/paveljurasek/nette.git"
+        },
+		{
+            "type":"vcs",
+            "url":"https://bitbucket.org/jurasekpavel/framework"
+        }
+    ],
+	"config": {
+		"vendor-dir": "src/vendor"
+	},
+	"require": {
+		"php" : ">=5.3.2",
+		"paveljurasek/nette" : "dev-master",
+		"paveljurasek/framework" : "dev-master",
+		"paveljurasek/plupload": "dev-master",
+		"vojtech-dobes/composer-extension": "dev-master",
+		"nella/console": "dev-master"
+	},
+	"require-dev": {
+		"kdyby/html-validator-panel": "dev-master",
+		"nette/tester": "dev-master"
+	},
+	"autoload": {
+        "psr-0": {"Venne": "src/libs/"}
+    }
+}
