@@ -115,6 +115,25 @@ final class Arrays extends Nette\Object
 
 
 	/**
+	 * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
+	 * @param mixed $array
+	 * @param mixed $subkey
+	 * @param int $sortType
+	 * @return mixed
+	 */
+	public static function sortBySubkey(&$array, $subkey, $sortType = SORT_ASC) {
+		if(count($array)){
+			foreach ($array as $subarray) {
+				$keys[] = is_object($subarray) ? $subarray->$subkey : $subarray[$subkey];
+			}
+			array_multisort($keys, $sortType, $array);
+		}
+		return $array;
+	}
+
+
+
+	/**
 	 * @param array $array
 	 * @param callable $callback
 	 * @return array
