@@ -16,10 +16,10 @@ use Nette\Application\Routers\Route;
 use Nette\Config\Adapters\NeonAdapter;
 
 $nettePaths = array(
-	__DIR__ . "/../paveljurasek/nette/Nette/loader.php",
-	__DIR__ . "/../vendor/paveljurasek/nette/Nette/loader.php",
-	__DIR__ . "/../nette/nette/Nette/loader.php",
-	__DIR__ . "/../vendor/nette/nette/Nette/loader.php",
+	__DIR__ . "/../../../../paveljurasek/nette/Nette/loader.php",
+	__DIR__ . "/../../../../vendor/paveljurasek/nette/Nette/loader.php",
+	__DIR__ . "/../../../../nette/nette/Nette/loader.php",
+	__DIR__ . "/../../../../vendor/nette/nette/Nette/loader.php",
 );
 foreach($nettePaths as $path){
 	if(file_exists($path)){
