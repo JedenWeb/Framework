@@ -93,7 +93,7 @@ class CompilerExtension extends \Nette\Config\CompilerExtension
 			->setClass(substr($installer, 0, strpos($installer, '::')))
 			->setFactory($installer, array('%compiler%'))
 			->setParameters(array('compiler'))
-			->addTag('latte.macro');
+			->addTag('macro');
 
 		$builder->getDefinition('nette.latte')
 			->addSetup('$this->' . Container::getMethodName($name, FALSE) . '(?->compiler)', array('@self'));
