@@ -21,8 +21,6 @@ class Tax
 	 */
 	const TAX_BASE = 20;
 
-
-
 	/**
 	 * @param int $price With tax
 	 * @return int Price without tax

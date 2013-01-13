@@ -28,5 +28,10 @@
 	"require-dev": {
 		"paveljurasek/nette" : "dev-master",
 		"nette/tester": "dev-master"
+	},
+	"autoload": {
+		"files": [
+			"libs/JedenWeb/exceptions.php"
+		]
 	}
 }
