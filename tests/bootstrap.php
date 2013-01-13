@@ -1,13 +1,15 @@
 <?php
 
 define('TEST_DIR', __DIR__);
-define('SRC_DIR', __DIR__ . '/../src');
-define('VENDOR_DIR', __DIR__ . '/../src/vendor');
+define('SRC_DIR', __DIR__ . '/../libs');
+define('VENDOR_DIR', __DIR__ . '/../vendor');
 
+/**
+ * @var \Composer\Autoload\ClassLoader
+ */
 $loader = require_once VENDOR_DIR . '/autoload.php';
-$robot = new \Nette\Loaders\RobotLoader;
-$robot->addDirectory(VENDOR_DIR . '/JedenWeb');
-$robot->setCacheStorage(new \Nette\Caching\Storages\DevNullStorage);
-$robot->register();
+$loader->add('JedenWeb', SRC_DIR);
 
 \Nette\Diagnostics\Debugger::enable(\Nette\Diagnostics\Debugger::DEVELOPMENT, TEST_DIR . '/log');
+
+unset($loader); // cleanup
