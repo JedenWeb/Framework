@@ -1,5 +1,5 @@
 {
-	"name": "jedenweb/framework",
+	"name": "paveljurasek/framework",
     "type": "library",
     "description": "JedenWeb Framework is a framework used by JedenWeb CMS. Based on Nette Framework",
     "keywords": ["framework", "nette"],
