@@ -114,7 +114,7 @@ class CompilerExtension extends \Nette\Config\CompilerExtension
 		$helper = $builder->addDefinition($name = $this->prefix($name))
 			->setClass(substr($installer, 0, strpos($installer, '::')))
 			->setFactory($installer)
-			->addTag('latte.helper');
+			->addTag('helper');
 
 		return $helper;
 	}

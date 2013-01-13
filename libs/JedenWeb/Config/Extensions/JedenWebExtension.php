@@ -129,11 +129,11 @@ class JedenWebExtension extends CompilerExtension
 	protected function registerMacroFactories()
 	{
 		$container = $this->getContainerBuilder();
-		$config = $container->getDefinition($this->prefix('templateConfigurator'));
+		$templateConfigurator = $container->getDefinition($this->prefix('templateConfigurator'));
 
 		foreach ($this->findByTag('macro') as $factory => $meta) {
 			$definition = $container->getDefinition($factory);
-			$config->addSetup('addFactory', array($factory));
+			$templateConfigurator->addSetup('addFactory', array(substr($factory, 0, -7)));
 		}
 	}
 
