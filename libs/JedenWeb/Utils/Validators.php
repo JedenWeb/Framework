@@ -29,29 +29,21 @@ class Validators extends Nette\Utils\Validators
 		}
 
 		$s = str_split($s);
-
-		$digits = array();
+		
 		for ($i = 1; $i <= 15; $i+=2) {
 			$digits[$i] = ($s[$i-1] * 2);
 			$digits[$i+1] = $s[$i];
 		}
 
-		return self::splitAndSum(implode('', $digits)) % 10 === 0;
-	}
+		$splitAndSum = function($string) {
+			$int = 0;
+			foreach (str_split($string) as $i) {
+				$int += $i;
+			}
+			return $int;
+		};
 
-
-
-	/**
-	 * @param string $string
-	 * @return int
-	 */
-	private static function splitAndSum($string)
-	{
-		$int = 0;
-		foreach (str_split($string) as $i) {
-			$int += $i;
-		}
-		return $int;
+		return $splitAndSum(implode('', $digits)) % 10 === 0;
 	}
 
 }
