@@ -157,6 +157,7 @@ class Configurator extends \Nette\Config\Configurator
 		if ($container->parameters['debugMode']) {
 			\JedenWeb\Panels\Callback\CallbackPanel::register($container);
 			\JedenWeb\Panels\Stopwatch\StopwatchPanel::register($container);
+			\JedenWeb\Panels\Session\SessionPanel::register($container);
 		}
 
 
