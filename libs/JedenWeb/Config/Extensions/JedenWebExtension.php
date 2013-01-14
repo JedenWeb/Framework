@@ -97,12 +97,6 @@ class JedenWebExtension extends CompilerExtension
 				->addTag("module")
 				->setClass(ucfirst($module) . "Module\\Module");
 		}
-
-		# debugger
-		if ($config["stopwatch"]["debugger"]) {
-			$container->getDefinition("user")
-				->addSetup('Nette\Diagnostics\Debugger::$bar->addPanel(?)', array(new \Nette\DI\Statement('JedenWeb\Panels\Stopwatch')));
-		}
 	}
 
 
