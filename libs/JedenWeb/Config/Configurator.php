@@ -20,7 +20,7 @@ use Nette\Application\Routers\Route;
 use Nette\Config\Compiler;
 use Nette\Config\Adapters\NeonAdapter;
 use Nette\Utils\Finder;
-use Venne\Panels\Stopwatch;
+use JedenWeb\Panels\Stopwatch;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
@@ -37,7 +37,7 @@ class Configurator extends \Nette\Config\Configurator
 	protected $modules = array();
 
 	/**
-	 * @var Venne\Module\IModule[]
+	 * @var \JedenWeb\Module\IModule[]
 	 */
 	protected $moduleInstances = array();
 
