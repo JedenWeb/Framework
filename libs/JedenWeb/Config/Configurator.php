@@ -20,7 +20,7 @@ use Nette\Application\Routers\Route;
 use Nette\Config\Compiler;
 use Nette\Config\Adapters\NeonAdapter;
 use Nette\Utils\Finder;
-use JedenWeb\Panels\Stopwatch;
+use JedenWeb\Panels\Stopwatch\StopwatchPanel as Stopwatch;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
@@ -155,7 +155,7 @@ class Configurator extends \Nette\Config\Configurator
 
 		// register panels
 		if ($container->parameters['debugMode']) {
-			\JedenWeb\Panels\Callback::register($container);
+			\JedenWeb\Panels\Callback\CallbackPanel::register($container);
 		}
 
 
