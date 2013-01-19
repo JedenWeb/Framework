@@ -10,14 +10,13 @@
 
 namespace JedenWeb\Application;
 
-use Kdyby;
 use Nette;
 use Nette\Reflection\ClassType;
 use Nette\Utils\Strings;
 
 /**
- * @author Filip Procházka <filip.prochazka@kdyby.org>
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
+ * @author Filip Procházka <filip.prochazka@kdyby.org>
  */
 class PresenterManager extends Nette\Application\PresenterFactory implements Nette\Application\IPresenterFactory
 {
@@ -225,6 +224,19 @@ class PresenterManager extends Nette\Application\PresenterFactory implements Net
 	public function formatClassFromPresenter($presenter, Kdyby\Packages\Package $package)
 	{
 		return $package->getNamespace() . '\\Presenter\\' . $this->formatPresenterClass($presenter);
+	}
+
+
+
+	/**
+	 * @param PresenterManager $factory
+	 * @param \Nette\Application\IPresenter $presenter
+	 */
+	private function onCreate(PresenterManager $factory, Nette\Application\IPresenter $presenter)
+	{
+		foreach ($this->onCreate as $callback) {
+			call_user_func_array($callback, array($factory, $presenter));
+		}
 	}
 
 }
