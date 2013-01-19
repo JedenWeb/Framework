@@ -69,13 +69,13 @@ class JedenWebExtension extends CompilerExtension
 		$container->addDefinition($this->prefix("helpers"))
 			->setClass("JedenWeb\Templating\Helpers");
 
-		$container->addDefinition("authorizatorFactory")
-			->setFactory("CoreModule\AuthorizatorFactory")
-			->setAutowired(false);
+//		$container->addDefinition("authorizatorFactory")
+//			->setFactory("CoreModule\AuthorizatorFactory")
+//			->setAutowired(false);
 
-		$container->addDefinition("authorizator")
-			->setClass("Nette\Security\Permission")
-			->setFactory("@authorizatorFactory::getCurrentPermissions");
+//		$container->addDefinition("authorizator")
+//			->setClass("Nette\Security\Permission")
+//			->setFactory("@authorizatorFactory::getCurrentPermissions");
 
 
 		# mappers
