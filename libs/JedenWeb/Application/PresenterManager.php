@@ -22,6 +22,9 @@ use Nette\Utils\Strings;
 class PresenterManager extends Nette\Application\PresenterFactory implements Nette\Application\IPresenterFactory
 {
 
+	/** @var array of function(PresenterManager $sender, IPresenter $presenter); Occurs when a presenter is created */
+	public $onCreate = array();
+
 	/**
 	 * @var \Nette\DI\Container
 	 */
@@ -138,6 +141,8 @@ class PresenterManager extends Nette\Application\PresenterFactory implements Net
 				? UI\Presenter::INVALID_LINK_WARNING
 				: UI\Presenter::INVALID_LINK_SILENT;
 		}
+
+		$this->onCreate($this, $presenter);
 
 		return $presenter;
 	}
