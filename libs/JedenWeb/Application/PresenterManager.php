@@ -133,6 +133,12 @@ class PresenterManager extends Nette\Application\PresenterFactory implements Net
 			if (substr($method, 0, 6) === 'inject') {
 				$this->container->callMethod(array($presenter, $method));
 			}
+
+			if (substr($method, 0, 6) === 'set') {
+				if (array_key_exists($property = substr($method, 6), $this->container->parameters)) {
+					$presenter->$method($this->container->parameters[$property]);
+				}
+			}
 		}
 
 		if ($presenter instanceof Nette\Application\UI\Presenter && $presenter->invalidLinkMode === NULL) {
@@ -141,7 +147,7 @@ class PresenterManager extends Nette\Application\PresenterFactory implements Net
 				: UI\Presenter::INVALID_LINK_SILENT;
 		}
 
-		$this->onCreate($this, $presenter);
+//		$this->onCreate($this, $presenter);
 
 		return $presenter;
 	}
