@@ -79,13 +79,13 @@ class JedenWebExtension extends CompilerExtension
 
 
 		# mappers
-		$container->addDefinition("configFormMapper")
-			->setClass("Venne\Forms\Mapping\ConfigFormMapper", array($container->parameters["appDir"] . "/config/config.neon"));
+//		$container->addDefinition("configFormMapper")
+//			->setClass("Venne\Forms\Mapping\ConfigFormMapper", array($container->parameters["appDir"] . "/config/config.neon"));
 
 		# managers
-		$container->addDefinition("configManager")
-			->setClass("Venne\Config\ConfigBuilder", array("%configDir%/config.neon"))
-			->addTag("manager");
+//		$container->addDefinition("configManager")
+//			->setClass("Venne\Config\ConfigBuilder", array("%configDir%/config.neon"))
+//			->addTag("manager");
 
 		$container->addDefinition($this->prefix('assetManager'))
 			->setClass("JedenWeb\Managers\AssetManager")
