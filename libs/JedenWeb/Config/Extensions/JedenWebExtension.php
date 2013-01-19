@@ -24,7 +24,8 @@ class JedenWebExtension extends CompilerExtension
 		),
 		'session' => array(
 //			'savePath' => '%tempDir%/session'
-		)
+		),
+		'modules' => array()
 	);
 
 
