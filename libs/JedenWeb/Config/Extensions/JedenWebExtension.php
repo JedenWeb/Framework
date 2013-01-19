@@ -64,7 +64,7 @@ class JedenWebExtension extends CompilerExtension
 
 		# macros
 		$this->addMacro('macros.ui', 'JedenWeb\Latte\Macros\UIMacros::install')
-				->addSetup('setModules', array('%modules%'));
+				->addSetup('setModules', array($config['modules']));
 
 		# helpers
 		$container->addDefinition($this->prefix("helpers"))
