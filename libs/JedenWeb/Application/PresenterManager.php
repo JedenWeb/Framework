@@ -21,9 +21,6 @@ use Nette\Utils\Strings;
 class PresenterManager extends Nette\Application\PresenterFactory implements Nette\Application\IPresenterFactory
 {
 
-	/** @var array of function(PresenterManager $sender, IPresenter $presenter); Occurs when a presenter is created */
-	public $onCreate = array();
-
 	/**
 	 * @var \Nette\DI\Container
 	 */
@@ -134,8 +131,8 @@ class PresenterManager extends Nette\Application\PresenterFactory implements Net
 				$this->container->callMethod(array($presenter, $method));
 			}
 
-			if (substr($method, 0, 6) === 'set') {
-				if (array_key_exists($property = substr($method, 6), $this->container->parameters)) {
+			if (substr($method, 0, 3) === 'set') {
+				if (array_key_exists($property = lcfirst(substr($method, 3)), $this->container->parameters)) {
 					$presenter->$method($this->container->parameters[$property]);
 				}
 			}
@@ -146,8 +143,6 @@ class PresenterManager extends Nette\Application\PresenterFactory implements Net
 				? UI\Presenter::INVALID_LINK_WARNING
 				: UI\Presenter::INVALID_LINK_SILENT;
 		}
-
-//		$this->onCreate($this, $presenter);
 
 		return $presenter;
 	}
@@ -230,19 +225,6 @@ class PresenterManager extends Nette\Application\PresenterFactory implements Net
 	public function formatClassFromPresenter($presenter, Kdyby\Packages\Package $package)
 	{
 		return $package->getNamespace() . '\\Presenter\\' . $this->formatPresenterClass($presenter);
-	}
-
-
-
-	/**
-	 * @param PresenterManager $factory
-	 * @param \Nette\Application\IPresenter $presenter
-	 */
-	private function onCreate(PresenterManager $factory, Nette\Application\IPresenter $presenter)
-	{
-		foreach ($this->onCreate as $callback) {
-			call_user_func_array($callback, array($factory, $presenter));
-		}
 	}
 
 }
