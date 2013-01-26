@@ -199,6 +199,32 @@ final class Arrays extends Nette\Object
 
 	/**
 	 * @param array $arr
+	 * @param bool $strict
+	 * @return array
+	 * @throws JedenWeb\InvalidStateException
+	 */
+	public static function flatternKeys(array $arr, $strict = FALSE)
+	{
+		$res = array();
+		array_walk_recursive($arr, function($v, $k) use ($res) {
+			if (array_key_exists($k, $res)) {
+				if ($strict) {
+					throw new JedenWeb\InvalidStateException("There is a conflict in keys in giver array.");
+				} else {
+					$res[] = $v;
+				}
+			} else {
+				$res[$k] = $v;
+			}
+		});
+
+		return $res;
+	}
+
+
+	
+	/**
+	 * @param array $arr
 	 * @param array $key
 	 * @param callable $callback
 	 * @return mixed
