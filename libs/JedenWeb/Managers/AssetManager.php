@@ -10,6 +10,7 @@
 
 namespace JedenWeb\Managers;
 
+use JedenWeb;
 use Nette;
 use Nette\Caching\Cache;
 
@@ -156,7 +157,7 @@ class AssetManager extends Nette\Object
 	 */
 	protected function getUrl($path)
 	{
-		return $this->basePath . "/" . \Venne\Module\Helpers::expandResource($path);
+		return $this->basePath . "/" . JedenWeb\Module\Helpers::expandResource($path);
 	}
 
 }
