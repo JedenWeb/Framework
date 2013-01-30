@@ -21,13 +21,13 @@
         }
     ],
 	"require": {
-		"php" : ">=5.3",
-		"nella/console": "dev-master",
-		"vojtech-dobes/composer-extension": "dev-master"
+		"php" : ">=5.3"
 	},
 	"require-dev": {
 		"paveljurasek/nette" : "dev-master",
-		"nette/tester": "dev-master"
+		"nette/tester": "dev-master",
+		"nella/console": "dev-master",
+		"vojtech-dobes/composer-extension": "dev-master"
 	},
 	"autoload": {
 		"files": [
