@@ -10,17 +10,14 @@
 
 namespace JedenWeb\Templating;
 
-use Venne;
-use Nette\Callback;
+use JedenWeb;
 use Nette\DI\Container;
-use Nette\Templating\Template;
 
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
  */
 class TemplateConfigurator extends \Nette\Object implements ITemplateConfigurator
 {
-
 
 	/** @var \SystemContainer|Container */
 	protected $container;
@@ -30,9 +27,6 @@ class TemplateConfigurator extends \Nette\Object implements ITemplateConfigurato
 
 	/** @var \Nette\Latte\Engine */
 	protected $latte;
-
-	/** @var Callback */
-	protected $latteFactory;
 
 
 
@@ -56,14 +50,16 @@ class TemplateConfigurator extends \Nette\Object implements ITemplateConfigurato
 
 
 
-	public function configure(Template $template)
+	/**
+	 * @param \Nette\Templating\Template $template
+	 */
+	public function configure(\Nette\Templating\Template $template)
 	{
-		// translator
 		if (($translator = $this->container->getByType('Nette\Localization\ITranslator', FALSE)) !== NULL) {
 			$template->setTranslator($translator);
 		}
 
-		$template->registerHelperLoader(array($this->container->getService('jedenWeb.helpers'), "loader"));
+		$template->registerHelperLoader(callback($this->container->getService('jedenWeb.helpers'), "loader"));
 	}
 
 
