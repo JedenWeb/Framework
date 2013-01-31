@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the file license.txt that was distributed with this source code.
  */
 
-namespace JedenWeb\Routers;
+namespace JedenWeb\Application\Routers;
 
 use Nette;
 
@@ -30,6 +30,9 @@ class RouteList extends \Nette\Application\Routers\RouteList
 
 
 
+	/**
+	 * @param string|NULL $module
+	 */
 	public function __construct($module = NULL)
 	{
 		$this->module = $module ? $module . ':' : '';
