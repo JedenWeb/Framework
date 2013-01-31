@@ -19,9 +19,6 @@ class JedenWebExtension extends CompilerExtension
 {
 
 	public $defaults = array(
-		'stopwatch' => array(
-			'debugger' => TRUE,
-		),
 		'session' => array(
 //			'savePath' => '%tempDir%/session'
 		),
