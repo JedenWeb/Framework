@@ -36,6 +36,8 @@ class JedenWebExtension extends CompilerExtension
 		$config = $this->getConfig($this->defaults);
 
 		# application
+		$container->getDefinition('application')
+			->addSetup('!headers_sent() && header(?);', 'X-Powered-By: Nette Framework & JedenWeb');
 
 		# session
 		if (array_key_exists('savePath', $config['session'])) {
@@ -43,17 +45,9 @@ class JedenWebExtension extends CompilerExtension
 				->addSetup("setSavePath", $config['session']['savePath']);
 		}
 
-		# translator
-		$container->addDefinition("translator")
-			->setClass("JedenWeb\Localization\Translator")
-			->addSetup("setLang", "cs");
-
-		$container->addDefinition("translatorPanel")
-			->setClass("JedenWeb\Localization\Panel");
-
 		# http
-		$container->getDefinition('httpResponse')
-			->addSetup('setHeader', array('X-Powered-By', 'Nette Framework && JedenWeb'));
+//		$container->getDefinition('httpResponse')
+//			->addSetup('setHeader', array('X-Powered-By', 'Nette Framework & JedenWeb'));
 
 		# template
 		$container->addDefinition($this->prefix("templateConfigurator"))
@@ -67,24 +61,7 @@ class JedenWebExtension extends CompilerExtension
 		$container->addDefinition($this->prefix("helpers"))
 			->setClass("JedenWeb\Templating\Helpers");
 
-//		$container->addDefinition("authorizatorFactory")
-//			->setFactory("CoreModule\AuthorizatorFactory")
-//			->setAutowired(false);
-
-//		$container->addDefinition("authorizator")
-//			->setClass("Nette\Security\Permission")
-//			->setFactory("@authorizatorFactory::getCurrentPermissions");
-
-
-		# mappers
-//		$container->addDefinition("configFormMapper")
-//			->setClass("Venne\Forms\Mapping\ConfigFormMapper", array($container->parameters["appDir"] . "/config/config.neon"));
-
-		# managers
-//		$container->addDefinition("configManager")
-//			->setClass("Venne\Config\ConfigBuilder", array("%configDir%/config.neon"))
-//			->addTag("manager");
-
+		#managers
 		$container->addDefinition($this->prefix('assetManager'))
 			->setClass("JedenWeb\Managers\AssetManager")
 			->addTag("manager");
@@ -118,6 +95,7 @@ class JedenWebExtension extends CompilerExtension
 	}
 
 
+
 	protected function registerMacroFactories()
 	{
 		$container = $this->getContainerBuilder();
@@ -128,6 +106,7 @@ class JedenWebExtension extends CompilerExtension
 			$templateConfigurator->addSetup('addFactory', array(substr($factory, 0, -7)));
 		}
 	}
+
 
 
 	protected function registerHelperFactories()
@@ -170,6 +149,10 @@ class JedenWebExtension extends CompilerExtension
 
 
 
+	/**
+	 * @param string $tag
+	 * @return array
+	 */
 	public function findByTag($tag)
 	{
 		$container = $this->getContainerBuilder();
