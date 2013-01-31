@@ -56,9 +56,6 @@ class JedenWebExtension extends CompilerExtension
 			->addSetup('setHeader', array('X-Powered-By', 'Nette Framework && JedenWeb'));
 
 		# template
-//		$container->getDefinition('nette.latte')
-//			->setClass('JedenWeb\Latte\Engine');
-
 		$container->addDefinition($this->prefix("templateConfigurator"))
 			->setClass("JedenWeb\Templating\TemplateConfigurator");
 
