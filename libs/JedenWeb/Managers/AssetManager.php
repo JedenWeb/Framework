@@ -47,13 +47,22 @@ class AssetManager extends Nette\Object
 
 
 	/**
-	 * Constructor
-	 *
-	 * @param \Nette\DI\Container $container
+	 * @param string $basePath
 	 */
-	public function __construct(\Nette\DI\Container $container)
+	public function __construct($basePath = NULL)
 	{
-		$this->basePath = $container->parameters['basePath'];
+		$this->basePath = $basePath;
+	}
+
+
+
+	/**
+	 * @param string $basePath
+	 */
+	public function setBasePath($basePath)
+	{
+		$this->basePath = $basePath;
+		return $this;
 	}
 
 

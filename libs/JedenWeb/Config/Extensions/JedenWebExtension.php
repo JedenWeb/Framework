@@ -42,10 +42,6 @@ class JedenWebExtension extends CompilerExtension
 				->addSetup("setSavePath", $config['session']['savePath']);
 		}
 
-		# http
-//		$container->getDefinition('httpResponse')
-//			->addSetup('setHeader', array('X-Powered-By', 'Nette Framework & JedenWeb'));
-
 		# template
 		$container->addDefinition($this->prefix("templateConfigurator"))
 			->setClass("JedenWeb\Templating\TemplateConfigurator");
@@ -60,7 +56,7 @@ class JedenWebExtension extends CompilerExtension
 
 		#managers
 		$container->addDefinition($this->prefix('assetManager'))
-			->setClass("JedenWeb\Managers\AssetManager")
+			->setClass("JedenWeb\Managers\AssetManager", array(new \Nette\DI\Statement('$this->parameters[\'basePath\']')))
 			->addTag("manager");
 
 		# modules
@@ -89,6 +85,7 @@ class JedenWebExtension extends CompilerExtension
 
 		$initialize->addBody('$this->parameters[\'baseUrl\'] = rtrim($this->getService("httpRequest")->getUrl()->getBaseUrl(), "/");');
 		$initialize->addBody('$this->parameters[\'basePath\'] = preg_replace("#https?://[^/]+#A", "", $this->parameters["baseUrl"]);');
+		$initialize->addBody('$this->getService("jedenWeb.assetManager")->setBasePath($this->parameters[\'basePath\']);');
 	}
 
 
