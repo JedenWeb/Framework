@@ -56,7 +56,7 @@ class JedenWebExtension extends CompilerExtension
 
 		#managers
 		$container->addDefinition($this->prefix('assetManager'))
-			->setClass("JedenWeb\Managers\AssetManager", array(new \Nette\DI\Statement('$this->parameters[\'basePath\']')))
+			->setClass("JedenWeb\Managers\AssetManager")
 			->addTag("manager");
 
 		# modules
