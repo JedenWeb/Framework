@@ -23,6 +23,8 @@ class User extends Nette\Security\User
 	 */
 	private $storage;
 
+
+	
 	/**
 	 * @param Nette\Security\IUserStorage $storage
 	 * @param Nette\DI\Container $context
@@ -37,7 +39,7 @@ class User extends Nette\Security\User
 			$identity = $user->identity;
 
 			\Nette\Diagnostics\Debugger::log(
-				"User '".$identity->username."' has logged in ($_SERVER[REMOTE_ADDR]). with expiration $identity->expiration",
+				"User \"$identity->username\" has logged in ($_SERVER[REMOTE_ADDR]).",
 				'login'
 			);
 		};
@@ -45,20 +47,10 @@ class User extends Nette\Security\User
 			$identity = $user->identity;
 
 			\Nette\Diagnostics\Debugger::log(
-				"User '".$identity->username."' has logged out ($_SERVER[REMOTE_ADDR]). Reason: ". $this->getLogoutReason(),
+				"User \"$identity->username\" has logged out ($_SERVER[REMOTE_ADDR]).",
 				'login'
 			);
 		};
-	}
-
-
-
-	/**
-	 * @return string
-	 */
-	public function getExpiration()
-	{
-		return $this->storage->getExpiration();
 	}
 
 }
