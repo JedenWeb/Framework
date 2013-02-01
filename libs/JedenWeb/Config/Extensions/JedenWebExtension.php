@@ -55,9 +55,6 @@ class JedenWebExtension extends CompilerExtension
 			->setClass("JedenWeb\Templating\Helpers");
 
 		#managers
-		$container->addDefinition($this->prefix('assetManager'))
-			->setClass("JedenWeb\Managers\AssetManager")
-			->addTag("manager");
 
 		# modules
 		foreach ((array) @$container->parameters["modules"] as $module => $item) {
