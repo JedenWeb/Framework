@@ -14,17 +14,10 @@
         "email": "jurasekpavel@ctyrimedia.cz",
         "issues": "https://bitbucket.org/jurasekpavel/framework/issues"
     },
-	"repositories": [
-		{
-            "type": "vcs",
-            "url": "git://github.com/paveljurasek/nette.git"
-        }
-    ],
 	"require": {
 		"php" : ">=5.3"
 	},
 	"require-dev": {
-		"paveljurasek/nette" : "dev-master",
 		"nette/tester": "dev-master",
 		"nella/console": "dev-master",
 		"vojtech-dobes/composer-extension": "dev-master"
