@@ -13,7 +13,7 @@
 	colors="true"
 	>
 	<testsuites>
-		<testsuite name="WeWood application beta Test Suite">
+		<testsuite name="JedenWeb application Test Suite">
 			<directory suffix="Test.php">test</directory>
 			<exclude suffix="*.phpt"></exclude>
 		</testsuite>
