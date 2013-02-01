@@ -60,7 +60,7 @@ final class Helpers extends Nette\Object
 		$pos = strpos($path, 'Module');
 		$module = lcfirst(substr($path, 1, $pos - 1));
 
-		return 'resources/' . $module . 'Module' . substr($path, $pos + 6);
+		return 'resources/' . $module . substr($path, $pos + 6);
 	}
-	
+
 }
