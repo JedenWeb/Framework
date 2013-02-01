@@ -28,7 +28,7 @@ class Presenter extends Nette\Application\UI\Presenter
 	/**
 	 * @var \Venne\Assets\AssetManager
 	 */
-	protected $assetManager;
+//	protected $assetManager;
 
 
 
@@ -158,6 +158,7 @@ class Presenter extends Nette\Application\UI\Presenter
 	 */
 	public function getAssetManager()
 	{
+		$stop();
 		return $this->assetManager;
 	}
 
@@ -182,16 +183,16 @@ class Presenter extends Nette\Application\UI\Presenter
 
 
 
-	/**
-	 * @param \JedenWeb\Managers\AssetManager $assetManager
-	 * @throws \Nette\InvlidStateException
-	 */
-	public function injectAssetManager(\JedenWeb\Managers\AssetManager $assetManager)
-	{
-		if ($this->assetManager) {
-			throw new \Nette\InvlidStateException;
-		}
-		$this->assetManager = $assetManager;
-	}
+//	/**
+//	 * @param \JedenWeb\Managers\AssetManager $assetManager
+//	 * @throws \Nette\InvlidStateException
+//	 */
+//	public function injectAssetManager(\CoreModule\Managers\AssetManager $assetManager)
+//	{
+//		if ($this->assetManager) {
+//			throw new \Nette\InvlidStateException;
+//		}
+//		$this->assetManager = $assetManager;
+//	}
 
 }
