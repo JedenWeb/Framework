@@ -82,7 +82,6 @@ class JedenWebExtension extends CompilerExtension
 
 		$initialize->addBody('$this->parameters[\'baseUrl\'] = rtrim($this->getService("httpRequest")->getUrl()->getBaseUrl(), "/");');
 		$initialize->addBody('$this->parameters[\'basePath\'] = preg_replace("#https?://[^/]+#A", "", $this->parameters["baseUrl"]);');
-		$initialize->addBody('$this->getService("jedenWeb.assetManager")->setBasePath($this->parameters[\'basePath\']);');
 	}
 
 
