@@ -11,8 +11,6 @@
 namespace JedenWeb;
 
 /**
- * Freezable object
- *
  * @author	Patrik Votoček
  */
 abstract class FreezableObject extends \Nette\FreezableObject
