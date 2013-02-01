@@ -12,22 +12,14 @@ namespace JedenWeb\Config;
 
 use JedenWeb;
 use Nette;
-use Nette\Caching\Cache;
-use Nette\DI;
-use Nette\Diagnostics\Debugger;
-use Nette\Application\Routers\SimpleRouter;
 use Nette\Application\Routers\Route;
-use Nette\Config\Compiler;
-use Nette\Config\Adapters\NeonAdapter;
-use Nette\Utils\Finder;
 use JedenWeb\Panels\Stopwatch\StopwatchPanel as Stopwatch;
 
 /**
- * @author Josef Kříž <pepakriz@gmail.com>
+ * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
  */
 class Configurator extends \Nette\Config\Configurator
 {
-
 
 	const CACHE_NAMESPACE = 'Nette.Configurator';
 
@@ -57,6 +49,7 @@ class Configurator extends \Nette\Config\Configurator
 	protected $compiler;
 
 
+
 	/**
 	 * @param array $params
 	 */
@@ -69,16 +62,20 @@ class Configurator extends \Nette\Config\Configurator
 
 
 
+	/**
+	 * @return array
+	 */
 	protected function getDefaultModules()
 	{
-		$adapter = new NeonAdapter();
-		$modules = $adapter->load($this->parameters["configDir"] . "/modules.neon");
-
-		return $modules;
+		$adapter = new Adapters\NeonAdapter();
+		return $adapter->load($this->parameters["configDir"] . "/modules.neon");
 	}
 
 
 
+	/**
+	 * @return array
+	 */
 	protected function getModuleInstances()
 	{
 		if (!$this->moduleInstances) {
@@ -92,6 +89,10 @@ class Configurator extends \Nette\Config\Configurator
 
 
 
+	/**
+	 * @param array $parameters
+	 * @return array
+	 */
 	protected function getDefaultParameters($parameters = array())
 	{
 		$defaults = parent::getDefaultParameters();
@@ -135,11 +136,10 @@ class Configurator extends \Nette\Config\Configurator
 	/**
 	 * Loads configuration from file and process it.
 	 *
-	 * @return DI\Container
+	 * @return \Nette\DI\Container
 	 */
 	public function createContainer()
 	{
-		// add config files
 		foreach ($this->getConfigFiles() as $file) {
 			if (is_file($file)) {
 				$this->addConfig($file, self::NONE);
@@ -233,6 +233,9 @@ class Configurator extends \Nette\Config\Configurator
 
 
 
+	/**
+	 * @return array
+	 */
 	protected function getConfigFiles()
 	{
 		$configs = array(
@@ -266,6 +269,10 @@ class Configurator extends \Nette\Config\Configurator
 
 
 
+	/**
+	 * @param string $logDirectory
+	 * @param string $email
+	 */
 	public function enableDebugger($logDirectory = NULL, $email = NULL)
 	{
 		Nette\Diagnostics\Debugger::$strictMode = TRUE;
@@ -279,7 +286,7 @@ class Configurator extends \Nette\Config\Configurator
 
 
 	/**
-	 * @return \Nette\Config\Compiler
+	 * @return Compiler
 	 */
 	public function getCompiler()
 	{
