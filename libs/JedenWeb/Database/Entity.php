@@ -17,7 +17,7 @@ use Nette;
  *
  * @property int $id
  */
-abstract class BaseEntity extends Nette\Object implements \ArrayAccess
+abstract class Entity extends Nette\Object implements \ArrayAccess
 {
 
 	/**
@@ -64,16 +64,12 @@ abstract class BaseEntity extends Nette\Object implements \ArrayAccess
 	 */
 	public function &__get($name)
 	{
-		try {
-			return parent::__get($name);
-		} catch (\Nette\MemberAccessException $e) {
-			if ($this->entity->offsetExists($name)) {
-				$value = $this->entity->$name; // must assign to new variable
-				return $value; // to it could return referrence
-			}
-
-			throw $e;
+		if ($this->entity->offsetExists($name)) {
+			$value = $this->entity->$name; // must assign to new variable
+			return $value; // to it could return referrence
 		}
+
+		return parent::__get($name);
 	}
 
 
@@ -86,15 +82,11 @@ abstract class BaseEntity extends Nette\Object implements \ArrayAccess
 	 */
 	public function __call($name, $args)
 	{
-		try {
-			parent::__call($name, $args);
-		} catch (\Nette\MemberAccessException $e) {
-			if (method_exists($this->entity, $name)) {
-				return call_user_func_array(callback($this->entity, $name), $args);
-			}
-
-			throw $e;
+		if (method_exists($this->entity, $name)) {
+			return call_user_func_array(callback($this->entity, $name), $args);
 		}
+
+		parent::__call($name, $args);
 	}
 
 
@@ -105,6 +97,16 @@ abstract class BaseEntity extends Nette\Object implements \ArrayAccess
 	public function __toString()
 	{
 		return (string) $this->entity->id;
+	}
+
+
+
+	/**
+	 * @return Nette\Database\Table\ActiveRow
+	 */
+	public function getEntity()
+	{
+		return $this->entity;
 	}
 
 

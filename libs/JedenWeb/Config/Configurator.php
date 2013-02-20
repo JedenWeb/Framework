@@ -147,7 +147,7 @@ class Configurator extends \Nette\Config\Configurator
 		}
 
 
-		if ($this->parameters['debugMode']) {
+		if ($this->parameters['debugMode'] && $this->parameters['environment'] !== 'test') {
 			\JedenWeb\Panels\Session\DI\SessionPanelExtension::register($this);
 			\JedenWeb\Panels\Stopwatch\DI\StopwatchPanelExtension::register($this);
 			\JedenWeb\Panels\Callback\DI\CallbackPanelExtension::register($this);
@@ -155,15 +155,13 @@ class Configurator extends \Nette\Config\Configurator
 
 
 		// create container
-		Stopwatch::start();
 		$container = parent::createContainer();
-		Stopwatch::stop("generate container");
-		Stopwatch::start();
-
 
 
 		// register robotLoader and configurator
-		$container->addService("robotLoader", $this->robotLoader);
+		if ($this->robotLoader) {
+			$container->addService("robotLoader", $this->robotLoader);
+		}
 		$container->addService("configurator", $this);
 
 		// add default routes
@@ -174,9 +172,6 @@ class Configurator extends \Nette\Config\Configurator
 		$application = $container->application;
 		$application->catchExceptions = (bool) !$this->isDebugMode();
 		$application->errorPresenter = $container->parameters['website']['errorPresenter'];
-		$application->onShutdown[] = function() {
-			Stopwatch::stop("shutdown");
-		};
 
 
 		// initialize modules
@@ -184,13 +179,7 @@ class Configurator extends \Nette\Config\Configurator
 			$container->{$module}->configure($container);
 		}
 
-		// set timer to router
-		$container->application->onStartup[] = function() {
-			Stopwatch::start();
-		};
-		$container->application->onRequest[] = function() {
-			Stopwatch::stop("routing");
-		};
+
 //		$container->application->onRequest[] = function($application, $request) {
 //			$presenter = $request->presenterName;
 //			$errorPresenter = 'Error';
@@ -208,8 +197,6 @@ class Configurator extends \Nette\Config\Configurator
 //			$application->errorPresenter = $errorPresenter;
 //		};
 
-
-		Stopwatch::stop("container configuration");
 		return $container;
 	}
 

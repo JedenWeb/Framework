@@ -250,4 +250,3 @@ class ResourcesManager extends Object
 	}
 
 }
-

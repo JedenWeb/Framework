@@ -24,7 +24,7 @@ class User extends Nette\Security\User
 	private $storage;
 
 
-	
+
 	/**
 	 * @param Nette\Security\IUserStorage $storage
 	 * @param Nette\DI\Container $context

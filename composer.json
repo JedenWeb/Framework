@@ -18,9 +18,9 @@
 		"php" : ">=5.3"
 	},
 	"require-dev": {
+		"nette/nette": "dev-master",
 		"nette/tester": "dev-master",
-		"nella/console": "dev-master",
-		"vojtech-dobes/composer-extension": "dev-master"
+		"jedenweb/nette-plugins": "dev-master"
 	},
 	"autoload": {
 		"files": [

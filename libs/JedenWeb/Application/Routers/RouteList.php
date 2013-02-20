@@ -52,7 +52,7 @@ class RouteList extends \Nette\Application\Routers\RouteList
 			$appRequest = $route->match($httpRequest);
 			if ($appRequest !== NULL) {
 				$presenter = explode(":", $appRequest->getPresenterName());
-				$presenter = $presenter[0] . ":{$this->module}" . implode(":", array_splice($presenter, 2));
+				$presenter = $presenter[0] . ":" . ucfirst($this->module) . implode(":", array_splice($presenter, 2));
 				$appRequest->setPresenterName($presenter);
 				return $appRequest;
 			}

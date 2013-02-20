@@ -19,11 +19,25 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
 
 	/**
+	 * @var \SystemContainer|\Nette\DI\Container
+	 */
+	private $context;
+
+
+
+	public function __construct($name = NULL, array $data = array(), $dataName = '')
+	{
+		$this->context = Configurator::getTestsContainer();
+
+		parent::__construct($name, $data, $dataName);
+	}
+
+	/**
 	 * @return \Nette\DI\Container|\SystemContainer
 	 */
 	protected function getContext()
 	{
-		return \Nette\Environment::getContext();
+		return $this->context;
 	}
 
 	/**

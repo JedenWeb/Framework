@@ -10,6 +10,7 @@
 
 namespace JedenWeb\Types;
 
+use Nette;
 use Nette\Utils\Strings;
 
 /**
@@ -17,7 +18,7 @@ use Nette\Utils\Strings;
  *
  * @property string $salt
  */
-class Password extends \Nette\Object
+class Password extends Nette\Object
 {
 
 	/** @var string */
@@ -60,7 +61,7 @@ class Password extends \Nette\Object
 	 */
 	public function createSalt()
 	{
-		return $this->salt = Strings::random(5);
+		return $this->salt = Strings::random(12);
 	}
 
 	/**
@@ -97,13 +98,13 @@ class Password extends \Nette\Object
 
 
 	/**
-	 * @param $password
-	 * @param null $salt
+	 * @param string $password
+	 * @param string|NULL $salt
 	 * @return bool
 	 */
-	public function isEqual($password, $salt = null)
+	public function isEqual($password, $salt = NULL)
 	{
-		if ($salt !== null) {
+		if ($salt !== NULL) {
 			$this->salt = $salt;
 		}
 
@@ -117,7 +118,8 @@ class Password extends \Nette\Object
 	 */
 	protected function hashPassword($password, $salt = null)
 	{
-		return hash('sha512', $salt . self::SEPARATOR . (string)$password);
+//		return hash('sha512', $salt . self::SEPARATOR . (string)$password);
+		return crypt((string) $password, "$2y$07$$salt$");
 	}
 
 	/**

@@ -20,6 +20,11 @@ abstract class Control extends Nette\Application\UI\Control
 {
 
 	/**
+	 * @var \JedenWeb\Managers\Image\ImageManager
+	 */
+	private $imgPipe;
+
+	/**
 	 * @var ITemplateConfigurator
 	 */
 	protected $templateConfigurator;
@@ -44,7 +49,7 @@ abstract class Control extends Nette\Application\UI\Control
 	}
 
 
-	
+
 	/**
 	 * @param type $obj
 	 * @throws \Nette\InvalidStateException
@@ -87,6 +92,8 @@ abstract class Control extends Nette\Application\UI\Control
 		if ($this->templateConfigurator !== NULL) {
 			$this->templateConfigurator->configure($template);
 		}
+		/** @var \Nette\Templating\FileTemplate|\stdClass $tmp */
+		$template->_imagePipe = $this->imgPipe;
 
 		return $template;
 	}
@@ -139,6 +146,20 @@ abstract class Control extends Nette\Application\UI\Control
 	public function setTemplateConfigurator(ITemplateConfigurator $configurator = NULL)
 	{
 		$this->templateConfigurator = $configurator;
+	}
+
+
+
+	/*********************** inject ***********************/
+
+
+
+	/**
+	 * @param \JedenWeb\Managers\Image\ImageManager $imgPipe
+	 */
+	public function injectImgPipe(\JedenWeb\Managers\Image\ImageManager $imgPipe)
+	{
+		$this->imgPipe = $imgPipe;
 	}
 
 

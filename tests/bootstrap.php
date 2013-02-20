@@ -1,15 +1,63 @@
 <?php
 
-define('TEST_DIR', __DIR__);
-define('SRC_DIR', __DIR__ . '/../libs');
-define('VENDOR_DIR', __DIR__ . '/../vendor');
-
 /**
- * @var \Composer\Autoload\ClassLoader
+ * Test initialization and helpers.
+ *
+ * @author     David Grudl
+ * @package    Nette\Test
  */
-$loader = require_once VENDOR_DIR . '/autoload.php';
-$loader->add('JedenWeb', SRC_DIR);
 
-\Nette\Diagnostics\Debugger::enable(\Nette\Diagnostics\Debugger::DEVELOPMENT, TEST_DIR . '/log');
+if (@!$loader = include __DIR__ . '/../vendor/autoload.php') {
+	echo 'Install Nette Tester using `composer update --dev`';
+	exit(1);
+}
 
-unset($loader); // cleanup
+$loader->add('JedenWeb', __DIR__ . '/../libs');
+
+
+// configure environment
+Tester\Helpers::setup();
+/**/class_alias('Tester\Assert', 'Assert');/**/
+date_default_timezone_set('Europe/Prague');
+
+
+// create temporary directory
+define('TEMP_DIR', __DIR__ . '/temp/' . (isset($_SERVER['argv']) ? md5(serialize($_SERVER['argv'])) : getmypid()));
+Tester\Helpers::purge(TEMP_DIR);
+
+Nette\Diagnostics\Debugger::enable('test', __DIR__ . '/log');
+
+
+$_SERVER = array_intersect_key($_SERVER, array_flip(array('PHP_SELF', 'SCRIPT_NAME', 'SERVER_ADDR', 'SERVER_SOFTWARE', 'HTTP_HOST', 'DOCUMENT_ROOT', 'OS', 'argc', 'argv')));
+$_SERVER['REQUEST_TIME'] = 1234567890;
+$_ENV = $_GET = $_POST = array();
+
+
+if (extension_loaded('xdebug')) {
+	xdebug_disable();
+	Tester\CodeCoverage\Collector::start(__DIR__ . '/coverage.dat');
+}
+
+
+function id($val) {
+	return $val;
+}
+
+
+class Notes
+{
+	static public $notes = array();
+
+	public static function add($message)
+	{
+		self::$notes[] = $message;
+	}
+
+	public static function fetch()
+	{
+		$res = self::$notes;
+		self::$notes = array();
+		return $res;
+	}
+
+}

@@ -11,6 +11,7 @@
 namespace JedenWeb\Config\Extensions;
 
 use JedenWeb\Config\CompilerExtension;
+use Nette;
 
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
@@ -50,11 +51,18 @@ class JedenWebExtension extends CompilerExtension
 		$this->addMacro('macros.ui', 'JedenWeb\Latte\Macros\UIMacros::install')
 				->addSetup('setModules', array($config['modules']));
 
+		$this->addMacro('macros.image', 'JedenWeb\Managers\Image\ImageMacro::install');
+
 		# helpers
 		$container->addDefinition($this->prefix("helpers"))
 			->setClass("JedenWeb\Templating\Helpers");
 
 		#managers
+		$container->addDefinition($this->prefix('imageManager'))
+			->setClass('JedenWeb\Managers\Image\ImageManager', array('%wwwDir%'));
+
+		$container->addDefinition($this->prefix('imageStorage'))
+			->setClass('JedenWeb\Managers\Image\ImageStorage', array('%tempDir%'));
 
 		# modules
 		foreach ((array) @$container->parameters["modules"] as $module => $item) {
@@ -74,7 +82,7 @@ class JedenWebExtension extends CompilerExtension
 
 
 
-	public function afterCompile(\Nette\PhpGenerator\ClassType $class)
+	public function afterCompile(Nette\PhpGenerator\ClassType $class)
 	{
 		parent::afterCompile($class);
 
