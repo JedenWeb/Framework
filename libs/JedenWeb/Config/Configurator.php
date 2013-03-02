@@ -13,7 +13,6 @@ namespace JedenWeb\Config;
 use JedenWeb;
 use Nette;
 use Nette\Application\Routers\Route;
-use JedenWeb\Panels\Stopwatch\StopwatchPanel as Stopwatch;
 
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
@@ -144,13 +143,6 @@ class Configurator extends \Nette\Config\Configurator
 			if (is_file($file)) {
 				$this->addConfig($file, self::NONE);
 			}
-		}
-
-
-		if ($this->parameters['debugMode'] && $this->parameters['environment'] !== 'test') {
-			\JedenWeb\Panels\Session\DI\SessionPanelExtension::register($this);
-			\JedenWeb\Panels\Stopwatch\DI\StopwatchPanelExtension::register($this);
-			\JedenWeb\Panels\Callback\DI\CallbackPanelExtension::register($this);
 		}
 
 
