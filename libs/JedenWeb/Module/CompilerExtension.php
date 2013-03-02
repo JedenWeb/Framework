@@ -30,7 +30,7 @@ class CompilerExtension extends \JedenWeb\Config\CompilerExtension
 		self::MACRO => array(),
 		self::HELPER => array(),
 		self::FORM => array(),
-		self::MANAGER => array(),
+//		self::MANAGER => array(),
 		self::REPOSITORY => array(),
 		self::WIDGET => array(),
 		self::ROUTE => array()
@@ -53,7 +53,6 @@ class CompilerExtension extends \JedenWeb\Config\CompilerExtension
 
 		foreach (Finder::findFiles("*.php")->from($modulePath)->exclude(".git", "Resources") as $file) {
 			$relative = $file->getRealpath();
-			$relative = str_replace("libs-all/venne/App", "libs/App", $relative); // hack for symlinks
 			$relative = strtr($relative, array($modulePath => '', '/' => '\\'));
 			$class = $moduleNamespace . '\\' . ltrim(substr($relative, 0, -4), '\\');
 			$class = str_replace("presenters\\", "", $class);
@@ -104,9 +103,9 @@ class CompilerExtension extends \JedenWeb\Config\CompilerExtension
 
 
 		/* managers */
-		foreach ($this->classes[self::MANAGER] as $class => $name) {
-			$this->compileManager($name, $class);
-		}
+//		foreach ($this->classes[self::MANAGER] as $class => $name) {
+//			$this->compileManager($name, $class);
+//		}
 
 
 		/* macros */
