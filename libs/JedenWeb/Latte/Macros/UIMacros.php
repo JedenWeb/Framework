@@ -88,7 +88,7 @@ class UIMacros extends \Nette\Latte\Macros\UIMacros
 	 */
 	public function macroExtends(MacroNode $node, PhpWriter $writer)
 	{
-		$node->args = \Venne\Module\Helpers::expandPath($node->args, $this->modules);
+		$node->args = \JedenWeb\Module\Helpers::expandPath($node->args, $this->modules);
 		$node->tokenizer = new \Nette\Latte\MacroTokenizer($node->args);
 		$writer = new PhpWriter($node->tokenizer);
 		return parent::macroExtends($node, $writer);
