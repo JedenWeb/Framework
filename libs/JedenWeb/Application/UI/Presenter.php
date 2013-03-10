@@ -69,7 +69,7 @@ class Presenter extends Nette\Application\UI\Presenter
 	{
 		parent::beforeRender();
 
-		if ($this->isAjax()) {
+		if ($this->isAjax() && $this->hasFlashSession()) {
 			$this->invalidateControl('flash');
 		}
 	}
