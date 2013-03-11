@@ -43,28 +43,9 @@ class UIMacros extends \Nette\Latte\Macros\UIMacros
 	{
 		$me = new static($compiler);
 
-		$me->addMacro('include', array($me, 'macroInclude'));
-		$me->addMacro('includeblock', array($me, 'macroIncludeBlock'));
 		$me->addMacro('extends', array($me, 'macroExtends'));
 		$me->addMacro('layout', array($me, 'macroExtends'));
-		$me->addMacro('block', array($me, 'macroBlock'), array($me, 'macroBlockEnd'));
-		$me->addMacro('define', array($me, 'macroBlock'), array($me, 'macroBlockEnd'));
-		$me->addMacro('snippet', array($me, 'macroBlock'), array($me, 'macroBlockEnd'));
-		$me->addMacro('ifset', array($me, 'macroIfset'), 'endif');
-
-		$me->addMacro('widget', array($me, 'macroControl')); // deprecated - use control
-		$me->addMacro('control', array($me, 'macroControl'));
-
-		$me->addMacro('href', NULL, NULL, function(MacroNode $node, PhpWriter $writer) use ($me) {
-			return ' ?> href="<?php ' . $me->macroLink($node, $writer) . ' ?>"<?php ';
-		});
-		$me->addMacro('plink', array($me, 'macroLink'));
-		$me->addMacro('link', array($me, 'macroLink'));
-		$me->addMacro('ifCurrent', array($me, 'macroIfCurrent'), 'endif'); // deprecated; use n:class="$presenter->linkCurrent ? ..."
-
-		$me->addMacro('contentType', array($me, 'macroContentType'));
-		$me->addMacro('status', array($me, 'macroStatus'));
-
+		
 		$me->addMacro('path', array($me, 'macroPath'));
 		return $me;
 	}
