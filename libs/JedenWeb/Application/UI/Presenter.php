@@ -65,7 +65,7 @@ class Presenter extends Nette\Application\UI\Presenter
 
 
 
-	public function beforeRender()
+	protected function beforeRender()
 	{
 		parent::beforeRender();
 
