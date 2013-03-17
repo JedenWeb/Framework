@@ -58,11 +58,168 @@ class Presenter extends Nette\Application\UI\Presenter
 
 		return parent::createComponent($name);
 	}
+	
+	
+	/*********************** secured links ***********************/
+	
+	
+	/**
+	 * @author Jan Skrasek
+	 * {@inheritdoc}
+	 */
+	public function link($destination, $args = array())
+	{
+		if (!is_array($args)) {
+			$args = func_get_args();
+			array_shift($args);
+		}
 
+		$link = parent::link($destination, $args);
+		return $this->getPresenter()->createSecuredLink($this, $link, $destination);
+	}
+
+
+	/**
+	 * For @secured annotated signal handler methods checks if URL parameters has not been changed
+	 *
+	 * @author Jan Skrasek
+	 * @throws Nette\Application\UI\BadSignalException if there is no handler method or the security token does not match
+	 * @throws \LogicException if there is no redirect in a secured signal
+	 */
+	public function signalReceived($signal)
+	{
+		$method = $this->formatSignalMethod($signal);
+		$secured = FALSE;
+
+		if (method_exists($this, $method)) {
+			$reflection = new Nette\Reflection\Method($this, $method);
+			$secured = $reflection->hasAnnotation('secured');
+			if ($secured) {
+				$params = array($this->getUniqueId());
+				if ($this->params) {
+					foreach ($reflection->getParameters() as $param) {
+						if ($param->isOptional()) {
+							continue;
+						}
+						if (isset($this->params[$param->name])) {
+							$params[$param->name] = $this->params[$param->name];
+						}
+					}
+				}
+
+				if (!isset($this->params['_sec']) || $this->params['_sec'] !== $this->getPresenter()->getCsrfToken(get_class($this), $method, $params)) {
+					throw new Nette\Application\UI\BadSignalException("Invalid security token for signal '$signal' in class {$this->reflection->name}.");
+				}
+			}
+		}
+
+		parent::signalReceived($signal);
+
+		if ($secured && !$this->getPresenter()->isAjax()) {
+			throw new \LogicException("Secured signal '$signal' did not redirect. Possible csrf-token reveal by http referer header.");
+		}
+	}
+	
+	
+	/**
+	 * @author Jan Skrasek
+	 * @param  PresenterComponent
+	 * @param  string created URL
+	 * @param  string
+	 * @return string
+	 * @throws Nette\Application\UI\InvalidLinkException
+	 */
+	public function createSecuredLink(PresenterComponent $component, $link, $destination)
+	{
+		/** @var $lastRequest Nette\Application\Request */
+		$lastRequest = $this->lastCreatedRequest;
+
+		do {
+			if ($lastRequest === NULL) {
+				break;
+			}
+
+			$params = $lastRequest->getParameters();
+			if (!isset($params[Nette\Application\UI\Presenter::SIGNAL_KEY])) {
+				break;
+			}
+
+			if (($pos = strpos($destination, '#')) !== FALSE) {
+				$destination = substr($destination, 0, $pos);
+			}
+
+			$signal = strtr(rtrim($destination, '!'), ':', '-');
+			$a = strrpos($signal, '-');
+			if ($a !== FALSE) {
+				$component = $component->getComponent(substr($signal, 0, $a));
+				$signal = (string) substr($signal, $a + 1);
+			}
+			if ($signal == NULL) { // intentionally ==
+				throw new Nette\Application\UI\InvalidLinkException("Signal must be non-empty string.");
+			}
+
+			// only PresenterComponent
+			if (!$component instanceof PresenterComponent) {
+				break;
+			}
+
+			$reflection = $component->getReflection();
+			$method = $component->formatSignalMethod($signal);
+			$signalReflection = $reflection->getMethod($method);
+
+			if (!$signalReflection->hasAnnotation('secured')) {
+				break;
+			}
+
+			$origParams = $lastRequest->getParameters();
+			$protectedParams = array($component->getUniqueId());
+			foreach ($signalReflection->getParameters() as $param) {
+				if ($param->isOptional()) {
+					continue;
+				}
+				if (isset($origParams[$component->getParameterId($param->name)])) {
+					$protectedParams[$param->name] = $origParams[$component->getParameterId($param->name)];
+				}
+			}
+
+			$protectedParam = $this->getCsrfToken(get_class($component), $method, $protectedParams);
+
+			if (($pos = strpos($link, '#')) === FALSE) {
+				$fragment = '';
+			} else {
+				$fragment = substr($link, $pos);
+				$link = substr($link, 0, $pos);
+			}
+
+			$link .= (strpos($link, '?') !== FALSE ? '&' : '?') . $component->getParameterId('_sec') . '=' . $protectedParam . $fragment;
+		} while (FALSE);
+
+		return $link;
+	}
+
+
+	/**
+	 * Returns unique token for method and params
+	 * @author Jan Skrasek
+	 * @param string
+	 * @param string
+	 * @param array
+	 * @return string
+	 */
+	public function getCsrfToken($control, $method, $params)
+	{
+		$session = $this->getSession('Nextras.Application.UI.SecuredLinksPresenterTrait');
+		if (!isset($session->token)) {
+			$session->token = Nette\Utils\Strings::random();
+		}
+
+		$params = Nette\Utils\Arrays::flatten($params);
+		$params = implode('|', array_keys($params)) . '|' . implode('|', array_values($params));
+		return substr(md5($control . $method . $params . $session->token), 0, 8);
+	}	
 
 
 	/*********************** templating ***********************/
-
 
 
 	protected function beforeRender()
