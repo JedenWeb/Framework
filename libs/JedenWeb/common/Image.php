@@ -13,6 +13,7 @@ namespace JedenWeb;
 use Nette;
 
 /**
+ * {@inheritDoc}
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
  */
 class Image extends Nette\Image
@@ -86,6 +87,8 @@ class Image extends Nette\Image
 	 */
 	public function cropPrecise($width, $height, $how = self::CENTER)
 	{
+		throw new DeprecatedException;
+		
 		$w0 = (int) $this->getWidth();
 		$h0 = (int) $this->getHeight();
 
@@ -127,6 +130,17 @@ class Image extends Nette\Image
 		}
 
 		$this->crop($left, $top, $width, $height);
+	}
+	
+	
+	/**
+	 * Blur image using Gaussian blur.
+	 * @return Image provides a fluent interface
+	 */
+	public function blur()
+	{
+		imagefilter($this->getImageResource(), IMG_FILTER_GAUSSIAN_BLUR);
+		return $this;
 	}
 
 }
