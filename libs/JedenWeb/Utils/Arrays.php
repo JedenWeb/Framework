@@ -62,6 +62,7 @@ final class Arrays extends Nette\Object
 	 */
 	public static function fetchColumn($array, $column)
 	{
+		$ret = array();
 		foreach ($array as $id => $row) {
 			$ret[$id] = $row[$column];
 		}
