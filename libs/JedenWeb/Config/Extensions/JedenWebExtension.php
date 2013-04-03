@@ -59,10 +59,10 @@ class JedenWebExtension extends CompilerExtension
 
 		#managers
 		$container->addDefinition($this->prefix('imageManager'))
-			->setClass('JedenWeb\Managers\Image\ImageManager', array('%wwwDir%'));
+			->setClass('JedenWeb\Managers\Image\ImageManager', array($container->expand('%wwwDir%')));
 
 		$container->addDefinition($this->prefix('imageStorage'))
-			->setClass('JedenWeb\Managers\Image\ImageStorage', array('%tempDir%'));
+			->setClass('JedenWeb\Managers\Image\ImageStorage', array($container->expand('%tempDir%')));
 
 		# modules
 		foreach ((array) @$container->parameters["modules"] as $module => $item) {
