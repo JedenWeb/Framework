@@ -48,8 +48,8 @@ class JedenWebExtension extends CompilerExtension
 			->setClass("JedenWeb\Templating\TemplateConfigurator");
 
 		# macros
-		$this->addMacro('macros.ui', 'JedenWeb\Latte\Macros\UIMacros::install')
-				->addSetup('setModules', array($config['modules']));
+		$this->addMacro('macros.ui', 'JedenWeb\Latte\Macros\UIMacros::install');
+//				->addSetup('setModules', array($config['modules']));
 
 		$this->addMacro('macros.image', 'JedenWeb\Managers\Image\ImageMacro::install');
 

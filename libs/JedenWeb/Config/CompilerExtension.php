@@ -91,8 +91,6 @@ class CompilerExtension extends \Nette\Config\CompilerExtension
 
 		$builder->getDefinition('nette.latte')
 			->addSetup($installer . '(?->compiler)', array('@self'));
-
-		return $macro;
 	}
 
 
