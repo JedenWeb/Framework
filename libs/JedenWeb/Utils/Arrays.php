@@ -68,6 +68,24 @@ final class Arrays extends Nette\Object
 		}
 		return $ret;
 	}
+	
+	
+	
+	/**
+	 * Returns array of $key => $value from multi array
+	 * @param array $array
+	 * @param string $key
+	 * @param string $value
+	 * @return array
+	 */
+	public static function fetchPairs($array, $key, $value)
+	{
+		$ret = array();
+		foreach ($array as $id => $row) {
+			$ret[$row[$key]] = $row[$value];
+		}
+		return $ret;
+	}	
 
 
 
