@@ -19,8 +19,10 @@ class Tax
 	/**
 	 * Base percentage of tax
 	 */
-	const TAX_BASE = 20;
+	const TAX_BASE = 21;
 
+	
+	
 	/**
 	 * @param int $price With tax
 	 * @return int Price without tax
@@ -29,7 +31,6 @@ class Tax
 	{
 		return $price - self::getTax($price);
 	}
-
 
 
 	/**
@@ -42,7 +43,6 @@ class Tax
 	}
 
 
-
 	/**
 	 * @param int $price With tax
 	 * @return int Tax
@@ -51,7 +51,6 @@ class Tax
 	{
 		return round($price * self::getCoefficient());
 	}
-
 
 
 	/**

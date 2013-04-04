@@ -319,5 +319,4 @@ class UnexpectedValueException extends \UnexpectedValueException
  */
 class StaticClassException extends \LogicException
 {
-
 }

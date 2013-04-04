@@ -22,29 +22,19 @@ class Configurator extends \Nette\Config\Configurator
 
 	const CACHE_NAMESPACE = 'Nette.Configurator';
 
-	/**
-	 * @var array
-	 */
+	/** @var array */
 	protected $modules = array();
 
-	/**
-	 * @var \JedenWeb\Module\IModule[]
-	 */
+	/** @var \JedenWeb\Module\IModule[] */
 	protected $moduleInstances = array();
 
-	/**
-	 * @var \Nette\DI\Container
-	 */
+	/** @var \Nette\DI\Container */
 	protected $container;
 
-	/**
-	 * @var \Nette\Loaders\RobotLoader
-	 */
+	/** @var \Nette\Loaders\RobotLoader */
 	protected $robotLoader;
 
-	/**
-	 * @var Compiler
-	 */
+	/** @var Compiler */
 	protected $compiler;
 
 

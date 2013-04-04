@@ -18,9 +18,7 @@ use Nette;
 class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISessionStorage
 {
 
-	/**
-	 * @var \Nette\Database\Connection
-	 */
+	/** @var \Nette\Database\Connection */
 	private $db;
 
 
@@ -29,19 +27,28 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
 	 */
 	public function __construct(Ntte\Database\Connection $db)
 	{
-		throw new \Nette\NotImplementedException;
+		throw new \JedenWeb\NotImplementedException;
 		$this->db = $db;
 	}
 
 
-
+	/**
+	 * @param string $savePath
+	 * @param string $sessionName
+	 */
     public	function open($savePath, $sessionName)
 	{
 		\Nette\Diagnostics\Debugger::dump($savePath);
 		\Nette\Diagnostics\Debugger::dump($sessionName);die;
     }
 
-    public  function read($id) {
+	
+	/**
+	 * @param int $id
+	 * @return string
+	 */
+    public  function read($id)
+	{
         $query = '
             SELECT
                 [data]
@@ -60,7 +67,14 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
         };
     }
 
-    public  function write($id, $data) {
+	
+	/**
+	 * @param int $id
+	 * @param type $data
+	 * @throws \Nette\InvalidStateException
+	 */
+    public  function write($id, $data)
+	{
         if (is_null($this->conn)) {
             throw new \Nette\InvalidStateException("The connection to database for session storage is not open!");
         };
@@ -71,7 +85,13 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
         $this->conn->commit();
     }
 
-    public  function destroy($id) {
+	
+	/**
+	 * @param int $id
+	 * @throws \Nette\InvalidStateException
+	 */
+    public  function destroy($id)
+	{
         if (is_null($this->conn)) {
             throw new \Nette\InvalidStateException("The connection to database for session storage is not open!");
         };
@@ -79,7 +99,13 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
         $this->conn->query('DELETE FROM [session] WHERE [id] = %s', $id);
     }
 
-    public  function clean($max) {
+	
+	/**
+	 * @param int $max
+	 * @throws \Nette\InvalidStateException
+	 */
+    public  function clean($max)
+	{
         if (is_null($this->conn)) {
             throw new \Nette\InvalidStateException("The connection to database for session storage is not open!");
         };

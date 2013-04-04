@@ -87,10 +87,20 @@ class CompilerExtension extends \Nette\Config\CompilerExtension
 	 */
 	public function addMacro($name, $installer)
 	{
-		$builder = $this->getContainerBuilder();
+		$container = $this->getContainerBuilder();
+		
+		$macro = $container->addDefinition($name = $this->prefix($name))
+			->setClass(substr($installer, 0, strpos($installer, '::')))
+			->setFactory($installer, array('%compiler%'))
+			->setParameters(array('compiler'))
+			->addTag('latte.macro');
 
-		$builder->getDefinition('nette.latte')
-			->addSetup($installer . '(?->compiler)', array('@self'));
+//		$container->getDefinition('nette.latte')
+//			->addSetup($installer . '(?->compiler)', array('@self'));
+		$container->getDefinition('nette.latte')
+			->addSetup('$this->' . Container::getMethodName($name, FALSE) . '(?->compiler)', array('@self'));
+		
+		return $macro;
 	}
 
 
@@ -101,9 +111,9 @@ class CompilerExtension extends \Nette\Config\CompilerExtension
 	 */
 	protected function addHelper($name, $installer)
 	{
-		$builder = $this->getContainerBuilder();
+		$container = $this->getContainerBuilder();
 
-		$helper = $builder->addDefinition($name = $this->prefix($name))
+		$helper = $container->addDefinition($name = $this->prefix($name))
 			->setClass(substr($installer, 0, strpos($installer, '::')))
 			->setFactory($installer)
 			->addTag('helper');

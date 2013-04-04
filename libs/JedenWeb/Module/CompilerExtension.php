@@ -10,11 +10,13 @@
 
 namespace JedenWeb\Module;
 
-use Venne;
+use JedenWeb;
 use Nette\DI\ContainerBuilder;
 use Nette\Utils\Finder;
 
 /**
+ * @todo Get rid of magic registration of services
+ * 
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
  */
 class CompilerExtension extends \JedenWeb\Config\CompilerExtension

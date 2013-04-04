@@ -13,6 +13,7 @@ namespace JedenWeb\Application\UI;
 use JedenWeb;
 use JedenWeb\Templating\ITemplateConfigurator;
 use Nette;
+use Nette\Application\UI\PresenterComponent;
 
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
@@ -317,7 +318,7 @@ class Presenter extends Nette\Application\UI\Presenter
 	/**
 	 * @param \JedenWeb\Managers\Image\ImageManager $imgPipe
 	 */
-	public function injectImgPipe(\JedenWeb\Managers\Image\ImageManager $imgPipe)
+	final public function injectImgPipe(\JedenWeb\Managers\Image\ImageManager $imgPipe)
 	{
 		$this->imgPipe = $imgPipe;
 	}
@@ -328,7 +329,7 @@ class Presenter extends Nette\Application\UI\Presenter
 	 * @param \JedenWeb\Templating\ITemplateConfigurator $templateConfigurator
 	 * @throws \Nette\InvlidStateException
 	 */
-	public function injectTemplateConfigurator(ITemplateConfigurator $templateConfigurator)
+	final public function injectTemplateConfigurator(ITemplateConfigurator $templateConfigurator)
 	{
 		if ($this->templateConfigurator) {
 			throw new \Nette\InvlidStateException;

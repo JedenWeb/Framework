@@ -214,7 +214,7 @@ abstract class Control extends Nette\Application\UI\Control
 	/**
 	 * @param \JedenWeb\Managers\Image\ImageManager $imgPipe
 	 */
-	public function injectImgPipe(\JedenWeb\Managers\Image\ImageManager $imgPipe)
+	final public function injectImgPipe(\JedenWeb\Managers\Image\ImageManager $imgPipe)
 	{
 		$this->imgPipe = $imgPipe;
 	}
@@ -225,7 +225,7 @@ abstract class Control extends Nette\Application\UI\Control
 	 * @param \JedenWeb\Templating\ITemplateConfigurator $templateConfigurator
 	 * @throws \Nette\InvlidStateException
 	 */
-	public function injectTemplateConfigurator(ITemplateConfigurator $templateConfigurator)
+	final public function injectTemplateConfigurator(ITemplateConfigurator $templateConfigurator)
 	{
 		if ($this->templateConfigurator) {
 			throw new \Nette\InvlidStateException;

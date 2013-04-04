@@ -23,9 +23,7 @@ use Nette\Utils\Strings;
 class UIMacros extends \Nette\Latte\Macros\UIMacros
 {
 
-	/**
-	 * @var array
-	 */
+	/** @var array */
 	protected $modules;
 
 	/** @var array */
@@ -34,10 +32,11 @@ class UIMacros extends \Nette\Latte\Macros\UIMacros
 	/** @var bool */
 	private $extends;
 
+	
 
 	/**
 	 * @param \Nette\Latte\Compiler $compiler
-	 * @return self
+	 * @return UIMacros
 	 */
 	public static function install(Latte\Compiler $compiler)
 	{
@@ -51,7 +50,6 @@ class UIMacros extends \Nette\Latte\Macros\UIMacros
 	}
 
 
-
 	/**
 	 * @param array $modules
 	 */
@@ -59,7 +57,6 @@ class UIMacros extends \Nette\Latte\Macros\UIMacros
 	{
 		$this->modules = $modules;
 	}
-
 
 
 	/**
@@ -74,7 +71,6 @@ class UIMacros extends \Nette\Latte\Macros\UIMacros
 		$writer = new PhpWriter($node->tokenizer);
 		return parent::macroExtends($node, $writer);
 	}
-
 
 
 	/**

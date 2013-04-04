@@ -20,21 +20,15 @@ use Nette\Caching\Cache;
 class ResourcesManager extends Object
 {
 
-	const CACHE = "Venne.Resources";
+	const CACHE_NAMESPACE = "JedenWeb.Resources";
 
-	/**
-	 *  @var Container
-	 */
+	/** @var Container */
 	protected $container;
 
-	/**
-	 * @var Cache
-	 */
+	/** @var Cache */
 	protected $cache;
 
-	/**
-	 * @var array
-	 */
+	/** @var array */
 	protected $filters = array();
 
 
@@ -45,9 +39,8 @@ class ResourcesManager extends Object
 	function __construct(Container $container)
 	{
 		$this->container = $container;
-		$this->cache = new Cache($this->container->cacheStorage, self::CACHE);
+		$this->cache = new Cache($this->container->cacheStorage, self::CACHE_NAMESPACE);
 	}
-
 
 
 	/**
@@ -64,7 +57,6 @@ class ResourcesManager extends Object
 
 		$this->filters[$type] = $filter;
 	}
-
 
 
 	/**
@@ -99,7 +91,6 @@ class ResourcesManager extends Object
 	}
 
 
-
 	/**
 	 * Get md5 of directory.
 	 *
@@ -110,7 +101,6 @@ class ResourcesManager extends Object
 	{
 		return md5($this->hash_dir($path));
 	}
-
 
 
 	/**
@@ -144,7 +134,6 @@ class ResourcesManager extends Object
 	}
 
 
-
 	/**
 	 * Synchronize files to %resourcesDir% folder.
 	 *
@@ -158,7 +147,6 @@ class ResourcesManager extends Object
 		$this->rmdir($dest);
 		$this->copy($path, $dest);
 	}
-
 
 
 	/**
@@ -206,7 +194,6 @@ class ResourcesManager extends Object
 	}
 
 
-
 	/**
 	 * Copy file and apply filters.
 	 *
@@ -224,7 +211,6 @@ class ResourcesManager extends Object
 
 		file_put_contents($dest, $data);
 	}
-
 
 
 	/**

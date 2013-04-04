@@ -10,6 +10,7 @@
 
 namespace JedenWeb\Module;
 
+use JedenWeb;
 use Nette;
 
 /**
@@ -17,11 +18,17 @@ use Nette;
  */
 final class Helpers extends Nette\Object
 {
+	
+	/** @throws JedenWeb\StaticClassException */
+	final public function __construct()
+	{
+		throw new JedenWeb\StaticClassException;
+	}
 
+	
 	/**
-	 * Expands @fooModule/path/....
-	 * @static
-	 * @param $path
+	 * Expands @fooModule/path/..
+	 * @param string $path
 	 * @param array $modules
 	 * @return string
 	 * @throws \Nette\InvalidArgumentException
@@ -44,9 +51,8 @@ final class Helpers extends Nette\Object
 
 
 	/**
-	 * Expands @fooModule/path/....
-	 * @static
-	 * @param $path
+	 * Expands @fooModule/path/..
+	 * @param string $path
 	 * @param array $modules
 	 * @return string
 	 * @throws \Nette\InvalidArgumentException

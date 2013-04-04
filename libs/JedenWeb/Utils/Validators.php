@@ -25,7 +25,7 @@ class Validators extends Nette\Utils\Validators
 	public static function isCreditCard($number)
 	{
 		if (strlen($s = Nette\Utils\Strings::replace($number, '([ -])', '')) !== 16) {
-			return false;
+			return FALSE;
 		}
 
 		$s = str_split($s);

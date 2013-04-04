@@ -39,7 +39,6 @@ class TemplateConfigurator extends \Nette\Object implements ITemplateConfigurato
 	}
 
 
-
 	/**
 	 * @param string $factory
 	 */
@@ -47,7 +46,6 @@ class TemplateConfigurator extends \Nette\Object implements ITemplateConfigurato
 	{
 		$this->macroFactories[] = $factory;
 	}
-
 
 
 	/**
@@ -61,7 +59,6 @@ class TemplateConfigurator extends \Nette\Object implements ITemplateConfigurato
 
 		$template->registerHelperLoader(callback($this->container->getService('jedenWeb.helpers'), "loader"));
 	}
-
 
 
 	/**
@@ -78,7 +75,6 @@ class TemplateConfigurator extends \Nette\Object implements ITemplateConfigurato
 			$this->container->$factory->invoke($this->latte->getCompiler());
 		}
 	}
-
 
 
 	/**
