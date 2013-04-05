@@ -7,12 +7,12 @@
  * @package    Nette\Test
  */
 
-if (@!$loader = include __DIR__ . '/../vendor/autoload.php') {
+if (@!$loader = include __DIR__ . '/../../vendor/autoload.php') {
 	echo 'Install Nette Tester using `composer update --dev`';
 	exit(1);
 }
 
-$loader->add('JedenWeb', __DIR__ . '/../libs');
+$loader->add('JedenWeb', __DIR__ . '/../../libs');
 
 
 // configure environment
@@ -22,10 +22,13 @@ date_default_timezone_set('Europe/Prague');
 
 
 // create temporary directory
-define('TEMP_DIR', __DIR__ . '/temp/' . (isset($_SERVER['argv']) ? md5(serialize($_SERVER['argv'])) : getmypid()));
+define('TEMP_DIR', __DIR__ . '/../temp/' . (isset($_SERVER['argv']) ? md5(serialize($_SERVER['argv'])) : getmypid()));
+@mkdir(dirname(TEMP_DIR)); // @ - directory may already exist
 Tester\Helpers::purge(TEMP_DIR);
 
-Nette\Diagnostics\Debugger::enable('test', __DIR__ . '/log');
+//define('LOG_DIR', __DIR__ . '/../log/');
+//@mkdir(dirname(LOG_DIR)); // @ - directory may already exist
+//Nette\Diagnostics\Debugger::enable('test', LOG_DIR);
 
 
 $_SERVER = array_intersect_key($_SERVER, array_flip(array('PHP_SELF', 'SCRIPT_NAME', 'SERVER_ADDR', 'SERVER_SOFTWARE', 'HTTP_HOST', 'DOCUMENT_ROOT', 'OS', 'argc', 'argv')));

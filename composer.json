@@ -19,8 +19,7 @@
 	},
 	"require-dev": {
 		"nette/nette": "dev-master",
-		"nette/tester": "dev-master",
-		"jedenweb/nette-plugins": "dev-master"
+		"nette/tester": "dev-master"
 	},
 	"autoload": {
 		"files": [

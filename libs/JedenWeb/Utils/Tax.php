@@ -10,55 +10,82 @@
 
 namespace JedenWeb\Utils;
 
+use JedenWeb;
+
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
  */
-class Tax
+final class Tax
 {
 
-	/**
-	 * Base percentage of tax
-	 */
-	const TAX_BASE = 21;
+	const BASE_RATE = 21;
+
+	const REDUCED_RATE = 15;
 
 	
 	
-	/**
-	 * @param int $price With tax
-	 * @return int Price without tax
-	 */
-	public static function priceWithoutTax($price)
+	final public function __construct()
 	{
-		return $price - self::getTax($price);
+		throw new JedenWeb\StaticClassException;
+	}
+	
+	
+	/**
+	 * Returns price without added value
+	 * 
+	 * @param int $price
+	 * @return int
+	 */
+	public static function priceWithoutTax($price, $rate = self::BASE_RATE)
+	{
+		return $price - self::tax($price, $rate);
 	}
 
 
 	/**
-	 * @param int $price Without tax
-	 * @return type Price with tax
+	 * Returns price with added value
+	 * 
+	 * @param int $price
+	 * @return int
 	 */
-	public static function priceWithTax($price)
+	public static function priceWithTax($price, $rate = self::BASE_RATE)
 	{
-		return $price * ((100 + self::TAX_BASE) / 100);
+		return $price * ((100 + $rate) / 100);
 	}
 
 
 	/**
-	 * @param int $price With tax
-	 * @return int Tax
+	 * Returns added value
+	 * 
+	 * @param int $price
+	 * @return int
 	 */
-	public static function getTax($price)
+	public static function tax($price, $rate = self::BASE_RATE)
 	{
-		return round($price * self::getCoefficient());
+		return $price * self::getCoefficient($rate);
+	}
+	
+	
+	/**
+	 * Returns tax rate
+	 * 
+	 * @param int $full
+	 * @param int $base
+	 * @return int
+	 */
+	public static function rate($full, $base)
+	{
+		return round(($base / $full * 100) - 100);
+//		return $base / $full;
 	}
 
 
 	/**
 	 * @return int Coefficient counted from tax base
 	 */
-	private static function getCoefficient()
+	private static function getCoefficient($rate)
 	{
-		return round(self::TAX_BASE / (100 + self::TAX_BASE), 4);
+		return $rate / (100 + $rate);
 	}
 
 }
