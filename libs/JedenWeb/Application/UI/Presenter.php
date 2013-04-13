@@ -31,6 +31,10 @@ class Presenter extends Nette\Application\UI\Presenter
 	 */
 	protected $templateConfigurator;
 
+	/**
+	 * @var array
+	 */
+	private $_flashes = array();	
 
 
 	/*********************** components ***********************/
@@ -236,6 +240,31 @@ class Presenter extends Nette\Application\UI\Presenter
 		$params = Nette\Utils\Arrays::flatten($params);
 		$params = implode('|', array_keys($params)) . '|' . implode('|', array_values($params));
 		return substr(md5($control . $method . $params . $session->token), 0, 8);
+	}
+	
+	
+	/**
+	 * Saves the message to template, that can be displayed after redirect.
+	 * @param  string
+	 * @param  string
+	 * @return \stdClass
+	 */
+	public function flashMessage($message, $type = 'info', $withoutSession = FALSE)
+	{
+		if ($withoutSession) {
+			$this->_flashes[] = $flash = (object)array(
+				'message' => $message,
+				'type' => $type,
+			);
+		} else {
+			$flash = parent::flashMessage($message, $type);
+		}
+
+		$id = $this->getParameterId('flash');
+		$messages = $this->getPresenter()->getFlashSession()->$id;
+		$this->getTemplate()->flashes = array_merge((array)$messages, $this->_flashes);
+
+		return $flash;
 	}	
 
 

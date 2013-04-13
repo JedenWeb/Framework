@@ -33,6 +33,11 @@ abstract class Control extends Nette\Application\UI\Control
 	 * @var bool
 	 */
 	private $startupCheck;
+	
+	/**
+	 * @var array
+	 */
+	private $_flashes = array();
 
 
 
@@ -153,6 +158,31 @@ abstract class Control extends Nette\Application\UI\Control
 		if ($secured && !$this->getPresenter()->isAjax()) {
 			throw new \LogicException("Secured signal '$signal' did not redirect. Possible csrf-token reveal by http referer header.");
 		}
+	}	
+	
+	
+	/**
+	 * Saves the message to template, that can be displayed after redirect.
+	 * @param  string
+	 * @param  string
+	 * @return \stdClass
+	 */
+	public function flashMessage($message, $type = 'info', $withoutSession = FALSE)
+	{
+		if ($withoutSession) {
+			$this->_flashes[] = $flash = (object)array(
+				'message' => $message,
+				'type' => $type,
+			);
+		} else {
+			$flash = parent::flashMessage($message, $type);
+		}
+
+		$id = $this->getParameterId('flash');
+		$messages = $this->getPresenter()->getFlashSession()->$id;
+		$this->getTemplate()->flashes = array_merge((array)$messages, $this->_flashes);
+
+		return $flash;
 	}	
 	
 
