@@ -11,6 +11,7 @@
 namespace JedenWeb\Security;
 
 use Nette;
+use Nette\Utils\Strings;
 
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
@@ -23,16 +24,18 @@ abstract class Authenticator extends Nette\Object implements Nette\Security\IAut
 	 */
 	public abstract function authenticate(array $credentials);
 
-
 	
 	/**
-	 * @param string $password
-	 * @param string $salt
+	 * Computes salted password hash.
+	 * @param  string
 	 * @return string
 	 */
-	public function calculateHash($password, $salt)
+	public static function calculateHash($password, $salt = NULL)
 	{
-		return crypt((string) $password, "$2y$07$$salt$");
+		if ($password === Strings::upper($password)) { // perhaps caps lock is on
+			$password = Strings::lower($password);
+		}
+		return crypt($password, $salt ?: '$2y$07$' . Strings::random(22));
 	}
 
 }
