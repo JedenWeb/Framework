@@ -10,6 +10,8 @@ namespace JedenWeb\Security;
 
 use JedenWeb;
 use Nette;
+use Nette\Reflection;
+use Nette\Application\ForbiddenRequestException;
 
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
@@ -40,7 +42,7 @@ class User extends Nette\Security\User
 			throw new ForbiddenRequestException($message ? : "User " . $this->getIdentity()->getId() . " is not in role '" . $user['role'] . "'.");
 
 		} elseif ($element->getAnnotation('user')) {
-			throw new Kdyby\UnexpectedValueException("Annotation 'user' in $element should have been 'User'.");
+			throw new JedenWeb\UnexpectedValueException("Annotation 'user' in $element should have been 'User'.");
 		}
 
 		$allowed = (array)$element->getAnnotation('Allowed');
@@ -51,7 +53,7 @@ class User extends Nette\Security\User
 			$this->needAllowed($resource, $privilege, $message);
 
 		} elseif ($element->getAnnotation('allowed')) {
-			throw new Kdyby\UnexpectedValueException("Annotation 'allowed' in $element should have been 'Allowed'.");
+			throw new JedenWeb\UnexpectedValueException("Annotation 'allowed' in $element should have been 'Allowed'.");
 		}
 	}
 	
