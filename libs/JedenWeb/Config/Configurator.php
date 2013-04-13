@@ -231,6 +231,7 @@ class Configurator extends \Nette\Config\Configurator
 	{
 		$this->robotLoader = $this->createRobotLoader();
 		$this->robotLoader
+//				->setCacheStorage(new \Nette\Caching\Storages\MemoryStorage)
 				->addDirectory($this->parameters["libsDir"])
 				->addDirectory($this->parameters["appDir"])
 				->register();

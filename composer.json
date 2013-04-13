@@ -23,7 +23,8 @@
 	},
 	"autoload": {
 		"files": [
-			"libs/JedenWeb/exceptions.php"
+			"libs/JedenWeb/exceptions.php",
+			"libs/JedenWeb/Forms/extensions.php"
 		]
 	}
 }

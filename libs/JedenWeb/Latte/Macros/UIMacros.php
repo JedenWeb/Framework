@@ -80,7 +80,7 @@ class UIMacros extends \Nette\Latte\Macros\UIMacros
 	 */
 	public function macroPath(MacroNode $node, PhpWriter $writer)
 	{
-		return $writer->write("echo \$basePath . '/' . \Venne\Module\Helpers::expandResource(%node.word)");
+		return $writer->write("echo \$basePath . '/' . \JedenWeb\Module\Helpers::expandResource(%node.word)");
 	}
 
 }

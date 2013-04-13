@@ -17,15 +17,10 @@ use Nette;
  */
 class Identity extends Nette\Security\Identity
 {
-
-	/**
-	 * @param string $password
-	 * @param string|NULL $salt
-	 * @return bool
-	 */
-	public function isEqual($password, $salt = NULL)
+	
+	public function __construct()
 	{
-		return $this->password->isEqual($password, $salt);
+		throw new \JedenWeb\NotImplementedException;
 	}
-
+	
 }
