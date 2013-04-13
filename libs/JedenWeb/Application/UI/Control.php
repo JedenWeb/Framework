@@ -66,13 +66,36 @@ abstract class Control extends Nette\Application\UI\Control
 			}
 		}
 	}
-
-
-
-	public function render()
+	
+	
+	/**
+	 * @param string $name
+	 * @return \Nette\ComponentModel\IComponent
+	 */
+	protected function createComponent($name)
 	{
-		$this->template->render();
+		$method = 'createComponent' . ucfirst($name);
+		if (method_exists($this, $method)) {
+			$this->checkRequirements($this->getReflection()->getMethod($method));
+		}
+
+		return parent::createComponent($name);
 	}
+	
+	
+	/**
+	 * Checks for requirements such as authorization.
+	 *
+	 * @param \Reflector $element
+	 *
+	 * @return void
+	 */
+	public function checkRequirements($element)
+	{
+		if ($element instanceof \Reflector) {
+			$this->getUser()->protectElement($element);
+		}
+	}	
 
 	
 	/**
