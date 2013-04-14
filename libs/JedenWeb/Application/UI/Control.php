@@ -98,7 +98,7 @@ abstract class Control extends Nette\Application\UI\Control
 	public function checkRequirements($element)
 	{
 		if ($element instanceof \Reflector) {
-			$this->getUser()->protectElement($element);
+			$this->getPresenter()->getUser()->protectElement($element);
 		}
 	}	
 
