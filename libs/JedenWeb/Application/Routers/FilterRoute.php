@@ -10,6 +10,8 @@
 
 namespace JedenWeb\Application\Routers;
 
+use Nette;
+
 /**
  * @author Filip Procházka
  */
