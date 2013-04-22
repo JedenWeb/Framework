@@ -222,7 +222,7 @@ final class Arrays extends Nette\Object
 	 * @return array
 	 * @throws JedenWeb\InvalidStateException
 	 */
-	public static function flatternKeys(array $arr, $strict = FALSE)
+	public static function flattenKeys(array $arr, $strict = FALSE)
 	{
 		$res = array();
 		array_walk_recursive($arr, function($v, $k) use ($res) {
