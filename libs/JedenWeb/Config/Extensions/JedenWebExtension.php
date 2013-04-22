@@ -42,6 +42,10 @@ class JedenWebExtension extends CompilerExtension
 			$container->getDefinition('session')
 				->addSetup("setSavePath", $config['session']['savePath']);
 		}
+		
+		# security
+		$container->getDefinition('user')
+				->setClass('JedenWeb\Security\User');		
 
 		# template
 		$container->addDefinition($this->prefix("templateConfigurator"))
