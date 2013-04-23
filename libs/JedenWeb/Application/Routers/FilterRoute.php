@@ -104,7 +104,7 @@ class FilterRoute extends Nette\Application\Routers\Route
         $presenter = $appRequest->getPresenterName();
         $params[self::PRESENTER_KEY] = $presenter;
 
-        if (isset($metadata[self::MODULE_KEY])) { // try split into module and [submodule:]presenter parts
+        if (isset($metadata[self::MODULE_KEY])) { // try to split into module and [submodule:]presenter parts
             $module = $metadata[self::MODULE_KEY];
             if (isset($module['fixity']) && strncasecmp($presenter, $module[self::VALUE] . ':', strlen($module[self::VALUE]) + 1) === 0) {
                 $a = strlen($module[self::VALUE]);
@@ -164,7 +164,6 @@ class FilterRoute extends Nette\Application\Routers\Route
      */
     private function doFilterParams($params, \Nette\Application\Request $request, $way)
     {
-        // tady mám k dispozici všechny parametry
         foreach ($this->getFilters() as $param => $filters) {
             if (!isset($params[$param]) || !isset($filters[$way])) {
                 continue; // param not found
