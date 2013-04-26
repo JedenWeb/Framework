@@ -24,7 +24,7 @@ class UIMacros extends \Nette\Latte\Macros\UIMacros
 {
 
 	/** @var array */
-	protected $modules;
+	protected $modules = array();
 
 	/** @var array */
 	private $namedBlocks = array();
@@ -42,7 +42,7 @@ class UIMacros extends \Nette\Latte\Macros\UIMacros
 	{
 		$me = new static($compiler);
 
-		$me->addMacro('extends', array($me, 'macroExtends'));
+//		$me->addMacro('extends', array($me, 'macroExtends'));
 		$me->addMacro('layout', array($me, 'macroExtends'));
 		
 		$me->addMacro('path', array($me, 'macroPath'));
