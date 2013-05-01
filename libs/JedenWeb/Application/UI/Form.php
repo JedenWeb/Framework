@@ -34,14 +34,15 @@ class Form extends Nette\Application\UI\Form
 
 	/**
 	 * When flag is TRUE, iterates over form controls and if some are rendered and some are not, triggers notice.
-	 * @author Filip Procházka (filip.prochazka@kdyby.org)
 	 * @var bool
 	 */
 	public $checkRendered = TRUE;
 
 
 
-
+	/**
+	 * Overload parent constructor
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -58,14 +59,18 @@ class Form extends Nette\Application\UI\Form
 	}
 
 
-
+	
 	/**
-	 * @author Filip Procházka (filip.prochazka@kdyby.org)
 	 * @param \Nette\ComponentModel\Container $obj
 	 */
 	protected function attached($obj)
 	{
 		if ($obj instanceof Nette\Application\IPresenter) {
+			if ($this->getComponents()->count() === 0) { # form was created by operator new
+				$this->beforeSetup();
+				$this->setup();
+				$this->afterSetup();	
+			}
 			$this->attachHandlers();
 
 			$app = $this->getPresenter()->getApplication();
@@ -74,25 +79,31 @@ class Form extends Nette\Application\UI\Form
 
 		parent::attached($obj);
 	}
-
-
-
+	
+	
+	
 	/**
-	 * @author Jiří Šifalda
-	 * @param string $name
-	 * @param string $class
+	 * Method called before controls are attached
 	 */
-	protected function addExtension($name, $class)
-	{
-		\Nette\Forms\Container::extensionMethod($name, function (\Nette\Forms\Container $container, $name, $label = null) use ($class){
-			return $container[$name] = new $class($label);
-		});
-	}
+	protected function beforeSetup() {}
 
 
+	
+	/**
+	 * Method where controls should be attached
+	 */
+	protected function setup() {}
+
+
+	
+	/**
+	 * Method called after controls are attached
+	 */
+	protected function afterSetup() {}	
+
+	
 
 	/**
-	 * @author Filip Procházka (filip.prochazka@kdyby.org)
 	 * @internal
 	 */
 	public function validateThatControlsAreRendered()
@@ -127,8 +138,7 @@ class Form extends Nette\Application\UI\Form
 			);
 		}
 	}
-
-
+	
 
 
 	/**
@@ -146,7 +156,6 @@ class Form extends Nette\Application\UI\Form
 
 	/**
 	 * Automatically attach methods
-	 * @author Filip Procházka (filip.prochazka@kdyby.org)
 	 */
 	protected function attachHandlers()
 	{
@@ -183,7 +192,6 @@ class Form extends Nette\Application\UI\Form
 
 	/**
 	 * Fires send/click events.
-	 * @author Filip Procházka (filip.prochazka@kdyby.org)
 	 * @return void
 	 */
 	public function fireEvents()
@@ -209,10 +217,9 @@ class Form extends Nette\Application\UI\Form
 		}
 	}
 
-
+	
 
 	/**
-	 * @author Filip Procházka (filip.prochazka@kdyby.org)
 	 * @param array|\Traversable $listeners
 	 * @param mixed $arg
 	 */
@@ -240,7 +247,7 @@ class Form extends Nette\Application\UI\Form
 	}
 
 
-
+	
 	/**
 	 * @author Jiří Šifalda
 	 * @param array $defaults
@@ -250,7 +257,9 @@ class Form extends Nette\Application\UI\Form
 		$this->setDefaults($defaults, true);
 		$this->setValues($defaults, true);
 	}
-
+	
+	
+	
 	/**
 	 * @author Jiří Šifalda
 	 * @param array|\Nette\Forms\Traversable $values
@@ -275,8 +284,142 @@ class Form extends Nette\Application\UI\Form
 
 		return parent::setDefaults($values, $erase);
 	}
+	
+	
+	
+	/*********************** controls ***********************/
+	
+	
+	
+	/**
+	 * @author Jiří Šifalda
+	 * @param string $name
+	 * @param string $class
+	 */
+	protected function addExtension($name, $class)
+	{
+		\Nette\Forms\Container::extensionMethod($name, function (\Nette\Forms\Container $container, $name, $label = null) use ($class){
+			return $container[$name] = new $class($label);
+		});
+	}
+	
+	
+	/**
+	 * @param string $name
+	 * @return Containers\Container
+	 */
+	public function addContainer($name)
+	{
+		$control = new Containers\Container;
+		$control->currentGroup = $this->currentGroup;
+		return $this[$name] = $control;
+	}
+
+
+
+	/**
+	 * Adds an email input control to the form.
+	 *
+	 * @param string	control name
+	 * @param string	label
+	 * @param int	width of the control
+	 * @param int	maximum number of characters the user may enter
+	 * @return \Nette\Forms\Controls\TextInput
+	 */
+	public function addEmail($name, $label = NULL, $cols = NULL, $maxLength = NULL)
+	{
+		$item = $this->addText($name, $label, $cols, $maxLength);
+		$item->setAttribute('type', 'email')->addCondition(self::FILLED)->addRule(self::EMAIL);
+		return $item;
+	}
+
+
+
+	/**
+	 * Adds an url input control to the form.
+	 *
+	 * @param string	control name
+	 * @param string	label
+	 * @param int	width of the control
+	 * @param int	maximum number of characters the user may enter
+	 * @return \Nette\Forms\Controls\TextInput
+	 */
+	public function addUrl($name, $label = NULL, $cols = NULL, $maxLength = NULL)
+	{
+		$item = $this->addText($name, $label, $cols, $maxLength);
+		$item->setAttribute('type', "url")->addCondition(self::FILLED)->addRule(self::URL);
+		return $item;
+	}
+
+
+
+
+	/**
+	 * Adds a number input control to the form.
+	 *
+	 * @param string	control name
+	 * @param string	label
+	 * @param int	incremental number
+	 * @param int	minimal value
+	 * @param int	maximal value
+	 * @return \Nette\Forms\Controls\TextInput
+	 */
+	public function addNumber($name, $label = NULL, $step = 1, $min = NULL, $max = NULL)
+	{
+		$item = $this->addText($name, $label);
+		$item->setAttribute('step', $step)->setAttribute('type', "number")
+			->addCondition(self::FILLED)->addRule(self::NUMERIC);
+		$range = array(NULL, NULL);
+		if ($min !== NULL) {
+			$item->setAttribute('min', $min);
+			$range[0] = $min;
+		}
+		if ($max !== NULL) {
+			$item->setAttribute('max', $max);
+			$range[1] = $max;
+		}
+		if ($range != array(NULL, NULL)) {
+			$item->addCondition(self::FILLED)->addRule(self::RANGE, NULL, $range);
+		}
+
+		return $item;
+	}
+
+	/**
+	 * Adds a range input control to the form.
+	 *
+	 * @param string	control name
+	 * @param string	label
+	 * @param int	incremental number
+	 * @param int	minimal value
+	 * @param int	maximal value
+	 * @return \Nette\Forms\Controls\TextInput
+	 */
+	public function addRange($name, $label = NULL, $step = 1, $min = NULL, $max = NULL)
+	{
+		$item = $this->addNumber($name, $label, $step, $min, $max);
+		return $item->setAttribute('type', "range");
+	}
+
+
+
+	/**
+	 * Adds search input control to the form.
+	 *
+	 * @param string	control name
+	 * @param string	label
+	 * @param int	width of the control
+	 * @param int	maximum number of characters the user may enter
+	 * @return \Nette\Forms\Controls\TextInput
+	 */
+	public function addSearch($name, $label = NULL, $cols = NULL, $maxLength = NULL)
+	{
+		$item = $this->addText($name, $label, $cols, $maxLength);
+		return $item->setAttribute('type', "search");
+	}	
 
 }
+
 /*
 // extension methods
 Kdyby\Forms\Controls\CheckboxList::register();
