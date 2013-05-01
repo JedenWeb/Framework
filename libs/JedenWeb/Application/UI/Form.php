@@ -310,7 +310,7 @@ class Form extends Nette\Application\UI\Form
 	 */
 	public function addContainer($name)
 	{
-		$control = new Containers\Container;
+		$control = new \Nette\Forms\Container;
 		$control->currentGroup = $this->currentGroup;
 		return $this[$name] = $control;
 	}
