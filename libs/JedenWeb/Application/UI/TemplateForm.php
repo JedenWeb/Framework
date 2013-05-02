@@ -46,7 +46,8 @@ class TemplateForm extends Form
 	 */
 	protected function createTemplate()
 	{
-		return $this->getPresenter()->getTemplate()->setFile($this->getTemplateFile());
+		$template = clone $this->getPresenter()->getTemplate();
+		return $template->setFile($this->getTemplateFile());
 	}
 
 
