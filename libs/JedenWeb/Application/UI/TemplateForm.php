@@ -75,8 +75,8 @@ class TemplateForm extends Form
 			return;
 		}
 
-		$this->template->_form = $this->template->form = $this;
-		$this->template->render();
+		$this->getTemplate()->_form = $this->getTemplate()->form = $this;
+		$this->getTemplate()->render();
 	}
 
 }
