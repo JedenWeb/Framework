@@ -225,7 +225,7 @@ final class Arrays extends Nette\Object
 	public static function flattenKeys(array $arr, $strict = FALSE)
 	{
 		$res = array();
-		array_walk_recursive($arr, function($v, $k) use ($res) {
+		array_walk_recursive($arr, function($v, $k) use (&$res) {
 			if (array_key_exists($k, $res)) {
 				if ($strict) {
 					throw new JedenWeb\InvalidStateException("There is a conflict in keys in giver array.");
@@ -256,6 +256,24 @@ final class Arrays extends Nette\Object
 
 		return $callback(Nette\Utils\Arrays::getRef($arr, $key));
 	}
+	
+	
+	
+	/**
+	 * Diff two arrays by key and preserves them
+	 * @param array $array1
+	 * @param array $array2
+	 */
+	public static function diffKeys(array $array1, array $array2)
+	{
+		$res = array();
+		foreach ($array1 as $key => $value) {
+			if (!array_key_exists($key, $array2)) {
+				$res[$key] = $value;
+			}
+		}
+		return $res;
+	}	
 
 
 
