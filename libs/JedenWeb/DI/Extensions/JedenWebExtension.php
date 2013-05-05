@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the file license.txt that was distributed with this source code.
  */
 
-namespace JedenWeb\Config\Extensions;
+namespace JedenWeb\DI\Extensions;
 
+use JedenWeb;
 use Nette;
-use JedenWeb\Config\CompilerExtension;
 
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
  */
-class JedenWebExtension extends CompilerExtension
+class JedenWebExtension extends JedenWeb\DI\CompilerExtension
 {
 
 	public $defaults = array(

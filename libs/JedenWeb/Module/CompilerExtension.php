@@ -11,7 +11,6 @@
 namespace JedenWeb\Module;
 
 use JedenWeb;
-use Nette\DI\ContainerBuilder;
 use Nette\Utils\Finder;
 
 /**
@@ -19,7 +18,7 @@ use Nette\Utils\Finder;
  * 
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
  */
-class CompilerExtension extends \JedenWeb\Config\CompilerExtension
+class CompilerExtension extends JedenWeb\DI\CompilerExtension
 {
 
 	/**

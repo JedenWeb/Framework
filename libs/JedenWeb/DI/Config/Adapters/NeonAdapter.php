@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the file license.txt that was distributed with this source code.
  */
 
-namespace JedenWeb\Config\Adapters;
+namespace JedenWeb\DI\Config\Adapters;
 
 use Nette;
 
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
  */
-class NeonAdapter extends Nette\Config\Adapters\NeonAdapter
+class NeonAdapter extends Nette\DI\Config\Adapters\NeonAdapter
 {
 
 	/**

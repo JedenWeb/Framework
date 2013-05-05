@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the file license.txt that was distributed with this source code.
  */
 
-namespace JedenWeb\Config;
+namespace JedenWeb\DI\Config;
 
 use JedenWeb;
 use JedenWeb\Config\Adapters\NeonAdapter;
@@ -17,7 +17,7 @@ use Nette;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class ConfigBuilder extends \Nette\Object implements \ArrayAccess, \Countable, \IteratorAggregate
+class ConfigBuilder extends Nette\Object implements \ArrayAccess, \Countable, \IteratorAggregate
 {
 
 	/** @var array */

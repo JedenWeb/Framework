@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the file license.txt that was distributed with this source code.
  */
 
-namespace JedenWeb\Config;
+namespace JedenWeb\DI;
 
 use Nette;
 use Nette\DI\ContainerBuilder;
@@ -17,7 +17,7 @@ use Nette\DI\Container;
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
  */
-class CompilerExtension extends \Nette\Config\CompilerExtension
+class CompilerExtension extends Nette\DI\CompilerExtension
 {
 
 	const CONTROL = "control";

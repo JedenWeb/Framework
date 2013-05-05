@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the file license.txt that was distributed with this source code.
  */
 
-namespace JedenWeb\Config;
+namespace JedenWeb;
 
 use JedenWeb;
 use Nette;
@@ -17,7 +17,7 @@ use Nette\Application\Routers\Route;
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
  */
-class Configurator extends \Nette\Config\Configurator
+class Configurator extends Nette\Configurator
 {
 
 	const CACHE_NAMESPACE = 'Nette.Configurator';
