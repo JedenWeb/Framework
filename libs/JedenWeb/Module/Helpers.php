@@ -19,7 +19,9 @@ use Nette;
 final class Helpers extends Nette\Object
 {
 	
-	/** @throws JedenWeb\StaticClassException */
+	/** 
+	 * @throws JedenWeb\StaticClassException 
+	 */
 	final public function __construct()
 	{
 		throw new JedenWeb\StaticClassException;
@@ -33,7 +35,7 @@ final class Helpers extends Nette\Object
 	 * @return string
 	 * @throws \Nette\InvalidArgumentException
 	 */
-	public static function expandPath($path, array $modules)
+	public static function expandPath($path, array $modules = array())
 	{
 		if (substr($path, 0, 1) !== '@') {
 			return $path;

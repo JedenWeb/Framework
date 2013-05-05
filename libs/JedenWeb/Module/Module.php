@@ -36,7 +36,9 @@ abstract class Module extends \Nette\Object implements IModule
 
 
 
-	/** @return string */
+	/** 
+	 * @return string 
+	 */
 	public function getName()
 	{
 		if ($this->name !== NULL) {
@@ -47,28 +49,36 @@ abstract class Module extends \Nette\Object implements IModule
 	}
 
 
-	/** @return string */
+	/** 
+	 * @return string 
+	 */
 	public function getVersion()
 	{
 		return $this->version;
 	}
 
 
-	/** @return string */
+	/** 
+	 * @return string 
+	 */
 	public function getDescription()
 	{
 		return $this->description;
 	}
 
 
-	/** @return array */
+	/** 
+	 * @return array 
+	 */
 	public function getDependencies()
 	{
 		return $this->dependencies;
 	}
 
 
-	/** @return array */
+	/** 
+	 * @return array 
+	 */
 	public function getAdminModules()
 	{
 		if (is_dir($dir = $this->getPath().'/AdminModule')) {
@@ -84,7 +94,9 @@ abstract class Module extends \Nette\Object implements IModule
 	}
 
 
-	/** @return array */
+	/** 
+	 * @return array 
+	 */
 	public function getAdminPresenters()
 	{
 		if ($this->getName() !== 'core' && is_dir($dir = $this->getPath().'/AdminModule')) {
@@ -100,28 +112,36 @@ abstract class Module extends \Nette\Object implements IModule
 	}
 
 
-	/** @return string */
+	/** 
+	 * @return string 
+	 */
 	public function getPath()
 	{
 		return dirname($this->getReflection()->getFileName());
 	}
 
 
-	/** @return string */
+	/** 
+	 * @return string 
+	 */
 	public function getNamespace()
 	{
 		return $this->getReflection()->getNamespaceName();
 	}
 
 
-	/** @param Nette\Config\Compiler $compiler */
+	/** 
+	 * @param Nette\Config\Compiler $compiler 
+	 */
 	public function compile(Nette\Config\Compiler $compiler)
 	{
 		$compiler->addExtension($this->getName(), new CompilerExtension($this->getPath(), $this->getNamespace()));
 	}
 
 
-	/** @param \Nette\DI\Container $container */
+	/** 
+	 * @param \Nette\DI\Container $container 
+	 */
 	public function configure(Container $container)
 	{
 	}
