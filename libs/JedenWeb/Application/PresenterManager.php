@@ -59,7 +59,7 @@ class PresenterManager extends Nette\Application\PresenterFactory implements Net
 		$serviceName = $this->formatServiceNameFromPresenter($name);
 		if (method_exists($this->container, $method = 'create' . ucfirst($serviceName))) {
 			$factoryRefl = $this->container->getReflection()->getMethod($method);
-			if ($returnType  = $factoryRefl->getAnnotation('return')) {
+			if ($returnType = $factoryRefl->getAnnotation('return')) {
 				return $returnType; // todo: verify
 			}
 
