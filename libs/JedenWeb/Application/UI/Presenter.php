@@ -22,11 +22,6 @@ class Presenter extends Nette\Application\UI\Presenter
 {
 
 	/**
-	 * @var \JedenWeb\Managers\Image\ImageManager
-	 */
-	private $imgPipe;
-
-	/**
 	 * @var ITemplateConfigurator
 	 */
 	protected $templateConfigurator;
@@ -304,8 +299,6 @@ class Presenter extends Nette\Application\UI\Presenter
 		if ($this->templateConfigurator !== NULL) {
 			$this->templateConfigurator->configure($template);
 		}
-		/** @var \Nette\Templating\FileTemplate|\stdClass $tmp */
-		$template->_imagePipe = $this->imgPipe;
 
 		return $template;
 	}
@@ -361,17 +354,7 @@ class Presenter extends Nette\Application\UI\Presenter
 
 	/*********************** inject ***********************/
 
-
-
-	/**
-	 * @param \JedenWeb\Managers\Image\ImageManager $imgPipe
-	 */
-	final public function injectImgPipe(\JedenWeb\Managers\Image\ImageManager $imgPipe)
-	{
-		$this->imgPipe = $imgPipe;
-	}
-
-
+	
 
 	/**
 	 * @param \JedenWeb\Templating\ITemplateConfigurator $templateConfigurator
