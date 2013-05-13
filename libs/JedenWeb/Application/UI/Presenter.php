@@ -297,7 +297,7 @@ class Presenter extends Nette\Application\UI\Presenter
 	 *
 	 * @return \Nette\Templating\Template
 	 */
-	public function createTemplate($class = NULL)
+	protected function createTemplate($class = NULL)
 	{
 		$template = parent::createTemplate($class);
 
