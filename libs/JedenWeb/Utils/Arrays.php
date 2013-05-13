@@ -131,6 +131,8 @@ final class Arrays extends Nette\Object
 		return $grouped;
 	}
 
+	
+//	uasort($res, function ($a, $b) { return $a['position'] - $b['position']; }); # sort with preserving keys
 
 
 	/**
@@ -218,14 +220,14 @@ final class Arrays extends Nette\Object
 
 	/**
 	 * @param array $arr
-	 * @param bool $strict
+	 * @param bool $strict Throws exception when keys collide
 	 * @return array
 	 * @throws JedenWeb\InvalidStateException
 	 */
-	public static function flattenKeys(array $arr, $strict = FALSE)
+	public static function flattenKeys(array $arr, $strict = TRUE)
 	{
 		$res = array();
-		array_walk_recursive($arr, function($v, $k) use (&$res) {
+		array_walk_recursive($arr, function($v, $k) use (&$res, $strict) {
 			if (array_key_exists($k, $res)) {
 				if ($strict) {
 					throw new JedenWeb\InvalidStateException("There is a conflict in keys in giver array.");
