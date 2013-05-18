@@ -23,11 +23,6 @@ use Nette\Forms\Rules;
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
  *
  * @property callable $validateThatControlsAreRendered
- * @method \Kdyby\Forms\Controls\CheckboxList addCheckboxList(string $name, string $label = NULL, array $items = NULL)
- * @method \Kdyby\Forms\Controls\DateTimeInput addDate(string $name, string $label = NULL)
- * @method \Kdyby\Forms\Controls\DateTimeInput addTime(string $name, string $label = NULL)
- * @method \Kdyby\Forms\Controls\DateTimeInput addDatetime(string $name, string $label = NULL)
- * @method \Kdyby\Forms\Containers\Replicator addDynamic(string $name, callback $factory, int $default)
  */
 class Form extends Nette\Application\UI\Form
 {
