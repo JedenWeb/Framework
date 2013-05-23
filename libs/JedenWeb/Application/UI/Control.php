@@ -210,7 +210,7 @@ abstract class Control extends Nette\Application\UI\Control
 	 */
 	public function templatePrepareFilters($template)
 	{
-		$engine = $this->context->{'nette.latte'};
+		$engine = $this->presenter->context->{'nette.latte'};
 
 		if ($this->templateConfigurator !== NULL) {
 			$this->templateConfigurator->prepareFilters($engine);
