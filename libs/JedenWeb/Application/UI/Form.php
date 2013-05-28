@@ -224,7 +224,7 @@ class Form extends Nette\Application\UI\Form
 		$listeners = array_shift($args);
 
 
-		foreach ((array)$listeners as $handler) {
+		foreach ((array) $listeners as $handler) {
 			if ($handler instanceof Nette\Application\UI\Link) {
 				/** @var \Nette\Application\UI\Link $handler */
 				$refl = $handler->getReflection();
@@ -234,6 +234,9 @@ class Form extends Nette\Application\UI\Form
 				/** @var \Nette\Application\UI\PresenterComponent $component */
 				$component = $compRefl->getValue($handler);
 				$component->redirect($handler->getDestination(), $handler->getParameters());
+
+			} elseif ($listeners instanceof Kdyby\Events\Event) {
+				$listeners->dispatch($args);
 
 			} else {
 				callback($handler)->invokeArgs($args);
