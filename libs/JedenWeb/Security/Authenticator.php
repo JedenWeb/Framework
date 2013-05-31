@@ -16,7 +16,7 @@ use Nette\Utils\Strings;
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
  */
-abstract class Authenticator extends Nette\Object implements Nette\Security\IAuthenticator
+abstract class Authenticator extends Nette\Object
 {
 
 	/**
