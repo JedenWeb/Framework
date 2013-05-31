@@ -39,10 +39,10 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
     public	function open($savePath, $sessionName)
 	{
 		$id = session_id();
-
-        while (!$this->connection->query("SELECT IS_FREE_LOCK('session_$id') AS locked")->fetch()->locked);
-        
-		$this->connection->exec("SELECT GET_LOCK('session_$id', 160)");
+		
+        while (!$this->connection->query("SELECT IS_FREE_LOCK('session_$id') AS free")->fetch()->free);
+		
+		$this->connection->query("SELECT GET_LOCK('session_$id', 1)");
 
         return TRUE;
     }
@@ -69,13 +69,17 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
 	 * @param type $data
 	 * @throws \Nette\InvalidStateException
 	 */
-    public  function write($id, $data)
-	{
-//		$row = $this->connection->table('session')->find($id);
-//		$this->connection->exec("REPLACE INTO session (id, timestamp, data) VALUES (?, ?, ?)", $id, time(), $data);
+    public  function write($id, $data = NULL)
+	{			
+		$this->connection->beginTransaction();
 		
-        $this->connection->query('DELETE FROM session WHERE id = ?', $id);
-        $this->connection->query('INSERT INTO session VALUES (?, ?, ?)', $id, time(), $data);
+        $this->remove($id);
+        $this->connection->table('session')->insert(array(
+			'id' => $id,
+			'data' => $data,
+		));
+		
+		$this->connection->commit();
 		
 		return TRUE;
     }
@@ -95,11 +99,11 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
 	/**
 	 * @return boolean
 	 */
-    public  function close()
+    public function close()
 	{
         $id = session_id();
 
-        $this->connection->exec("SELECT RELEASE_LOCK('session_$id')");
+        $this->connection->query("SELECT RELEASE_LOCK('session_$id')");
 		
         return TRUE;
     }
@@ -111,7 +115,9 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
 	 */
 	public function remove($id)
 	{
-		$this->connection->table('session')->find($id)->delete();
+		if ($row = $this->connection->table('session')->get($id)) {
+			$row->delete();
+		}
 
         return TRUE;
 	}
