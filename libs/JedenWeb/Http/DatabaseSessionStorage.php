@@ -57,7 +57,7 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
         if ($data = $this->connection->table('session')->get($id)) {
             $data = $data->data;
 		} else {
-            $data = NULL;
+            $data = "";
 		}
 		
         return $data;
@@ -69,17 +69,20 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
 	 * @param type $data
 	 * @throws \Nette\InvalidStateException
 	 */
-    public  function write($id, $data = NULL)
-	{			
-		$this->connection->beginTransaction();
-		
-        $this->remove($id);
-        $this->connection->table('session')->insert(array(
-			'id' => $id,
-			'data' => $data,
-		));
-		
-		$this->connection->commit();
+    public function write($id, $data = "")
+	{
+		if ($row = $this->connection->table('session')->get($id)) {
+			$row->update(array(
+				'timestamp' => time(),
+				'data' => $data,
+			));
+		} else {
+			$this->connection->table('session')->insert(array(
+				'id' => $id,
+				'timestamp' => time(),
+				'data' => $data,
+			));
+		}
 		
 		return TRUE;
     }
@@ -90,8 +93,9 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
 	 * @return boolean
 	 */
     public  function clean($max)
-	{
-        $this->connection->table('session')->where("time < ?", ( time() - $maxlifetime ))->delete();
+	{		
+        $this->connection->table('session')->where("timestamp < ?", ( time() - $max ))->delete();
+		
         return TRUE;
     }
 
@@ -102,7 +106,7 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
     public function close()
 	{
         $id = session_id();
-
+		
         $this->connection->query("SELECT RELEASE_LOCK('session_$id')");
 		
         return TRUE;
@@ -121,9 +125,18 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
 
         return TRUE;
 	}
+	
+	
+	/**
+	 * @return boolean
+	 */
+	public function destroy()
+	{
+		return (bool) $this->connection->table('session')->delete();
+	}
 
 
-
+	
 	public function __destruct()
 	{
 		session_write_close();
