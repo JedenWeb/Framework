@@ -31,11 +31,19 @@ final class Helpers extends Nette\Object
 	
 	/**
 	 * Converts \Nette\Database\Table\ActiveRow[] to array
-	 * @param array $rows
-	 * @return array
+	 * @param array|\Nette\Database\Table\ActiveRow|FALSE $rows
+	 * @return array|bool
 	 */
-	public static function toArray(array $rows)
+	public static function toArray($rows)
 	{
+		if (is_bool($rows)) {
+			return $rows;
+		}
+		
+		if ($rows instanceof \Nette\Database\Table\ActiveRow) {
+			return $rows->toArray();
+		}
+		
 		array_walk_recursive($rows, function(&$row) {
 			if ($row instanceof \Nette\Database\Table\ActiveRow) {
 				$row = $row->toArray();
