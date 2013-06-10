@@ -237,6 +237,7 @@ class Form extends Nette\Application\UI\Form
 				
 			} elseif ($listeners instanceof Kdyby\Events\Event) {
 				$listeners->dispatch($args);
+
 			} else {
 				callback($handler)->invokeArgs($args);
 			}

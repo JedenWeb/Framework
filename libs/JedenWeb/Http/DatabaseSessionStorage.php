@@ -19,16 +19,16 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
 {
 
 	/** @var \Nette\Database\Connection */
-	private $db;
+	private $connection;
 
+	
 
 	/**
 	 * @param \Nette\Database\Connection $param
 	 */
-	public function __construct(Ntte\Database\Connection $db)
+	public function __construct(Nette\Database\Connection $connection)
 	{
-		throw new \JedenWeb\NotImplementedException;
-		$this->db = $db;
+		$this->connection = $connection;
 	}
 
 
@@ -38,8 +38,13 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
 	 */
     public	function open($savePath, $sessionName)
 	{
-		\Nette\Diagnostics\Debugger::dump($savePath);
-		\Nette\Diagnostics\Debugger::dump($sessionName);die;
+		$id = session_id();
+		
+        while (!$this->connection->query("SELECT IS_FREE_LOCK('session_$id') AS free")->fetch()->free);
+		
+		$this->connection->query("SELECT GET_LOCK('session_$id', 1)");
+
+        return TRUE;
     }
 
 	
@@ -48,23 +53,14 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
 	 * @return string
 	 */
     public  function read($id)
-	{
-        $query = '
-            SELECT
-                [data]
-            FROM [session]
-            WHERE
-                [id] = %s';
-        try {
-            $result = $this->conn->query($query, $id);
-            return $result->fetchSingle();
-        } catch (\Exception $e) {
-
-            $this->conn->query('CREATE TABLE [session] ([id] varchar(32) not null primary key, [timestamp] timestamp not null, [data] text)');
-            $this->conn->query('CREATE INDEX [session_by_timestamp] ON [session] ([timestamp])');
-
-            return '';
-        };
+	{		
+        if ($data = $this->connection->table('session')->get($id)) {
+            $data = $data->data;
+		} else {
+            $data = "";
+		}
+		
+        return $data;
     }
 
 	
@@ -73,62 +69,74 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
 	 * @param type $data
 	 * @throws \Nette\InvalidStateException
 	 */
-    public  function write($id, $data)
+    public function write($id, $data = "")
 	{
-        if (is_null($this->conn)) {
-            throw new \Nette\InvalidStateException("The connection to database for session storage is not open!");
-        };
-
-        $this->conn->begin();
-        $this->conn->query('DELETE FROM [session] WHERE [id] = %s', $id);
-        $this->conn->query('INSERT INTO [session] VALUES(%s, %s, %s)', $id, time(), $data);
-        $this->conn->commit();
-    }
-
-	
-	/**
-	 * @param int $id
-	 * @throws \Nette\InvalidStateException
-	 */
-    public  function destroy($id)
-	{
-        if (is_null($this->conn)) {
-            throw new \Nette\InvalidStateException("The connection to database for session storage is not open!");
-        };
-
-        $this->conn->query('DELETE FROM [session] WHERE [id] = %s', $id);
+		if ($row = $this->connection->table('session')->get($id)) {
+			$row->update(array(
+				'timestamp' => time(),
+				'data' => $data,
+			));
+		} else {
+			$this->connection->table('session')->insert(array(
+				'id' => $id,
+				'timestamp' => time(),
+				'data' => $data,
+			));
+		}
+		
+		return TRUE;
     }
 
 	
 	/**
 	 * @param int $max
-	 * @throws \Nette\InvalidStateException
+	 * @return boolean
 	 */
     public  function clean($max)
-	{
-        if (is_null($this->conn)) {
-            throw new \Nette\InvalidStateException("The connection to database for session storage is not open!");
-        };
-
-        $old = (time() - $max);
-        $this->conn->query('DELETE FROM [session] WHERE [timestamp] < %s', $old);
+	{		
+        $this->connection->table('session')->where("timestamp < ?", ( time() - $max ))->delete();
+		
+        return TRUE;
     }
 
 
-
-    public  function close()
+	/**
+	 * @return boolean
+	 */
+    public function close()
 	{
-        $this->conn = null;
+        $id = session_id();
+		
+        $this->connection->query("SELECT RELEASE_LOCK('session_$id')");
+		
+        return TRUE;
     }
 
 
-
+	/**
+	 * @param mixed $id
+	 * @return boolean
+	 */
 	public function remove($id)
 	{
+		if ($row = $this->connection->table('session')->get($id)) {
+			$row->delete();
+		}
+
+        return TRUE;
+	}
+	
+	
+	/**
+	 * @return boolean
+	 */
+	public function destroy()
+	{
+		return (bool) $this->connection->table('session')->delete();
 	}
 
 
-
+	
 	public function __destruct()
 	{
 		session_write_close();
