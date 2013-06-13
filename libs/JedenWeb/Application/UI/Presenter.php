@@ -312,7 +312,7 @@ class Presenter extends Nette\Application\UI\Presenter
 	 */
 	public function templatePrepareFilters($template)
 	{
-		$engine = $this->context->createNette__Latte();
+		$engine = $this->context->{'nette.latte'};
 
 		if ($this->templateConfigurator !== NULL) {
 			$this->templateConfigurator->prepareFilters($engine);
