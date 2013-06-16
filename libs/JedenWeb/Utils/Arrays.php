@@ -53,6 +53,23 @@ final class Arrays extends Nette\Object
 	}
 
 
+	
+	/**
+	 * @param array $array
+	 * @param mixed $column
+	 * @param mixed $value
+	 * @return mixed
+	 */
+	public static function keyBySubcolumn($array, $column, $value)
+	{
+		foreach ($array as $k => $subarray) {
+			if (array_key_exists($column, $subarray) && $subarray[$column] === $value) {
+				return $k;
+			}
+		}
+	}	
+	
+	
 
 	/**
 	 * Returns array of $column from multi array
