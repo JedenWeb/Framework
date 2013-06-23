@@ -199,7 +199,7 @@ class Form extends Nette\Application\UI\Form
 			return;
 
 		} elseif ($this->isSubmitted() instanceof ISubmitterControl) {
-			if (!$this->isSubmitted()->getValidationScope() || $this->isValid()) {
+			if ($this->isValid()) {
 				$this->dispatchEvent($this->isSubmitted()->onClick, $this->isSubmitted());
 				$valid = TRUE;
 
