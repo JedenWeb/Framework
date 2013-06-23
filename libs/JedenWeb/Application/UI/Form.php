@@ -32,15 +32,22 @@ class Form extends Nette\Application\UI\Form
 	 * @var bool
 	 */
 	public $checkRendered = TRUE;
+	
+	/**
+	 * @var \Nette\Application\Application
+	 */
+	private $application;
 
 
 
 	/**
-	 * Overload parent constructor
+	 * @param \Nette\Application\Application $application
 	 */
-	public function __construct()
+	public function __construct(\Nette\Application\Application $application)
 	{
 		parent::__construct();
+		
+		$this->application = $application;
 
 		Rules::$defaultMessages[$this::EQUAL] = 'Please enter %s.';
 		Rules::$defaultMessages[$this::FILLED] = 'Field "%label" is required.';
@@ -68,8 +75,7 @@ class Form extends Nette\Application\UI\Form
 			}
 			$this->attachHandlers();
 
-			$app = $this->getPresenter()->getApplication();
-			$app->onShutdown[] = $this->validateThatControlsAreRendered;
+			$this->application->onShutdown[] = $this->validateThatControlsAreRendered;
 		}
 
 		parent::attached($obj);
