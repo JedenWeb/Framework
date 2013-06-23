@@ -34,20 +34,18 @@ class Form extends Nette\Application\UI\Form
 	public $checkRendered = TRUE;
 	
 	/**
+	 * @inject
 	 * @var \Nette\Application\Application
 	 */
-	private $application;
+	public $application;
 
 
 
 	/**
-	 * @param \Nette\Application\Application $application
 	 */
-	public function __construct(\Nette\Application\Application $application)
+	public function __construct()
 	{
 		parent::__construct();
-		
-		$this->application = $application;
 
 		Rules::$defaultMessages[$this::EQUAL] = 'Please enter %s.';
 		Rules::$defaultMessages[$this::FILLED] = 'Field "%label" is required.';
