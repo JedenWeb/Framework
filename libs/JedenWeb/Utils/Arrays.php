@@ -108,30 +108,24 @@ final class Arrays extends Nette\Object
 
 	/**
 	 * @param array $array
-	 * @param array|string|callback $columns
+	 * @param array|string $columns
 	 * @param bool $append
 	 *
 	 * @return array
 	 */
 	public static function groupBy(array $array, $columns, $append = FALSE)
 	{
-		if (!is_callable($columns)) {
-			$columns = is_array($columns)
-				? $columns
-				: Nette\Utils\Strings::split($columns, '~\s*,\s*~');
-		}
+		$columns = is_array($columns)
+			? $columns
+			: Nette\Utils\Strings::split($columns, '~\s*,\s*~');
 
 		$grouped = array();
 		foreach ($array as $item) {
-			if (is_callable($columns)) {
-				$keys = $columns($item);
-
-			} else {
-				$keys = array_map(function ($key) use ($item) {
-					return is_object($item) ? $item->$key : $item[$key];
-				}, $columns);
-			}
-
+			
+			$keys = array_map(function ($key) use ($item) {
+				return is_object($item) ? $item->$key : $item[$key];
+			}, $columns);
+			
 			$ref =& Nette\Utils\Arrays::getRef($grouped, $keys);
 			if ($append) {
 				if (!is_array($ref)) {
