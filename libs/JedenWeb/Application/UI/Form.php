@@ -220,7 +220,7 @@ class Form extends Nette\Application\UI\Form
 	
 
 	/**
-	 * @param array|\Traversable $listeners
+	 * @param array|\Kdyby\Events\Event|\Traversable $listeners
 	 * @param mixed $arg
 	 */
 	protected function dispatchEvent($listeners, $arg = NULL)
@@ -228,9 +228,16 @@ class Form extends Nette\Application\UI\Form
 		$args = func_get_args();
 		$listeners = array_shift($args);
 
+		if ($listeners instanceof Kdyby\Events\Event) {
+			
+			return $listeners->dispatch($args);
 
+		}
+		
 		foreach ((array) $listeners as $handler) {
+			
 			if ($handler instanceof Nette\Application\UI\Link) {
+
 				/** @var \Nette\Application\UI\Link $handler */
 				$refl = $handler->getReflection();
 				/** @var \Nette\Reflection\ClassType $refl */
@@ -239,13 +246,11 @@ class Form extends Nette\Application\UI\Form
 				/** @var \Nette\Application\UI\PresenterComponent $component */
 				$component = $compRefl->getValue($handler);
 				$component->redirect($handler->getDestination(), $handler->getParameters());
-				
-			} elseif ($listeners instanceof Kdyby\Events\Event) {
-				$listeners->dispatch($args);
 
 			} else {
 				callback($handler)->invokeArgs($args);
 			}
+
 		}
 	}
 
