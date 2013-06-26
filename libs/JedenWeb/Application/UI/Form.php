@@ -17,6 +17,7 @@ use Nette\Forms\Controls\BaseControl;
 use Nette\Forms\Controls\RadioList;
 use Nette\Forms\ISubmitterControl;
 use Nette\Forms\Rules;
+use Nette\Forms\Controls;
 
 /**
  * @author Filip Procházka (filip.prochazka@kdyby.org)
@@ -270,16 +271,17 @@ class Form extends Nette\Application\UI\Form
 	 */
 	public function setDefaults($values, $erase = false)
 	{
-		if(is_array($values)){
-			$values = array_map(function ($value){
-				if(is_object($value) and (method_exists($value, '__toString'))){
-					if(isset($value->id)){
+		if (is_array($values)) {
+			$values = array_map(function ($value) {
+				if (is_object($value) && (method_exists($value, '__toString'))) {
+					if (isset($value->id)) {
 						return (string) $value->id;
-					}else{
+					} else {
 						return (string) $value;
 					}
 
 				}
+				
 				return $value;
 			}, $values);
 		}
@@ -314,9 +316,9 @@ class Form extends Nette\Application\UI\Form
 	{
 		$control = new \Nette\Forms\Container;
 		$control->currentGroup = $this->currentGroup;
+		
 		return $this[$name] = $control;
 	}
-
 
 
 	/**
@@ -328,13 +330,13 @@ class Form extends Nette\Application\UI\Form
 	 * @param int	maximum number of characters the user may enter
 	 * @return \Nette\Forms\Controls\TextInput
 	 */
-	public function addEmail($name, $label = NULL, $cols = NULL, $maxLength = NULL)
+	public function addEmail($name, $label = NULL, $maxLength = NULL)
 	{
-		$item = $this->addText($name, $label, $cols, $maxLength);
-		$item->setAttribute('type', 'email')->addCondition(self::FILLED)->addRule(self::EMAIL);
-		return $item;
+		$control = $this->addText($name, $label, NULL, $maxLength);
+		$control->setAttribute('type', 'email')->addCondition(self::FILLED)->addRule(self::EMAIL);
+		
+		return $control;
 	}
-
 
 
 	/**
@@ -346,14 +348,13 @@ class Form extends Nette\Application\UI\Form
 	 * @param int	maximum number of characters the user may enter
 	 * @return \Nette\Forms\Controls\TextInput
 	 */
-	public function addUrl($name, $label = NULL, $cols = NULL, $maxLength = NULL)
+	public function addUrl($name, $label = NULL, $maxLength = NULL)
 	{
-		$item = $this->addText($name, $label, $cols, $maxLength);
-		$item->setAttribute('type', "url")->addCondition(self::FILLED)->addRule(self::URL);
-		return $item;
+		$control = $this->addText($name, $label, NULL, $maxLength);
+		$control->setAttribute('type', "url")->addCondition(self::FILLED)->addRule(self::URL);
+		
+		return $control;
 	}
-
-
 
 
 	/**
@@ -368,25 +369,26 @@ class Form extends Nette\Application\UI\Form
 	 */
 	public function addNumber($name, $label = NULL, $step = 1, $min = NULL, $max = NULL)
 	{
-		$item = $this->addText($name, $label);
-		$item->setAttribute('step', $step)->setAttribute('type', "number")
+		$control = $this->addText($name, $label);
+		$control->setAttribute('step', $step)->setAttribute('type', "number")
 			->addCondition(self::FILLED)->addRule(self::NUMERIC);
 		$range = array(NULL, NULL);
 		if ($min !== NULL) {
-			$item->setAttribute('min', $min);
+			$control->setAttribute('min', $min);
 			$range[0] = $min;
 		}
 		if ($max !== NULL) {
-			$item->setAttribute('max', $max);
+			$control->setAttribute('max', $max);
 			$range[1] = $max;
 		}
 		if ($range != array(NULL, NULL)) {
-			$item->addCondition(self::FILLED)->addRule(self::RANGE, NULL, $range);
+			$control->addCondition(self::FILLED)->addRule(self::RANGE, NULL, $range);
 		}
 
-		return $item;
+		return $control;
 	}
 
+	
 	/**
 	 * Adds a range input control to the form.
 	 *
@@ -399,10 +401,11 @@ class Form extends Nette\Application\UI\Form
 	 */
 	public function addRange($name, $label = NULL, $step = 1, $min = NULL, $max = NULL)
 	{
-		$item = $this->addNumber($name, $label, $step, $min, $max);
-		return $item->setAttribute('type', "range");
+		$control = $this->addNumber($name, $label, $step, $min, $max);
+		$control->setAttribute('type', "range");
+		
+		return $control;
 	}
-
 
 
 	/**
@@ -414,10 +417,12 @@ class Form extends Nette\Application\UI\Form
 	 * @param int	maximum number of characters the user may enter
 	 * @return \Nette\Forms\Controls\TextInput
 	 */
-	public function addSearch($name, $label = NULL, $cols = NULL, $maxLength = NULL)
+	public function addSearch($name, $label = NULL, $maxLength = NULL)
 	{
-		$item = $this->addText($name, $label, $cols, $maxLength);
-		return $item->setAttribute('type', "search");
+		$control = $this->addText($name, $label, NULL, $maxLength);
+		$control->setAttribute('type', "search");
+		
+		return $control;
 	}	
 
 }
