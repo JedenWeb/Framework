@@ -20,26 +20,10 @@ use Nette\Forms\Rules;
 use Nette\Forms\Controls;
 
 /**
- * @author Filip Procházka (filip.prochazka@kdyby.org)
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
- *
- * @property callable $validateThatControlsAreRendered
  */
 class Form extends Nette\Application\UI\Form
 {
-
-	/**
-	 * When flag is TRUE, iterates over form controls and if some are rendered and some are not, triggers notice.
-	 * @var bool
-	 */
-	public $checkRendered = TRUE;
-	
-	/**
-	 * @inject
-	 * @var \Nette\Application\Application
-	 */
-	public $application;
-
 
 
 	/**
@@ -73,8 +57,6 @@ class Form extends Nette\Application\UI\Form
 				$this->afterSetup();	
 			}
 			$this->attachHandlers();
-
-			$this->application->onShutdown[] = $this->validateThatControlsAreRendered;
 		}
 
 		parent::attached($obj);
@@ -100,44 +82,6 @@ class Form extends Nette\Application\UI\Form
 	 * Method called after controls are attached
 	 */
 	protected function afterSetup() {}	
-
-	
-
-	/**
-	 * @internal
-	 */
-	public function validateThatControlsAreRendered()
-	{
-		if (Nette\Diagnostics\Debugger::$productionMode || $this->checkRendered !== TRUE) {
-			return;
-		}
-
-		$notRendered = $rendered = array();
-		foreach ($this->getControls() as $control) {
-			/** @var Nette\Forms\Controls\BaseControl $control */
-			if (!$control instanceof Nette\Forms\Controls\BaseControl) {
-				continue;
-			}
-			if ($control->getOption('rendered', FALSE)) {
-				$rendered[] = $control;
-
-			} else {
-				$notRendered[] = $control;
-			}
-		}
-
-		if ($rendered && $notRendered) {
-			$names = array_map(function (BaseControl $control) {
-				return get_class($control) . '(' . $control->lookupPath('Nette\Forms\Form') . ')';
-			}, $notRendered);
-
-			trigger_error(
-				"Some form controls of " . $this->getUniqueId() .
-					" were not rendered: " . implode(', ', $names),
-				E_USER_NOTICE
-			);
-		}
-	}
 	
 
 
