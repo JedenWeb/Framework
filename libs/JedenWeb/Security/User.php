@@ -12,6 +12,7 @@ use JedenWeb;
 use Nette;
 use Nette\Reflection;
 use Nette\Application\ForbiddenRequestException;
+use Nette\Security\IAuthorizator;
 
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
@@ -56,5 +57,20 @@ class User extends Nette\Security\User
 			throw new JedenWeb\UnexpectedValueException("Annotation 'allowed' in $element should have been 'Allowed'.");
 		}
 	}
+	
+	
+	/**
+	 * @param string $resource
+	 * @param string $privilege
+	 * @param string $message
+	 *
+	 * @throws \Nette\Application\ForbiddenRequestException
+	 */
+	public function needAllowed($resource = IAuthorizator::ALL, $privilege = IAuthorizator::ALL, $message = NULL)
+	{
+		if (!$this->isAllowed($resource, $privilege)) {
+			throw new ForbiddenRequestException($message ?: "User is not allowed to " . ($privilege ? $privilege : "access") . " the resource" . ($resource ? " '$resource'" : NULL) . ".");
+		}
+	}	
 	
 }
