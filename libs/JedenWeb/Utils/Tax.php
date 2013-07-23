@@ -75,8 +75,7 @@ final class Tax
 	 */
 	public static function rate($full, $base)
 	{
-		return round(($base / $full * 100) - 100);
-//		return $base / $full;
+		return ($full / $base * 100) - 100;
 	}
 
 
