@@ -12,6 +12,8 @@ class Presenter extends Nette\Application\UI\Presenter
 {
 	
 	use \Nextras\Application\UI\SecuredLinksPresenterTrait;
+	
+	use \Kdyby\Autowired\AutowireComponentFactories;
 
 	/**
 	 * @var array
