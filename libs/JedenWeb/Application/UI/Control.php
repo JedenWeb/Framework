@@ -11,18 +11,12 @@
 namespace JedenWeb\Application\UI;
 
 use Nette;
-use JedenWeb\Templating\ITemplateConfigurator;
 
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
  */
 abstract class Control extends Nette\Application\UI\Control
 {
-
-	/**
-	 * @var ITemplateConfigurator
-	 */
-	protected $templateConfigurator;
 
 	/**
 	 * @var bool
@@ -194,36 +188,8 @@ abstract class Control extends Nette\Application\UI\Control
 			$template->setFile($file);
 		}
 
-		if ($this->templateConfigurator !== NULL) {
-			$this->templateConfigurator->configure($template);
-		}
-
 		return $template;
 	}
-
-
-
-	/**
-	 * @param \Nette\Templating\Template $template
-	 *
-	 * @return void
-	 */
-	public function templatePrepareFilters($template)
-	{
-		if (method_exists($this->presenter->context, 'createNette__Latte')) {
-			$engine = $this->presenter->context->createNette__Latte();
-		} else {
-			$engine = $this->presenter->context->{'nette.latte'};
-		}
-
-
-		if ($this->templateConfigurator !== NULL) {
-			$this->templateConfigurator->prepareFilters($engine);
-		}
-
-		$template->registerFilter($engine);
-	}
-
 
 
 	/**
@@ -244,33 +210,6 @@ abstract class Control extends Nette\Application\UI\Control
 			}
 
 		} while (TRUE);
-	}
-
-
-
-	/**
-	 * @param ITemplateConfigurator $configurator
-	 */
-	public function setTemplateConfigurator(ITemplateConfigurator $configurator = NULL)
-	{
-		$this->templateConfigurator = $configurator;
-	}
-
-
-	/*********************** inject ***********************/
-
-
-	/**
-	 * @param \JedenWeb\Templating\ITemplateConfigurator $templateConfigurator
-	 * @throws \Nette\InvlidStateException
-	 */
-	final public function injectTemplateConfigurator(ITemplateConfigurator $templateConfigurator)
-	{
-		if ($this->templateConfigurator) {
-			throw new \Nette\InvlidStateException;
-		}
-
-		$this->templateConfigurator = $templateConfigurator;
 	}
 
 }

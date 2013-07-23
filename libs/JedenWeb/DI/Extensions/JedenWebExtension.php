@@ -47,9 +47,6 @@ class JedenWebExtension extends JedenWeb\DI\CompilerExtension
 		$container->getDefinition('user')
 				->setClass('JedenWeb\Security\User');		
 
-		# template
-		$container->addDefinition($this->prefix("templateConfigurator"))
-			->setClass("JedenWeb\Templating\TemplateConfigurator");
 
 		# macros
 		$this->addMacro('macros.ui', 'JedenWeb\Latte\Macros\UIMacros::install')

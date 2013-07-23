@@ -11,7 +11,6 @@
 namespace JedenWeb\Application\UI;
 
 use JedenWeb;
-use JedenWeb\Templating\ITemplateConfigurator;
 use Nette;
 use Nette\Application\UI\PresenterComponent;
 
@@ -20,11 +19,6 @@ use Nette\Application\UI\PresenterComponent;
  */
 class Presenter extends Nette\Application\UI\Presenter
 {
-
-	/**
-	 * @var ITemplateConfigurator
-	 */
-	protected $templateConfigurator;
 
 	/**
 	 * @var array
@@ -263,7 +257,6 @@ class Presenter extends Nette\Application\UI\Presenter
 	}	
 
 
-	/*********************** templating ***********************/
 
 
 	protected function beforeRender()
@@ -273,56 +266,6 @@ class Presenter extends Nette\Application\UI\Presenter
 		if ($this->isAjax() && $this->hasFlashSession()) {
 			$this->invalidateControl('flash');
 		}
-	}
-
-
-
-	/**
-	 * @param ITemplateConfigurator $configurator
-	 */
-	public function setTemplateConfigurator(ITemplateConfigurator $configurator = NULL)
-	{
-		$this->templateConfigurator = $configurator;
-	}
-
-
-
-	/**
-	 * @param string|null $class
-	 *
-	 * @return \Nette\Templating\Template
-	 */
-	protected function createTemplate($class = NULL)
-	{
-		$template = parent::createTemplate($class);
-
-		if ($this->templateConfigurator !== NULL) {
-			$this->templateConfigurator->configure($template);
-		}
-
-		return $template;
-	}
-
-
-
-	/**
-	 * @param \Nette\Templating\Template $template
-	 *
-	 * @return void
-	 */
-	public function templatePrepareFilters($template)
-	{
-		if (method_exists($this->context, 'createNette__Latte')) {
-			$engine = $this->context->createNette__Latte();
-		} else {
-			$engine = $this->context->{'nette.latte'};
-		}
-
-		if ($this->templateConfigurator !== NULL) {
-			$this->templateConfigurator->prepareFilters($engine);
-		}
-
-		$template->registerFilter($engine);
 	}
 
 
@@ -352,25 +295,6 @@ class Presenter extends Nette\Application\UI\Presenter
 	protected function getBaseUrl()
 	{
 		return $this->getHttpRequest()->url->baseUrl;
-	}
-
-
-
-	/*********************** inject ***********************/
-
-	
-
-	/**
-	 * @param \JedenWeb\Templating\ITemplateConfigurator $templateConfigurator
-	 * @throws \Nette\InvlidStateException
-	 */
-	final public function injectTemplateConfigurator(ITemplateConfigurator $templateConfigurator)
-	{
-		if ($this->templateConfigurator) {
-			throw new \Nette\InvlidStateException;
-		}
-
-		$this->templateConfigurator = $templateConfigurator;
 	}
 
 }
