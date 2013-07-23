@@ -62,8 +62,9 @@ class ConfigBuilder extends Nette\Object implements \ArrayAccess, \Countable, \I
 
 
 
-	/* ------------------------------ Interfaces -------------------------------- */
+	/*********************** \Countable ***********************/
 
+	
 
 	/**
 	 * Returns items count.
@@ -74,6 +75,10 @@ class ConfigBuilder extends Nette\Object implements \ArrayAccess, \Countable, \I
 	{
 		return $this->count($this->data);
 	}
+	
+	
+	
+	/*********************** \IteratorAggregate ***********************/
 
 
 
@@ -86,6 +91,10 @@ class ConfigBuilder extends Nette\Object implements \ArrayAccess, \Countable, \I
 	{
 		return new \ArrayIterator($this->data);
 	}
+	
+	
+	
+	/*********************** \ArrayAccess ***********************/
 
 
 

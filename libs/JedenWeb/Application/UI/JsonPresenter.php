@@ -12,7 +12,9 @@ use Nette;
 abstract class JsonPresenter extends Presenter
 {
 
-	/** @var \Nette\Application\Responses\JsonResponse */
+	/** 
+	 * @var \Nette\Application\Responses\JsonResponse 
+	 */
 	private $response;
 
 
@@ -34,9 +36,9 @@ abstract class JsonPresenter extends Presenter
 	 * @param string $class
 	 * @throws \Nette\InvalidStateException
 	 */
-	protected function createTemplate($class = null)
+	protected function createTemplate($class = NULL)
 	{
-		throw new Nette\InvalidStateException("Json presenter does not support access to \$template use \$response instead.");
+		throw new Nette\InvalidStateException('Json presenter does not support access to $template use $response instead.');
 	}
 
 

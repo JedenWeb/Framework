@@ -17,7 +17,6 @@ use Nette\Forms\Controls;
 class Form extends Nette\Application\UI\Form
 {
 
-
 	/**
 	 */
 	public function __construct()
@@ -46,7 +45,7 @@ class Form extends Nette\Application\UI\Form
 			if ($this->getComponents()->count() === 0) { # form was created by operator new
 				$this->beforeSetup();
 				$this->setup();
-				$this->afterSetup();	
+				$this->afterSetup();
 			}
 			$this->attachHandlers();
 		}
