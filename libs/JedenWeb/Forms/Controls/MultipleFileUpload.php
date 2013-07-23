@@ -1,11 +1,5 @@
 <?php
 
-/**
- * This file is part of the www.jedenweb.cz webpage (http://www.jedenweb.cz/)
- *
- * Copyright (c) 2012 Pavel Jurásek (jurasekpavel@ctyrimedia.cz), Vojtěch Jurásek (jurasek@ctyrimedia.cz)
- */
-
 namespace JedenWeb\Forms\Controls;
 
 use Nette\Application\UI\Form;
