@@ -32,13 +32,16 @@ abstract class Control extends Nette\Application\UI\Control
 
 
 
+	/**
+	 */
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
 
-
+	/**
+	 */
 	protected function startup()
 	{
 		$this->startupCheck = TRUE;
@@ -95,15 +98,16 @@ abstract class Control extends Nette\Application\UI\Control
 	
 	
 	/**
-	 * Saves the message to template, that can be displayed after redirect.
-	 * @param  string
-	 * @param  string
+	 * 
+	 * @param string $message
+	 * @param string $type
+	 * @param bool $withoutSession
 	 * @return \stdClass
 	 */
 	public function flashMessage($message, $type = 'info', $withoutSession = FALSE)
 	{
 		if ($withoutSession) {
-			$this->_flashes[] = $flash = (object)array(
+			$this->_flashes[] = $flash = (object) array(
 				'message' => $message,
 				'type' => $type,
 			);
@@ -120,7 +124,7 @@ abstract class Control extends Nette\Application\UI\Control
 	
 
 	/**
-	 * @param string|null $class
+	 * @param string|NULL $class
 	 *
 	 * @return \Nette\Templating\FileTemplate
 	 */
