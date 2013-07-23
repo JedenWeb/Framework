@@ -20,23 +20,11 @@ use Nette\DI\Container;
 class CompilerExtension extends Nette\DI\CompilerExtension
 {
 
-	const CONTROL = "control";
-
-	const SUBSCRIBER = "subscriber";
-
-	const SERVICE = "service";
-
 	const MACRO = "macro";
 
 	const HELPER = "helper";
 
 	const FORM = "form";
-
-	const MANAGER = "manager";
-
-	const REPOSITORY = "repository";
-
-	const WIDGET = "widget";
 
 	const ROUTE = "route";
 
@@ -45,15 +33,9 @@ class CompilerExtension extends Nette\DI\CompilerExtension
 	 * @var type
 	 */
 	public static $types = array(
-		self::CONTROL => "Control",
-		self::SUBSCRIBER => "Subscriber",
-		self::SERVICE => "Service",
 		self::MACRO => "Macro",
 		self::HELPER => "Helper",
 		self::FORM => "Form",
-		self::MANAGER => "Manager",
-		self::REPOSITORY => "Repository",
-		self::WIDGET => "Widget",
 		self::ROUTE => "Route",
 	);
 
@@ -116,34 +98,6 @@ class CompilerExtension extends Nette\DI\CompilerExtension
 			->addTag('helper');
 
 		return $helper;
-	}
-
-
-
-	/**
-	 * @param string $name
-	 * @param string $class
-	 */
-	protected function compileManager($name, $class)
-	{
-		$this->getContainerBuilder()
-			->addDefinition($this->prefix($name))
-			->setClass($class)
-			->addTag(self::MANAGER);
-	}
-
-
-
-	/**
-	 * @param string $name
-	 * @param string $class
-	 */
-	protected function compileService($name, $class)
-	{
-		$this->getContainerBuilder()
-			->addDefinition($this->prefix($name))
-			->setClass($class)
-			->addTag(self::SERVICE);
 	}
 
 
