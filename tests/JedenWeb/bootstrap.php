@@ -17,7 +17,7 @@ $loader->add('JedenWeb', __DIR__ . '/../../libs');
 
 // configure environment
 Tester\Helpers::setup();
-/**/class_alias('Tester\Assert', 'Assert');/**/
+class_alias('Tester\Assert', 'Assert');
 date_default_timezone_set('Europe/Prague');
 
 
@@ -35,14 +35,33 @@ $_SERVER = array_intersect_key($_SERVER, array_flip(array('PHP_SELF', 'SCRIPT_NA
 $_SERVER['REQUEST_TIME'] = 1234567890;
 $_ENV = $_GET = $_POST = array();
 
-/*
+
 if (extension_loaded('xdebug')) {
 	xdebug_disable();
 	Tester\CodeCoverage\Collector::start(__DIR__ . '/coverage.dat');
 }
-*/
 
 
 function id($val) {
 	return $val;
+}
+
+
+
+class Notes
+{
+	static public $notes = array();
+
+	public static function add($message)
+	{
+		self::$notes[] = $message;
+	}
+
+	public static function fetch()
+	{
+		$res = self::$notes;
+		self::$notes = array();
+		return $res;
+	}
+
 }

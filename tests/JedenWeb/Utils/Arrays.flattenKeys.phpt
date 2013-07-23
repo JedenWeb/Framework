@@ -22,9 +22,9 @@ $input = array(
 		'd' => 4
 	),
 );
-$output = array(1, 2, 3, 4);
+$output = array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4);
 
-\Tester\Assert::compare($output, Arrays::flattenKeys($input));
+\Tester\Assert::same($output, Arrays::flattenKeys($input));
 
 //
 
@@ -35,7 +35,7 @@ $input = array(
 
 \Tester\Assert::exception(function() use ($input) {
 	Arrays::flattenKeys($input);
-}, '\JedenWeb\InvalidStateException');
+}, 'JedenWeb\InvalidStateException');
 
 //
 
@@ -44,6 +44,6 @@ $input = array(
 	2 => 'b',
 	array('c', 'd', 'e'),
 );
-$output = array('a', 'b', 'c', 'd', 'e');
+$output = array(1 => 'a', 2 => 'b', 0 => 'c', 3 => 'd', 4 => 'e');
 
-\Tester\Assert::compare($output, Arrays::flattenKeys($input, FALSE));
+\Tester\Assert::same($output, Arrays::flattenKeys($input, FALSE));

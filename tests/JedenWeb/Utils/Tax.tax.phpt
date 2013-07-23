@@ -19,5 +19,5 @@ $fullPriceBase = Tax::priceWithTax($priceNoTax);
 $fullPriceReduced = Tax::priceWithTax($priceNoTax, Tax::REDUCED_RATE);
 
 
-\Tester\Assert::equal(round($fullPriceBase - $priceNoTax), Tax::tax($fullPriceBase));
-\Tester\Assert::equal(round($fullPriceReduced - $priceNoTax), Tax::tax($fullPriceReduced, Tax::REDUCED_RATE));
+\Tester\Assert::equal(round($fullPriceBase - $priceNoTax), round(Tax::tax($fullPriceBase)));
+\Tester\Assert::equal(round($fullPriceReduced - $priceNoTax), round(Tax::tax($fullPriceReduced, Tax::REDUCED_RATE)));
