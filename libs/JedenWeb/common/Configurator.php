@@ -190,13 +190,6 @@ class Configurator extends Nette\Configurator
 			$this->parameters['configDir'] . "/config.local.neon",
 		);
 
-		foreach ($this->getModuleInstances() as $instance) {
-			$path = $instance->getPath() . "/public/config/config.neon";
-			if (is_file($path)) {
-				$configs[] = $path;
-			}
-		}
-
 		return $configs;
 	}
 
