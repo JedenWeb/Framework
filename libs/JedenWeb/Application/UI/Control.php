@@ -12,14 +12,10 @@ abstract class Control extends Nette\Application\UI\Control
 	
 	use \Nextras\Application\UI\SecuredLinksControlTrait;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $startupCheck;
 	
-	/**
-	 * @var array
-	 */
+	/** @var array */
 	private $_flashes = array();
 
 

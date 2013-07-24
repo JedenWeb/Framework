@@ -10,9 +10,7 @@ use Nette;
 class Helpers extends Nette\Object
 {
 
-	/**
-	 * @var \Nette\DI\Container
-	 */
+	/** @var \Nette\DI\Container */
 	protected $helpers = array();
 	
 

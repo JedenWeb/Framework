@@ -10,14 +10,10 @@ use Nette;
 class RouteList extends \Nette\Application\Routers\RouteList
 {
 
-	/**
-	 * @var array
-	 */
+	/** @var array */
 	protected $cachedRoutes;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	protected $module;
 
 

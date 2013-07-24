@@ -10,9 +10,7 @@ use Nette;
 class PhoneHelper extends Nette\Object
 {
 	
-	/**
-	 * @var array
-	 */
+	/** @var array */
 	private static $codes = array(
 		'cz' => '+420', // ^(+420 ?)?[0-9]{3} [0-9]{3} [0-9]{3}$
 		'sk' => '+421'

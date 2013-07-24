@@ -8,9 +8,7 @@ namespace JedenWeb\Application\UI;
 class TemplateForm extends Form
 {
 
-	/**
-	 * @var \Nette\Templating\ITemplate
-	 */
+	/** @var \Nette\Templating\ITemplate */
 	protected $template;
 
 

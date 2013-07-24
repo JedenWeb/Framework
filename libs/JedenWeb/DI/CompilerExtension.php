@@ -21,9 +21,7 @@ class CompilerExtension extends Nette\DI\CompilerExtension
 	const ROUTE = "route";
 
 
-	/**
-	 * @var type
-	 */
+	/** @var type */
 	public static $types = array(
 		self::MACRO => "Macro",
 		self::HELPER => "Helper",

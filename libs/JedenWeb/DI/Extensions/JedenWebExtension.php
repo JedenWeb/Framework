@@ -12,9 +12,7 @@ use Nette\Utils\Validators;
 class JedenWebExtension extends JedenWeb\DI\CompilerExtension
 {
 
-	/**
-	 * @var array
-	 */
+	/** @var array */
 	public $defaults = array(
 		'macros' => array(
 		),

@@ -15,9 +15,7 @@ class Presenter extends Nette\Application\UI\Presenter
 	
 	use \Kdyby\Autowired\AutowireComponentFactories;
 
-	/**
-	 * @var array
-	 */
+	/** @var array */
 	private $_flashes = array();
 
 

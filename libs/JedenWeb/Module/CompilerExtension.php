@@ -13,9 +13,7 @@ use Nette\Utils\Finder;
 class CompilerExtension extends JedenWeb\DI\CompilerExtension
 {
 
-	/**
-	 * @var array
-	 */
+	/** @var array */
 	protected $classes = array(
 		self::CONTROL => array(),
 		self::SUBSCRIBER => array(),
@@ -29,9 +27,7 @@ class CompilerExtension extends JedenWeb\DI\CompilerExtension
 		self::ROUTE => array()
 	);
 
-	/**
-	 * @var array
-	 */
+	/** @var array */
 	protected $config = array();
 
 

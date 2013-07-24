@@ -13,9 +13,7 @@ use JedenWeb\Utils\Assets;
 class AssetsManager extends Nette\Object
 {
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	protected $wwwDir;
 
 
