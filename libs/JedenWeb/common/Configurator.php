@@ -49,7 +49,11 @@ class Configurator extends Nette\Configurator
 	protected function getDefaultModules()
 	{
 		$adapter = new Adapters\NeonAdapter();
-		return $adapter->load($this->parameters["configDir"] . "/modules.neon");
+		
+		if (file_exists($this->parameters["configDir"] . "/modules.neon")) {
+			return $adapter->load($this->parameters["configDir"] . "/modules.neon");
+		}
+		return array();
 	}
 
 
@@ -153,24 +157,6 @@ class Configurator extends Nette\Configurator
 			$container->{$module}->configure($container);
 		}
 
-
-//		$container->application->onRequest[] = function($application, $request) {
-//			$presenter = $request->presenterName;
-//			$errorPresenter = 'Error';
-//
-//			if(($pos = strrpos($presenter, ':')) !== false) {
-//				try {
-//					$errorPresenter = substr($presenter, 0, ($pos + 1)) . 'Error';
-//					$errorPresenterClass = $application->presenterFactory->createPresenter($errorPresenter);
-//				}
-//				catch (Nette\Application\InvalidPresenterException $e) {
-//					$errorPresenter = 'Error';
-//				}
-//			}
-//
-//			$application->errorPresenter = $errorPresenter;
-//		};
-
 		return $container;
 	}
 
@@ -223,7 +209,6 @@ class Configurator extends Nette\Configurator
 	{
 		$this->robotLoader = $this->createRobotLoader();
 		$this->robotLoader
-//				->setCacheStorage(new \Nette\Caching\Storages\MemoryStorage)
 				->addDirectory($this->parameters["libsDir"])
 				->addDirectory($this->parameters["appDir"])
 				->register();
