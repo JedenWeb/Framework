@@ -48,7 +48,7 @@ class Configurator extends Nette\Configurator
 	 */
 	protected function getDefaultModules()
 	{
-		$adapter = new Adapters\NeonAdapter();
+		$adapter = new DI\Config\Adapters\NeonAdapter;
 		
 		if (file_exists($this->parameters["configDir"] . "/modules.neon")) {
 			return $adapter->load($this->parameters["configDir"] . "/modules.neon");
@@ -149,7 +149,6 @@ class Configurator extends Nette\Configurator
 		// setup Application
 		$application = $container->application;
 		$application->catchExceptions = (bool) !$this->isDebugMode();
-		$application->errorPresenter = $container->parameters['website']['errorPresenter'];
 
 
 		// initialize modules
@@ -169,7 +168,7 @@ class Configurator extends Nette\Configurator
 	{
 		$this->compiler = parent::createCompiler();
 		$this->compiler
-				->addExtension('jedenWeb', new Extensions\JedenWebExtension);
+				->addExtension('jedenWeb', new DI\Extensions\JedenWebExtension);
 
 		foreach ($this->getModuleInstances() as $instance) {
 			$instance->compile($this->compiler);
