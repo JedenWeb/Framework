@@ -15,9 +15,7 @@
         "issues": "https://bitbucket.org/jurasekpavel/framework/issues"
     },
 	"require": {
-		"php" : ">=5.3",
-		"nextras/application": "dev-master",
-		"kdyby/autowired": "dev-master"
+		"php" : ">=5.3"
 	},
 	"require-dev": {
 		"nette/nette": "dev-master",

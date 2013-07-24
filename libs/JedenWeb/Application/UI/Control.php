@@ -9,8 +9,6 @@ use Nette;
  */
 abstract class Control extends Nette\Application\UI\Control
 {
-	
-	use \Nextras\Application\UI\SecuredLinksControlTrait;
 
 	/** @var bool */
 	private $startupCheck;
