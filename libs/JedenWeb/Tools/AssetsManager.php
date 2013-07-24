@@ -2,10 +2,10 @@
 
 namespace JedenWeb\Tools;
 
-use Nette;
-use Nette\Utils\Finder;
 use JedenWeb\Tools\Filesystem;
 use JedenWeb\Utils\Assets;
+use Nette;
+use Nette\Utils\Finder;
 
 /**
  * @author  Jiří Šifalda <sifalda.jiri@gmail.com>

@@ -11,15 +11,18 @@ final class Tax
 {
 
 	const BASE_RATE = 21;
-
 	const REDUCED_RATE = 15;
 
 	
 	
+	/**
+	 * @throws JedenWeb\StaticClassException
+	 */
 	final public function __construct()
 	{
 		throw new JedenWeb\StaticClassException;
 	}
+	
 	
 	
 	/**

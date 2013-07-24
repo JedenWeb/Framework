@@ -1,6 +1,6 @@
 <?php
 
-namespace Kdyby\Tools;
+namespace JedenWeb\Tools;
 
 use Nette;
 

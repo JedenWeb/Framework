@@ -16,13 +16,14 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
 	
 
 	/**
-	 * @param Nette\Database\SelectionFactory $param
+	 * @param Nette\Database\SelectionFactory $selectionFactory
 	 */
 	public function __construct(Nette\Database\SelectionFactory $selectionFactory)
 	{
 		$this->selectionFactory = $selectionFactory;
 	}
 
+	
 
 	/**
 	 * @param string $savePath

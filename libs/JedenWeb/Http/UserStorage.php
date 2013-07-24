@@ -10,6 +10,9 @@ use Nette;
 class UserStorage extends Nette\Http\UserStorage
 {
 
+	/**
+	 * @throws \Nette\NotImplementedException
+	 */
 	public function __construct()
 	{
 		throw new \Nette\NotImplementedException;

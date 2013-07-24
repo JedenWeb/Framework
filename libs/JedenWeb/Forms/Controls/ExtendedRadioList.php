@@ -6,7 +6,7 @@ use JedenWeb;
 use Nette;
 
 /**
- * @todo Refractor!
+ * @todo Refactoring
  * Renderuje kazdy radio input jako radek tabulky, volitelne s rozsirenymi popisky
  */
 class ExtendedRadioList extends Nette\Forms\Controls\BaseControl

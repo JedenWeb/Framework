@@ -1,11 +1,9 @@
 <?php
 
-namespace Kdyby\Tools;
+namespace JedenWeb\Tools;
 
-use Kdyby;
+use JedenWeb;
 use Nette;
-
-
 
 /**
  * @author Filip Procházka <filip.prochazka@kdyby.org>
@@ -434,11 +432,11 @@ final class MimeTypeDetector extends Nette\Object
 
 	/**
 	 * Static class - cannot be instantiated.
-	 * @throws \Kdyby\StaticClassException
+	 * @throws JedenWeb\StaticClassException
 	 */
 	final public function __construct()
 	{
-		throw new Kdyby\StaticClassException;
+		throw new JedenWeb\StaticClassException;
 	}
 
 
@@ -480,12 +478,12 @@ final class MimeTypeDetector extends Nette\Object
 	 * @param bool $need
 	 *
 	 * @return string
-	 * @throws \Kdyby\InvalidArgumentException
+	 * @throws JedenWeb\InvalidArgumentException
 	 */
 	public static function extensionToMime($extension, $need = TRUE)
 	{
 		if (FALSE === ($mime = array_search(strtolower($extension), static::$mimeTypes, TRUE)) && $need) {
-			throw new Kdyby\InvalidArgumentException("Extension '$extension' is unknown.");
+			throw new JedenWeb\InvalidArgumentException("Extension '$extension' is unknown.");
 		}
 
 		return $mime ?: NULL;
@@ -498,12 +496,12 @@ final class MimeTypeDetector extends Nette\Object
 	 * @param bool $need
 	 *
 	 * @return string
-	 * @throws \Kdyby\InvalidArgumentException
+	 * @throws JedenWeb\InvalidArgumentException
 	 */
 	public static function mimeToExtension($mimeType, $need = TRUE)
 	{
 		if (!($has = isset(static::$mimeTypes[$mimeType])) && $need) {
-			throw new Kdyby\InvalidArgumentException("Mime type '$mimeType' is unknown.");
+			throw new JedenWeb\InvalidArgumentException("Mime type '$mimeType' is unknown.");
 		}
 
 		return $has ? static::$mimeTypes[$mimeType] : NULL;

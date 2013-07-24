@@ -1,11 +1,9 @@
 <?php
 
-namespace Kdyby\Tools;
+namespace JedenWeb\Tools;
 
-use Kdyby;
+use JedenWeb;
 use Nette;
-
-
 
 /**
  * @author Filip Procházka <filip.prochazka@kdyby.org>
@@ -22,11 +20,11 @@ class Json extends Nette\Object
 	/**
 	 * Static class - cannot be instantiated.
 	 *
-	 * @throws \Kdyby\StaticClassException
+	 * @throws JedenWeb\StaticClassException
 	 */
 	final public function __construct()
 	{
-		throw new Kdyby\StaticClassException;
+		throw new JedenWeb\StaticClassException;
 	}
 
 

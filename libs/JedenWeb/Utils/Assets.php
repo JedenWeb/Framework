@@ -12,11 +12,11 @@ class Assets extends Nette\Object
 
 	/**
 	 * @param string $path
-	 * @return mixed
+	 * @return string
 	 */
 	public static function getFileNameFromPath($path)
 	{
-		if (strpos($path, DIRECTORY_SEPARATOR) === false) {
+		if (strpos($path, DIRECTORY_SEPARATOR) === FALSE) {
 			return $path;
 		} else {
 			return str_replace(DIRECTORY_SEPARATOR, '', strrchr($path, DIRECTORY_SEPARATOR));
@@ -33,7 +33,7 @@ class Assets extends Nette\Object
 	 */
 	public static function modifyType($name, $oldType =  'less', $newType = 'css')
 	{
-		return str_replace('.' . $oldType, '.' . $newType, $name);
+		return str_replace(".$oldType", ".$newType", $name);
 	}
 
 
