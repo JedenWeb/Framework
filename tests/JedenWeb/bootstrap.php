@@ -47,21 +47,22 @@ function id($val) {
 }
 
 
-
-class Notes
-{
-	static public $notes = array();
-
-	public static function add($message)
+if (!class_exists('Notes')) {
+	class Notes
 	{
-		self::$notes[] = $message;
-	}
+		static public $notes = array();
 
-	public static function fetch()
-	{
-		$res = self::$notes;
-		self::$notes = array();
-		return $res;
-	}
+		public static function add($message)
+		{
+			self::$notes[] = $message;
+		}
 
+		public static function fetch()
+		{
+			$res = self::$notes;
+			self::$notes = array();
+			return $res;
+		}
+
+	}
 }
