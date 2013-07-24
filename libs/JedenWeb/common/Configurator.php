@@ -65,7 +65,8 @@ class Configurator extends Nette\Configurator
 	{
 		if (!$this->moduleInstances) {
 			foreach ($this->modules as $module) {
-				$class = "\\" . ucfirst($module) . "Module\\Module";
+//				$class = "\\" . ucfirst($module) . "Module\\Module";
+				$class = "\\JedenWeb\\" . ucfirst($module) . "\\Module";
 				$this->moduleInstances[] = new $class;
 			}
 		}
