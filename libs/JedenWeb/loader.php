@@ -31,4 +31,5 @@ define('JEDENWEB', TRUE);
 define('JEDENWEB_DIR', __DIR__);
 define('JEDENWEB_VERSION', '1.1');
 
+require_once __DIR__ . '/DI/Config/Adapters/NeonAdapter.php';
 require_once __DIR__ . '/common/Configurator.php';
