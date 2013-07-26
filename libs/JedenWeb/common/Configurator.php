@@ -148,13 +148,7 @@ class Configurator extends Nette\Configurator
 
 		// add default routes
 		$container->router[] = new Route('index.php', 'Homepage:default', Route::ONE_WAY);
-
-
-		// setup Application
-		$application = $container->application;
-		$application->catchExceptions = (bool) !$this->isDebugMode();
-		$application->errorPresenter = $container->parameters['website']['errorPresenter'];
-
+		
 
 		// initialize modules
 		foreach ($container->findByTag("module") as $module => $par) {
