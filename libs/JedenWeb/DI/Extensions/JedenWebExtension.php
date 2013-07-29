@@ -18,6 +18,7 @@ class JedenWebExtension extends JedenWeb\DI\CompilerExtension
 		),
 		'helpers' => array(
 			'phone' => 'JedenWeb\Templating\Helpers\PhoneHelper::phone',
+			'plural' => 'JedenWeb\Templating\Helpers\PluralHelper::plural',
 		),
 	);
 
