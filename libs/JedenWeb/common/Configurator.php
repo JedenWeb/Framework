@@ -96,16 +96,6 @@ class Configurator extends Nette\Configurator
 
 
 	/**
-	 * @param string $name
-	 */
-	public function setEnvironment($name)
-	{
-		$this->parameters["environment"] = $name;
-	}
-
-
-
-	/**
 	 * @return \Nette\DI\Container
 	 */
 	public function getContainer()
