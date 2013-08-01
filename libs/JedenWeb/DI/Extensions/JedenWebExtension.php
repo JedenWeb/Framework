@@ -14,6 +14,12 @@ class JedenWebExtension extends JedenWeb\DI\CompilerExtension
 
 	/** @var array */
 	public $defaults = array(
+		'session' => array(
+			'storages' => array(
+				'database' => 'JedenWeb\Http\DatabaseSessionStorage',
+			),
+			'storage' => FALSE,
+		),
 		'macros' => array(
 		),
 		'helpers' => array(
@@ -34,6 +40,17 @@ class JedenWebExtension extends JedenWeb\DI\CompilerExtension
 		# application
 		$container->getDefinition('application')
 			->addSetup('!headers_sent() && header(?);', 'X-Powered-By: Nette Framework & JedenWeb');
+		
+		# http
+		if ($storage = $config['session']['storage']) {
+			Validators::assertField($config['session']['storages'], $storage);
+			
+			$definition = $container->addDefinition($this->prefix('sessionStorage'))
+				->setClass($config['session']['storages'][$storage]);
+			
+			$container->getDefinition('session')
+				->addSetup('setStorage', array($definition));
+		}
 		
 		# security
 		$container->getDefinition('user')

@@ -21,6 +21,25 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
 	public function __construct(Nette\Database\SelectionFactory $selectionFactory)
 	{
 		$this->selectionFactory = $selectionFactory;
+		$this->install();
+	}
+	
+	
+	
+	/**
+	 * Create database table.
+	 */
+	private function install()
+	{
+		$this->selectionFactory->getConnection()->query("
+			CREATE TABLE `session` IF NOT EXISTS (
+				`id` varchar(64) NOT NULL,
+				`timestamp` int(11) NOT NULL,
+				`data` longtext NOT NULL,
+				PRIMARY KEY (`id`),
+				KEY `timestamp` (`timestamp`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		");
 	}
 
 	
