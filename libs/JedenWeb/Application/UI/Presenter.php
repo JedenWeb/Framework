@@ -79,7 +79,7 @@ class Presenter extends Nette\Application\UI\Presenter
 
 		$id = $this->getParameterId('flash');
 		$messages = $this->getPresenter()->getFlashSession()->$id;
-		$this->getTemplate()->flashes = array_merge((array)$messages, $this->_flashes);
+		$this->getTemplate()->flashes = array_merge((array) $messages, $this->_flashes);
 
 		return $flash;
 	}
@@ -113,21 +113,11 @@ class Presenter extends Nette\Application\UI\Presenter
 	 */
 	public function isModuleCurrent($module)
 	{
-		if (!$a = strrpos($this->name, ':')) { // not in module
-			return false;
+		if (!$pos = strrpos($this->name, ':')) { # not in module
+			return FALSE;
 		}
 
-		return ltrim($module, ':') === substr($this->name, 0, $a);
-	}
-
-
-
-	/**
-	 * @return string
-	 */
-	protected function getBaseUrl()
-	{
-		return $this->getHttpRequest()->url->baseUrl;
+		return ltrim($module, ':') === substr($this->name, 0, $pos);
 	}
 
 }
