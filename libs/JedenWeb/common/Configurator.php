@@ -202,6 +202,7 @@ class Configurator extends Nette\Configurator
 	{
 		$logDirectory = $logDirectory ?: $this->parameters["logDir"];
 		
+		Nette\Diagnostics\Debugger::$showLocation = TRUE;
 		parent::enableDebugger($logDirectory, $email);
 	}
 
