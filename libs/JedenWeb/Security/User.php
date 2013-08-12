@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Overview of possible annotations
+ * 
+ * @secured([message])
+ * 
+ * @logged([message]) -> user is logged in
+ * @role(role1[,role2, ..., [message = <message>]]) -> logged in and in role
+ * @allowed(resource, privilege[, message = <message>]) -> logged in and with permission
+ */
+
 namespace JedenWeb\Security;
 
 use JedenWeb;
@@ -15,11 +25,11 @@ class User extends Nette\Security\User
 {
 	
 	/**
-	 * @param \Reflector|\Nette\Reflection\ClassType|\Nette\Reflection\Method $element
+	 * @param \Nette\Reflection\ClassType|\Nette\Reflection\Method $element
 	 * @param string $message
 	 *
 	 * @throws \Nette\Application\ForbiddenRequestException
-	 * @throws \Kdyby\UnexpectedValueException
+	 * @throws \JedenWeb\UnexpectedValueException
 	 * @return bool
 	 */
 	public function protectElement(\Reflector $element, $message = NULL)
@@ -28,29 +38,87 @@ class User extends Nette\Security\User
 			return FALSE;
 		}
 
-		$user = (array)$element->getAnnotation('User');
-		$message = isset($user['message']) ? $user['message'] : $message;
-		if (in_array('loggedIn', $user) && !$this->isLoggedIn()) {
-			throw new ForbiddenRequestException($message ?: "User " . $this->getIdentity()->getId() . " is not logged in.");
-
-		} elseif (isset($user['role']) && !$this->isInRole($user['role'])) {
-			throw new ForbiddenRequestException($message ? : "User " . $this->getIdentity()->getId() . " is not in role '" . $user['role'] . "'.");
-
-		} elseif ($element->getAnnotation('user')) {
-			throw new JedenWeb\UnexpectedValueException("Annotation 'user' in $element should have been 'User'.");
+		if (!$element->hasAnnotation('secured')) {
+			return FALSE;
 		}
-
-		$allowed = (array)$element->getAnnotation('Allowed');
-		$message = isset($allowed['message']) ? $allowed['message'] : $message;
-		if ($allowed) {
-			$resource = isset($allowed[0]) ? $allowed[0] : IAuthorizator::ALL;
-			$privilege = isset($allowed[1]) ? $allowed[1] : IAuthorizator::ALL;
-			$this->needAllowed($resource, $privilege, $message);
-
-		} elseif ($element->getAnnotation('allowed')) {
-			throw new JedenWeb\UnexpectedValueException("Annotation 'allowed' in $element should have been 'Allowed'.");
+		$message = is_string($element->getAnnotation('secured')) ? $element->getAnnotation('secured') : NULL;
+		
+		$this->checkLogged($element, $message);
+		$this->checkRole($element, $message);
+		$this->checkPermission($element, $message);
+	}
+	
+	
+	
+	/**
+	 * @param \Reflector $element
+	 * @throws ForbiddenRequestException
+	 */
+	private function checkLogged(\Reflector $element, $message = NULL)
+	{
+		if ($element->hasAnnotation($annotation = 'logged') || $element->hasAnnotation($annotation = 'loggedIn')) {
+			if (is_string($element->getAnnotation($annotation))) {
+				$message = $element->getAnnotation($annotation);
+			}
+			
+			if (!$this->isLoggedIn()) {
+				throw new ForbiddenRequestException($message ?: ($this->getId() ? "User ". "'$this->id'" : 'User') . " is not logged in.");
+			}
 		}
 	}
+	
+	
+	
+	/**
+	 * @param \Reflector $element
+	 * @throws ForbiddenRequestException
+	 */
+	private function checkRole(\Reflector $element, $message = NULL)
+	{
+		if ($element->hasAnnotation($annotation = 'roles') || $element->hasAnnotation($annotation = 'role')) {
+			$roles = (array) $element->getAnnotation($annotation);
+			if (isset($roles['message'])) {
+				$message = $roles['message'];
+				unset($roles['message']);
+			}
+			
+			$success = FALSE;
+			foreach ($roles as $role) {
+				if ($this->isInRole($role)) {
+					$success = TRUE;
+					break;
+				}
+			}
+			
+			if (!$success) {
+				throw new ForbiddenRequestException($message ?: 
+					($this->getId() ? "User ". "'$this->id'" : 'User') . " is not in any of these roles - ".implode(', ', $roles)."."
+				);
+			}
+		}
+	}
+	
+	
+	
+	/**
+	 * @param \Reflector $element
+	 * @throws JedenWeb\UnexpectedValueException
+	 */
+	private function checkPermission(\Reflector $element, $message = NULL)
+	{
+		if ($element->hasAnnotation($annotation = 'allowed') || $element->hasAnnotation($annotation = 'Allowed')) {
+			$permission = (array) $element->getAnnotation($annotation);
+			if (isset($permission['message'])) {
+				$message = $permission['message'];
+				unset($permission['message']);
+			}
+			
+			$resource = array_shift($permission) ?: IAuthorizator::ALL;
+			$privilege = array_shift($permission) ?: IAuthorizator::ALL;
+			$this->needAllowed($resource, $privilege, $message);
+		}
+	}
+	
 	
 	
 	/**
@@ -65,6 +133,6 @@ class User extends Nette\Security\User
 		if (!$this->isAllowed($resource, $privilege)) {
 			throw new ForbiddenRequestException($message ?: "User is not allowed to " . ($privilege ? $privilege : "access") . " the resource" . ($resource ? " '$resource'" : NULL) . ".");
 		}
-	}	
+	}
 	
 }
