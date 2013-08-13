@@ -46,7 +46,7 @@ Container::extensionMethod('addUrl', function(Container $container, $name, $labe
  * @return \Nette\Forms\Controls\TextInput
  */
 Container::extensionMethod('addNumber', function(Container $container, $name, $label = NULL, $step = 1, $min = NULL, $max = NULL) {
-	$item = $this->addText($name, $label);
+	$item = $container->addText($name, $label);
 	$item->setAttribute('step', $step)->setAttribute('type', "number")
 		->addCondition(Form::FILLED)->addRule(Form::NUMERIC);
 	$range = array(NULL, NULL);
@@ -77,7 +77,7 @@ Container::extensionMethod('addNumber', function(Container $container, $name, $l
  * @return \Nette\Forms\Controls\TextInput
  */
 Container::extensionMethod('addRange', function(Container $container, $name, $label = NULL, $step = 1, $min = NULL, $max = NULL) {
-	$item = $this->addNumber($name, $label, $step, $min, $max);
+	$item = $container->addNumber($name, $label, $step, $min, $max);
 	return $item->setAttribute('type', "range");
 });
 
@@ -92,6 +92,6 @@ Container::extensionMethod('addRange', function(Container $container, $name, $la
  * @return \Nette\Forms\Controls\TextInput
  */
 Container::extensionMethod('addSearch', function(Container $container, $name, $label = NULL, $cols = NULL, $maxLength = NULL) {
-	$item = $this->addText($name, $label, $cols, $maxLength);
+	$item = $container->addText($name, $label, $cols, $maxLength);
 	return $item->setAttribute('type', "search");
 });
