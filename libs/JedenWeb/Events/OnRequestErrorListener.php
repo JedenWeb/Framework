@@ -34,4 +34,14 @@ class OnRequestErrorListener extends Nette\Object implements \Kdyby\Events\Subsc
 		$application->errorPresenter = $errorPresenter;
 	}
 	
+	
+	
+	/**
+	 * @return array
+	 */
+	public function getSubscribedEvents()
+	{
+		return array('onRequest');
+	}
+	
 }
