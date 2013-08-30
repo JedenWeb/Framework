@@ -8,12 +8,12 @@ use Nette;
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
  */
 class PhoneHelper extends Nette\Object
-{
+{	
 	
 	/** @var array */
 	private static $codes = array(
-		'cz' => '+420', // ^(+420 ?)?[0-9]{3} [0-9]{3} [0-9]{3}$
-		'sk' => '+421'
+		'cz' => '420', // ^(+420 ?)?[0-9]{3} [0-9]{3} [0-9]{3}$
+		'sk' => '421'
 	);
 	
 	
@@ -22,15 +22,15 @@ class PhoneHelper extends Nette\Object
 	 * @param string $country
 	 * @return string
 	 */
-	public static function phone($s, $country = 'cz') {
+	public static function phone($s, $country = 'cz', $prefix = '+') {
 		if (in_array($country, array('cz', 'sk'))) {
 			$code = static::$codes[$country];
 
 			if (preg_match('/^[0-9]{3} [0-9]{3} [0-9]{3}$/', $s)) {
-				return '+'. $code .' ' . $s;
+				return $prefix . $code . ' ' . $s;
 			}
 			if (preg_match('/^[0-9]{3}[0-9]{3}[0-9]{3}$/', $s)) {
-				return '+'. $code .' ' . implode(' ', str_split($s, 3));
+				return $prefix . $code . ' ' . implode(' ', str_split($s, 3));
 			}
 
 			if (preg_match('/^\+'.$code.' [0-9]{3} [0-9]{3} [0-9]{3}$/', $s)) {

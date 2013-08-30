@@ -32,7 +32,7 @@ class DatabaseSessionStorage extends Nette\Object implements Nette\Http\ISession
 	private function install()
 	{
 		$this->selectionFactory->getConnection()->query("
-			CREATE TABLE `session` IF NOT EXISTS (
+			CREATE TABLE IF NOT EXISTS `session` (
 				`id` varchar(64) NOT NULL,
 				`timestamp` int(11) NOT NULL,
 				`data` longtext NOT NULL,

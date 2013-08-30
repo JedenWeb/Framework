@@ -8,11 +8,10 @@ use Nette\Application;
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
  */
-class OnRequestErrorListener extends Nette\Object
+class OnRequestErrorListener extends Nette\Object implements \Kdyby\Events\Subscriber
 {
 	
 	/**
-	 * 
 	 * @param \Nette\Application\Application $application
 	 * @param \Nette\Application\Request $request
 	 */
@@ -33,6 +32,16 @@ class OnRequestErrorListener extends Nette\Object
 		}
 
 		$application->errorPresenter = $errorPresenter;
+	}
+	
+	
+	
+	/**
+	 * @return array
+	 */
+	public function getSubscribedEvents()
+	{
+		return array('onRequest');
 	}
 	
 }
