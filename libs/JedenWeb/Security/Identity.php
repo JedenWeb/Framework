@@ -9,10 +9,9 @@ use Nette;
  */
 class Identity extends Nette\Security\Identity
 {
-	
-	public function __construct()
-	{
-		throw new \JedenWeb\NotImplementedException;
-	}
+
+	const STATUS_INACTIVE = 'inactive';
+	const STATUS_ACTIVE = 'active';
+	const STATUS_BLOCKED = 'blocked';
 	
 }
