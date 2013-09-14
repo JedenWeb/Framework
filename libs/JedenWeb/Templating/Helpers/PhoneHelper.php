@@ -23,7 +23,7 @@ class PhoneHelper extends Nette\Object
 	 * @return string
 	 */
 	public static function phone($s, $country = 'cz', $prefix = '+') {
-		$prefixes = array('00', '+');
+		$prefixes = array('00', preg_quote('+'));
 		
 		if (in_array($country, array('cz', 'sk'))) {
 			$code = static::$codes[$country];
