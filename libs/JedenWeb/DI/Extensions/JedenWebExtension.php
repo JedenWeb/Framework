@@ -39,7 +39,7 @@ class JedenWebExtension extends JedenWeb\DI\CompilerExtension
 
 		# application
 		$container->getDefinition('application')
-			->addSetup('!headers_sent() && header(?);', 'X-Powered-By: Nette Framework & JedenWeb');
+			->addSetup('!headers_sent() && header(?);', array('X-Powered-By: Nette Framework & JedenWeb'));
 		
 		# http
 		if ($storage = $config['session']['storage']) {
@@ -54,14 +54,14 @@ class JedenWebExtension extends JedenWeb\DI\CompilerExtension
 		
 		# security
 		$container->getDefinition('user')
-				->setClass('JedenWeb\Security\User');
+			->setClass('JedenWeb\Security\User');
 
 		# helpers
 		$loader = $container->addDefinition($this->prefix("helpers"))
 			->setClass("JedenWeb\Templating\Helpers");
 		
 		foreach ($config['helpers'] as $name => $helper) {
-			$loader->addSetup('addHelper', array($name, $helper));
+			$loader->addSetup('addHelper', array(array($name, $helper)));
 		}
 	}
 
