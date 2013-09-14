@@ -61,7 +61,7 @@ class JedenWebExtension extends JedenWeb\DI\CompilerExtension
 			->setClass("JedenWeb\Templating\Helpers");
 		
 		foreach ($config['helpers'] as $name => $helper) {
-			$loader->addSetup('addHelper', array(array($name, $helper)));
+			$loader->addSetup('addHelper', array($name, $helper));
 		}
 	}
 
