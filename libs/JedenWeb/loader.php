@@ -2,11 +2,6 @@
 
 namespace JedenWeb;
 
-use Nette\Diagnostics\Debugger;
-use Nette\Application\Routers\SimpleRouter;
-use Nette\Application\Routers\Route;
-use Nette\Config\Adapters\NeonAdapter;
-
 if (!defined('NETTE')) {
 	$nettePaths = array(
 		__DIR__ . "/../../../../nette/nette/Nette/loader.php",
