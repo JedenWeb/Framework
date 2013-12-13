@@ -134,7 +134,7 @@ class Configurator extends Nette\Configurator
 		$container->addService("configurator", $this);
 
 		// add default routes
-		$container->router[] = new Route('index.php', 'Homepage:default', Route::ONE_WAY);
+		$container->getService('router')->offsetSet(NULL, new Route('index.php', 'Homepage:default', Route::ONE_WAY));
 
 
 		// initialize modules
