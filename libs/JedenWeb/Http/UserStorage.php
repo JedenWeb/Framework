@@ -1,15 +1,8 @@
 <?php
 
-/**
- * This file is part of the www.jedenweb.cz webpage (http://www.jedenweb.cz/)
- *
- * Copyright (c) 2012 Pavel Jurásek (jurasekpavel@ctyrimedia.cz), Vojtěch Jurásek (jurasek@ctyrimedia.cz)
- *
- * For the full copyright and license information, please view the file license.txt that was distributed with this source code.
- */
-
 namespace JedenWeb\Http;
 
+use JedenWeb;
 use Nette;
 
 /**
@@ -18,9 +11,43 @@ use Nette;
 class UserStorage extends Nette\Http\UserStorage
 {
 
-	public function __construct()
+	/** Log-out reason */
+	const IDENTITY_CHANGED = 16;
+	
+	
+	
+	/**
+	 * Checks if the identity is still valid.
+	 * @param \Nette\Security\IIdentity $identity
+	 * @return bool
+	 */
+	protected function isIdentityValid(Nette\Security\IIdentity $identity)
 	{
-		throw new \Nette\NotImplementedException;
+		return TRUE; // dummy implementation of Identity validation
+	}	
+ 
+	
+	
+	/**
+	 * Returns and initializes $this->sessionSection.
+	 * @param bool $need
+	 * @return Nette\Http\SessionSection
+	 */
+	protected function getSessionSection($need)
+	{
+		$section = parent::getSessionSection($need);
+ 
+		if ($section->authenticated && !$this->isIdentityValid($section->identity)) {
+			$section->authenticated = FALSE;
+			$section->reason = self::IDENTITY_CHANGED;
+			if ($section->expireIdentity) {
+				unset($section->identity);
+			}
+			unset($section->expireTime, $section->expireDelta, $section->expireIdentity,
+				$section->expireBrowser, $section->browserCheck, $section->authTime);
+		}
+ 
+		return $section;
 	}
 
 }

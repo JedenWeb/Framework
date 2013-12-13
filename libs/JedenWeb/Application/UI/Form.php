@@ -1,13 +1,5 @@
 <?php
 
-/**
- * This file is part of the www.jedenweb.cz webpage (http://www.jedenweb.cz/)
- *
- * Copyright (c) 2012 Pavel Jurásek (jurasekpavel@ctyrimedia.cz), Vojtěch Jurásek (jurasek@ctyrimedia.cz)
- *
- * For the full copyright and license information, please view the file license.txt that was distributed with this source code.
- */
-
 namespace JedenWeb\Application\UI;
 
 use JedenWeb;
@@ -19,12 +11,18 @@ use Nette\Forms\ISubmitterControl;
 use Nette\Forms\Rules;
 use Nette\Forms\Controls;
 
+require_once __DIR__ . '/../../Forms/extensions.php';
+
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
+ * @method \Nette\Forms\Controls\TextInput addEmail($name, $label = NULL)
+ * @method \Nette\Forms\Controls\TextInput addUrl($name, $label = NULL)
+ * @method \Nette\Forms\Controls\TextInput addNumber($name, $label = NULL, $step = 1, $min = NULL, $max = NULL)
+ * @method \Nette\Forms\Controls\TextInput addRange($name, $label = NULL, $step = 1, $min = NULL, $max = NULL)
+ * @method \Nette\Forms\Controls\TextInput addSearch($name, $label = NULL)
  */
 class Form extends Nette\Application\UI\Form
 {
-
 
 	/**
 	 */
@@ -54,7 +52,7 @@ class Form extends Nette\Application\UI\Form
 			if ($this->getComponents()->count() === 0) { # form was created by operator new
 				$this->beforeSetup();
 				$this->setup();
-				$this->afterSetup();	
+				$this->afterSetup();
 			}
 			$this->attachHandlers();
 		}
@@ -255,124 +253,6 @@ class Form extends Nette\Application\UI\Form
 			return $container[$name] = new $class($label);
 		});
 	}
-	
-	
-	/**
-	 * @param string $name
-	 * @return Containers\Container
-	 */
-	public function addContainer($name)
-	{
-		$control = new \Nette\Forms\Container;
-		$control->currentGroup = $this->currentGroup;
-		
-		return $this[$name] = $control;
-	}
-
-
-	/**
-	 * Adds an email input control to the form.
-	 *
-	 * @param string	control name
-	 * @param string	label
-	 * @param int	width of the control
-	 * @param int	maximum number of characters the user may enter
-	 * @return \Nette\Forms\Controls\TextInput
-	 */
-	public function addEmail($name, $label = NULL, $maxLength = NULL)
-	{
-		$control = $this->addText($name, $label, NULL, $maxLength);
-		$control->setAttribute('type', 'email')->addCondition(self::FILLED)->addRule(self::EMAIL);
-		
-		return $control;
-	}
-
-
-	/**
-	 * Adds an url input control to the form.
-	 *
-	 * @param string	control name
-	 * @param string	label
-	 * @param int	width of the control
-	 * @param int	maximum number of characters the user may enter
-	 * @return \Nette\Forms\Controls\TextInput
-	 */
-	public function addUrl($name, $label = NULL, $maxLength = NULL)
-	{
-		$control = $this->addText($name, $label, NULL, $maxLength);
-		$control->setAttribute('type', "url")->addCondition(self::FILLED)->addRule(self::URL);
-		
-		return $control;
-	}
-
-
-	/**
-	 * Adds a number input control to the form.
-	 *
-	 * @param string	control name
-	 * @param string	label
-	 * @param int	incremental number
-	 * @param int	minimal value
-	 * @param int	maximal value
-	 * @return \Nette\Forms\Controls\TextInput
-	 */
-	public function addNumber($name, $label = NULL, $step = 1, $min = NULL, $max = NULL)
-	{
-		$control = $this->addText($name, $label);
-		$control->setAttribute('step', $step)->setAttribute('type', "number")
-			->addCondition(self::FILLED)->addRule(self::NUMERIC);
-		$range = array(NULL, NULL);
-		if ($min !== NULL) {
-			$control->setAttribute('min', $min);
-			$range[0] = $min;
-		}
-		if ($max !== NULL) {
-			$control->setAttribute('max', $max);
-			$range[1] = $max;
-		}
-		if ($range != array(NULL, NULL)) {
-			$control->addCondition(self::FILLED)->addRule(self::RANGE, NULL, $range);
-		}
-
-		return $control;
-	}
-
-	
-	/**
-	 * Adds a range input control to the form.
-	 *
-	 * @param string	control name
-	 * @param string	label
-	 * @param int	incremental number
-	 * @param int	minimal value
-	 * @param int	maximal value
-	 * @return \Nette\Forms\Controls\TextInput
-	 */
-	public function addRange($name, $label = NULL, $step = 1, $min = NULL, $max = NULL)
-	{
-		$control = $this->addNumber($name, $label, $step, $min, $max);
-		$control->setAttribute('type', "range");
-		
-		return $control;
-	}
-
-
-	/**
-	 * Adds search input control to the form.
-	 *
-	 * @param string	control name
-	 * @param string	label
-	 * @param int	width of the control
-	 * @param int	maximum number of characters the user may enter
-	 * @return \Nette\Forms\Controls\TextInput
-	 */
-	public function addSearch($name, $label = NULL, $maxLength = NULL)
-	{
-		$control = $this->addText($name, $label, NULL, $maxLength);
-		$control->setAttribute('type', "search");
-		
-		return $control;
-	}	
 
 }
 

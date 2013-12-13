@@ -1,6 +1,7 @@
 <?php
 
 use Nette\Forms\Container;
+use Nette\Forms\Form;
 
 /**
  * Adds an email input control to the form.
@@ -13,7 +14,7 @@ use Nette\Forms\Container;
  */
 Container::extensionMethod('addEmail', function(Container $container, $name, $label = NULL, $cols = NULL, $maxLength = NULL) {
 	$item = $container->addText($name, $label, $cols, $maxLength);
-	$item->setAttribute('type', 'email')->addCondition(self::FILLED)->addRule(self::EMAIL);
+	$item->setAttribute('type', 'email')->addCondition(Form::FILLED)->addRule(Form::EMAIL);
 	return $item;
 });
 
@@ -29,7 +30,7 @@ Container::extensionMethod('addEmail', function(Container $container, $name, $la
  */
 Container::extensionMethod('addUrl', function(Container $container, $name, $label = NULL, $cols = NULL, $maxLength = NULL) {
 	$item = $container->addText($name, $label, $cols, $maxLength);
-	$item->setAttribute('type', "url")->addCondition(self::FILLED)->addRule(self::URL);
+	$item->setAttribute('type', "url")->addCondition(Form::FILLED)->addRule(Form::URL);
 	return $item;	
 });
 
@@ -45,9 +46,9 @@ Container::extensionMethod('addUrl', function(Container $container, $name, $labe
  * @return \Nette\Forms\Controls\TextInput
  */
 Container::extensionMethod('addNumber', function(Container $container, $name, $label = NULL, $step = 1, $min = NULL, $max = NULL) {
-	$item = $this->addText($name, $label);
+	$item = $container->addText($name, $label);
 	$item->setAttribute('step', $step)->setAttribute('type', "number")
-		->addCondition(self::FILLED)->addRule(self::NUMERIC);
+		->addCondition(Form::FILLED)->addRule(Form::NUMERIC);
 	$range = array(NULL, NULL);
 	if ($min !== NULL) {
 		$item->setAttribute('min', $min);
@@ -58,7 +59,7 @@ Container::extensionMethod('addNumber', function(Container $container, $name, $l
 		$range[1] = $max;
 	}
 	if ($range != array(NULL, NULL)) {
-		$item->addCondition(self::FILLED)->addRule(self::RANGE, NULL, $range);
+		$item->addCondition(Form::FILLED)->addRule(Form::RANGE, NULL, $range);
 	}
 
 	return $item;
@@ -76,7 +77,7 @@ Container::extensionMethod('addNumber', function(Container $container, $name, $l
  * @return \Nette\Forms\Controls\TextInput
  */
 Container::extensionMethod('addRange', function(Container $container, $name, $label = NULL, $step = 1, $min = NULL, $max = NULL) {
-	$item = $this->addNumber($name, $label, $step, $min, $max);
+	$item = $container->addNumber($name, $label, $step, $min, $max);
 	return $item->setAttribute('type', "range");
 });
 
@@ -91,6 +92,6 @@ Container::extensionMethod('addRange', function(Container $container, $name, $la
  * @return \Nette\Forms\Controls\TextInput
  */
 Container::extensionMethod('addSearch', function(Container $container, $name, $label = NULL, $cols = NULL, $maxLength = NULL) {
-	$item = $this->addText($name, $label, $cols, $maxLength);
+	$item = $container->addText($name, $label, $cols, $maxLength);
 	return $item->setAttribute('type', "search");
 });

@@ -1,18 +1,12 @@
 <?php
 
-/**
- * This file is part of the www.jedenweb.cz webpage (http://www.jedenweb.cz/)
- *
- * Copyright (c) 2012 Pavel Jurásek (jurasekpavel@ctyrimedia.cz), Vojtěch Jurásek (jurasek@ctyrimedia.cz)
- */
-
 namespace JedenWeb\Forms\Controls;
 
 use JedenWeb;
 use Nette;
 
 /**
- * @todo Refractor!
+ * @todo Refactoring
  * Renderuje kazdy radio input jako radek tabulky, volitelne s rozsirenymi popisky
  */
 class ExtendedRadioList extends Nette\Forms\Controls\BaseControl

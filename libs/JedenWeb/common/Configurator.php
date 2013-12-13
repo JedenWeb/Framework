@@ -1,13 +1,5 @@
 <?php
 
-/**
- * This file is part of the www.jedenweb.cz webpage (http://www.jedenweb.cz/)
- *
- * Copyright (c) 2012 Pavel Jurásek (jurasekpavel@ctyrimedia.cz), Vojtěch Jurásek (jurasek@ctyrimedia.cz)
- *
- * For the full copyright and license information, please view the file license.txt that was distributed with this source code.
- */
-
 namespace JedenWeb;
 
 use JedenWeb;
@@ -56,8 +48,12 @@ class Configurator extends Nette\Configurator
 	 */
 	protected function getDefaultModules()
 	{
-		$adapter = new Adapters\NeonAdapter();
-		return $adapter->load($this->parameters["configDir"] . "/modules.neon");
+		$adapter = new DI\Config\Adapters\NeonAdapter;
+		
+		if (file_exists($this->parameters["configDir"] . "/modules.neon")) {
+			return $adapter->load($this->parameters["configDir"] . "/modules.neon");
+		}
+		return array();
 	}
 
 
@@ -69,7 +65,8 @@ class Configurator extends Nette\Configurator
 	{
 		if (!$this->moduleInstances) {
 			foreach ($this->modules as $module) {
-				$class = "\\" . ucfirst($module) . "Module\\Module";
+//				$class = "\\" . ucfirst($module) . "Module\\Module";
+				$class = "\\JedenWeb\\" . ucfirst($module) . "\\Module";
 				$this->moduleInstances[] = new $class;
 			}
 		}
@@ -94,16 +91,6 @@ class Configurator extends Nette\Configurator
 		$defaults['configDir'] = realpath($defaults['appDir'] . '/config');
 
 		return array_merge($defaults, $parameters);
-	}
-
-
-
-	/**
-	 * @param string $name
-	 */
-	public function setEnvironment($name)
-	{
-		$this->parameters["environment"] = $name;
 	}
 
 
@@ -148,30 +135,12 @@ class Configurator extends Nette\Configurator
 
 		// add default routes
 		$container->router[] = new Route('index.php', 'Homepage:default', Route::ONE_WAY);
-		
+
 
 		// initialize modules
 		foreach ($container->findByTag("module") as $module => $par) {
 			$container->{$module}->configure($container);
 		}
-
-
-//		$container->application->onRequest[] = function($application, $request) {
-//			$presenter = $request->presenterName;
-//			$errorPresenter = 'Error';
-//
-//			if(($pos = strrpos($presenter, ':')) !== false) {
-//				try {
-//					$errorPresenter = substr($presenter, 0, ($pos + 1)) . 'Error';
-//					$errorPresenterClass = $application->presenterFactory->createPresenter($errorPresenter);
-//				}
-//				catch (Nette\Application\InvalidPresenterException $e) {
-//					$errorPresenter = 'Error';
-//				}
-//			}
-//
-//			$application->errorPresenter = $errorPresenter;
-//		};
 
 		return $container;
 	}
@@ -185,7 +154,7 @@ class Configurator extends Nette\Configurator
 	{
 		$this->compiler = parent::createCompiler();
 		$this->compiler
-				->addExtension('jedenWeb', new Extensions\JedenWebExtension);
+				->addExtension('jedenWeb', new DI\Extensions\JedenWebExtension);
 
 		foreach ($this->getModuleInstances() as $instance) {
 			$instance->compile($this->compiler);
@@ -206,13 +175,6 @@ class Configurator extends Nette\Configurator
 			$this->parameters['configDir'] . "/config.local.neon",
 		);
 
-		foreach ($this->getModuleInstances() as $instance) {
-			$path = $instance->getPath() . "/public/config/config.neon";
-			if (is_file($path)) {
-				$configs[] = $path;
-			}
-		}
-
 		return $configs;
 	}
 
@@ -225,7 +187,6 @@ class Configurator extends Nette\Configurator
 	{
 		$this->robotLoader = $this->createRobotLoader();
 		$this->robotLoader
-//				->setCacheStorage(new \Nette\Caching\Storages\MemoryStorage)
 				->addDirectory($this->parameters["libsDir"])
 				->addDirectory($this->parameters["appDir"])
 				->register();
@@ -241,6 +202,7 @@ class Configurator extends Nette\Configurator
 	{
 		$logDirectory = $logDirectory ?: $this->parameters["logDir"];
 		
+		Nette\Diagnostics\Debugger::$showLocation = TRUE;
 		parent::enableDebugger($logDirectory, $email);
 	}
 

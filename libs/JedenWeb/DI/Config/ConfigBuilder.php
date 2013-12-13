@@ -1,13 +1,5 @@
 <?php
 
-/**
- * This file is part of the www.jedenweb.cz webpage (http://www.jedenweb.cz/)
- *
- * Copyright (c) 2012 Pavel Jurásek (jurasekpavel@ctyrimedia.cz), Vojtěch Jurásek (jurasek@ctyrimedia.cz)
- *
- * For the full copyright and license information, please view the file license.txt that was distributed with this source code.
- */
-
 namespace JedenWeb\DI\Config;
 
 use JedenWeb;
@@ -70,8 +62,9 @@ class ConfigBuilder extends Nette\Object implements \ArrayAccess, \Countable, \I
 
 
 
-	/* ------------------------------ Interfaces -------------------------------- */
+	/*********************** \Countable ***********************/
 
+	
 
 	/**
 	 * Returns items count.
@@ -82,6 +75,10 @@ class ConfigBuilder extends Nette\Object implements \ArrayAccess, \Countable, \I
 	{
 		return $this->count($this->data);
 	}
+	
+	
+	
+	/*********************** \IteratorAggregate ***********************/
 
 
 
@@ -94,6 +91,10 @@ class ConfigBuilder extends Nette\Object implements \ArrayAccess, \Countable, \I
 	{
 		return new \ArrayIterator($this->data);
 	}
+	
+	
+	
+	/*********************** \ArrayAccess ***********************/
 
 
 
