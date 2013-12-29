@@ -111,10 +111,6 @@ class Configurator extends Nette\Configurator
 		$this->compiler
 				->addExtension('jedenWeb', new DI\Extensions\JedenWebExtension);
 
-		foreach ($this->getModuleInstances() as $instance) {
-			$instance->compile($this->compiler);
-		}
-
 		return $this->compiler;
 	}
 
