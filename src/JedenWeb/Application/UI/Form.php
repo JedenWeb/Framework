@@ -210,7 +210,9 @@ class Form extends Nette\Application\UI\Form
 	{
 		if (is_array($values)) {
 			$values = array_map(function ($value) {
+
 				if (is_object($value) && (method_exists($value, '__toString'))) {
+
 					if (isset($value->id)) {
 						return (string) $value->id;
 					} else {
