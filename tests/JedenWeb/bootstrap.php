@@ -13,7 +13,7 @@ if (@!$loader = include __DIR__ . '/../../vendor/autoload.php') {
 }
 
 $loader->add('JedenWeb', __DIR__ . '/../../libs');
-require_once __DIR__ . '/../../libs/JedenWeb/common/Configurator.php';
+require_once __DIR__ . '/../../src/JedenWeb/common/Configurator.php';
 
 
 // configure environment
