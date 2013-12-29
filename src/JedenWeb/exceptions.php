@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Jan Tvrdík
+ */
+
 namespace JedenWeb;
 
 /**

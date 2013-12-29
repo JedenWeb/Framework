@@ -6,6 +6,7 @@ use JedenWeb;
 use Nette;
 
 /**
+ * @author Jáchym Toušek
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
  */
 class UserStorage extends Nette\Http\UserStorage

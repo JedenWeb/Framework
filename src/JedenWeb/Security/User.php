@@ -20,6 +20,7 @@ use Nette\Security\IAuthorizator;
 
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>
+ * @author Filip Procházka <filip.prochazka@kdyby.org>
  */
 class User extends Nette\Security\User
 {

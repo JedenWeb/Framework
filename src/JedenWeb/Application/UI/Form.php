@@ -152,6 +152,7 @@ class Form extends Nette\Application\UI\Form
 	
 
 	/**
+	 * @author Filip Procházka
 	 * @param array|\Kdyby\Events\Event|\Traversable $listeners
 	 * @param mixed $arg
 	 */
