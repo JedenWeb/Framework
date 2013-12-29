@@ -29,16 +29,6 @@ class Form extends Nette\Application\UI\Form
 	public function __construct()
 	{
 		parent::__construct();
-
-		Rules::$defaultMessages[$this::EQUAL] = 'Please enter %s.';
-		Rules::$defaultMessages[$this::FILLED] = 'Field "%label" is required.';
-		Rules::$defaultMessages[$this::MIN_LENGTH] = 'Field "%label" must be longer than %d chars.';
-		Rules::$defaultMessages[$this::MAX_LENGTH] = 'Field "%label" must be shorter than %d chars.';
-		Rules::$defaultMessages[$this::LENGTH] = 'Value of field "%label" must be longer than %d and shorter than %d chars.';
-		Rules::$defaultMessages[$this::EMAIL] = 'Field "%label" must be valid email address.';
-		Rules::$defaultMessages[$this::URL] = 'Field "%label" must be valid URL address.';
-		Rules::$defaultMessages[$this::IMAGE] = 'You can upload only JPEG, GIF or PNG files.';
-		Rules::$defaultMessages[$this::MAX_FILE_SIZE] = 'File size must be less than %d KB';
 	}
 
 
@@ -235,56 +225,5 @@ class Form extends Nette\Application\UI\Form
 
 		return parent::setDefaults($values, $erase);
 	}
-	
-	
-	
-	/*********************** controls ***********************/
-	
-	
-	
-	/**
-	 * @author Jiří Šifalda
-	 * @param string $name
-	 * @param string $class
-	 */
-	protected function addExtension($name, $class)
-	{
-		\Nette\Forms\Container::extensionMethod($name, function (\Nette\Forms\Container $container, $name, $label = null) use ($class){
-			return $container[$name] = new $class($label);
-		});
-	}
 
 }
-
-/*
-// extension methods
-Kdyby\Forms\Controls\CheckboxList::register();
-Kdyby\Forms\Controls\DateTimeInput::register();
-Kdyby\Forms\Containers\Replicator::register();
-
-// radio list helper
-RadioList::extensionMethod('getItemsOuterLabel', function (RadioList $_this) {
-	$items = array();
-	foreach ($_this->items as $key => $value) {
-		$html = $_this->getControl($key);
-		$html[1]->addClass('radio');
-
-		$items[$key] = $html[1] // label
-			->add($html[0]); // control
-	}
-
-	return $items;
-});
-
-// radio list helper
-RadioList::extensionMethod('getFirstItemLabel', function (RadioList $_this) {
-	$items = $_this->items;
-	$first = key($items);
-
-	$html = $_this->getControl($first);
-	$html[1]->addClass('control-label');
-	$html[1]->setText($_this->caption);
-
-	return $html[1];
-});
-*/

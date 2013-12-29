@@ -14,12 +14,6 @@ class Configurator extends Nette\Configurator
 
 	const CACHE_NAMESPACE = 'Nette.Configurator';
 
-	/** @var array */
-	protected $modules = array();
-
-	/** @var \JedenWeb\Module\IModule[] */
-	protected $moduleInstances = array();
-
 	/** @var \Nette\DI\Container */
 	protected $container;
 
@@ -37,40 +31,7 @@ class Configurator extends Nette\Configurator
 	public function __construct($params = array())
 	{
 		$this->parameters = $this->getDefaultParameters($params);
-		$this->modules = $this->getDefaultModules();
 		$this->setTempDirectory($this->parameters["tempDir"]);
-	}
-
-
-
-	/**
-	 * @return array
-	 */
-	protected function getDefaultModules()
-	{
-		$adapter = new DI\Config\Adapters\NeonAdapter;
-		
-		if (file_exists($this->parameters["configDir"] . "/modules.neon")) {
-			return $adapter->load($this->parameters["configDir"] . "/modules.neon");
-		}
-		return array();
-	}
-
-
-
-	/**
-	 * @return array
-	 */
-	protected function getModuleInstances()
-	{
-		if (!$this->moduleInstances) {
-			foreach ($this->modules as $module) {
-//				$class = "\\" . ucfirst($module) . "Module\\Module";
-				$class = "\\JedenWeb\\" . ucfirst($module) . "\\Module";
-				$this->moduleInstances[] = new $class;
-			}
-		}
-		return $this->moduleInstances;
 	}
 
 
@@ -136,12 +97,6 @@ class Configurator extends Nette\Configurator
 		// add default routes
 		$container->getService('router')->offsetSet(NULL, new Route('index.php', 'Homepage:default', Route::ONE_WAY));
 
-
-		// initialize modules
-		foreach ($container->findByTag("module") as $module => $par) {
-			$container->{$module}->configure($container);
-		}
-
 		return $container;
 	}
 
@@ -202,7 +157,6 @@ class Configurator extends Nette\Configurator
 	{
 		$logDirectory = $logDirectory ?: $this->parameters["logDir"];
 		
-		Nette\Diagnostics\Debugger::$showLocation = TRUE;
 		parent::enableDebugger($logDirectory, $email);
 	}
 

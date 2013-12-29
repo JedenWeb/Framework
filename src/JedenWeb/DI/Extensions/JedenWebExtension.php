@@ -4,7 +4,6 @@ namespace JedenWeb\DI\Extensions;
 
 use JedenWeb;
 use Nette;
-use Nette\Utils\Validators;
 
 /**
  * @author Pavel Jurásek <jurasekpavel@ctyrimedia.cz>

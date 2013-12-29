@@ -12,25 +12,6 @@ use Nette\DI\Container;
 class CompilerExtension extends Nette\DI\CompilerExtension
 {
 
-	const MACRO = "macro";
-
-	const HELPER = "helper";
-
-	const FORM = "form";
-
-	const ROUTE = "route";
-
-
-	/** @var array */
-	public static $types = array(
-		self::MACRO => "Macro",
-		self::HELPER => "Helper",
-		self::FORM => "Form",
-		self::ROUTE => "Route",
-	);
-
-
-
 	/**
 	 * @param string $tag
 	 * @return array
