@@ -3,6 +3,12 @@
     "type": "library",
     "description": "JedenWeb framework",
     "keywords": ["nette", "framework"],
+	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"authors": [
+		{
+			"name": "Pavel Jurasek"
+		}
+	],
 	"support": {
         "issues": "https://github.com/JedenWeb/Framework/issues"
     },
@@ -12,11 +18,5 @@
 	},
 	"require-dev": {
 		"nette/tester": "dev-master"
-	},
-	"autoload": {
-		"files": [
-			"libs/JedenWeb/exceptions.php",
-			"libs/JedenWeb/Forms/extensions.php"
-		]
 	}
 }
