@@ -46,7 +46,7 @@ class Configurator extends Nette\Configurator
 
 		$defaults['rootDir'] = realpath($defaults['wwwDir'] . '/..');
 		$defaults['appDir'] = realpath($defaults['rootDir'] . '/app');
-		$defaults['libsDir'] = realpath($defaults['rootDir'] . '/vendor');
+		$defaults['vendorDir'] = realpath($defaults['rootDir'] . '/vendor');
 		$defaults['tempDir'] = realpath($defaults['rootDir'] . '/temp');
 		$defaults['logDir'] = realpath($defaults['rootDir'] . '/log');
 		$defaults['configDir'] = realpath($defaults['appDir'] . '/config');
@@ -142,7 +142,7 @@ class Configurator extends Nette\Configurator
 	{
 		$this->robotLoader = $this->createRobotLoader();
 		$this->robotLoader
-				->addDirectory($this->parameters["libsDir"])
+				->addDirectory($this->parameters["vendorDir"])
 				->addDirectory($this->parameters["appDir"])
 				->register();
 	}
