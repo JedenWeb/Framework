@@ -39,16 +39,27 @@ class UserStorage extends Nette\Http\UserStorage
 		$section = parent::getSessionSection($need);
  
 		if ($section->authenticated && !$this->isIdentityValid($section->identity)) {
-			$section->authenticated = FALSE;
-			$section->reason = self::IDENTITY_CHANGED;
-			if ($section->expireIdentity) {
-				unset($section->identity);
-			}
-			unset($section->expireTime, $section->expireDelta, $section->expireIdentity,
-				$section->expireBrowser, $section->browserCheck, $section->authTime);
+			$this->invalidateUser($section);
 		}
  
 		return $section;
 	}
 
+	
+	
+	/**
+	 * Performs user invalidation
+	 * @param Nette\Http\SessionSection $section
+	 */
+	protected function invalidateUser(Nette\Http\SessionSection $section)
+	{
+		$section->authenticated = FALSE;
+		$section->reason = self::IDENTITY_CHANGED;
+		if ($section->expireIdentity) {
+			unset($section->identity);
+		}
+		unset($section->expireTime, $section->expireDelta, $section->expireIdentity,
+			$section->expireBrowser, $section->browserCheck, $section->authTime);
+	}
+	
 }
