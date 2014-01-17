@@ -17,6 +17,7 @@
 			"JedenWeb\\": "src/"
 		},
 		"files": [
+			"src/JedenWeb/common/Configurator.php",
 			"src/JedenWeb/common/exceptions.php",
 			"src/JedenWeb/loader.php"
 		]
