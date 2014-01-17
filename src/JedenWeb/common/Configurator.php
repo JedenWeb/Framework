@@ -31,7 +31,7 @@ class Configurator extends Nette\Configurator
 	public function __construct($params = array())
 	{
 		$this->parameters = $this->getDefaultParameters($params);
-		$this->setTempDirectory($this->parameters["tempDir"]);
+		$this->setTempDirectory($this->parameters['tempDir']);
 	}
 
 
@@ -86,15 +86,11 @@ class Configurator extends Nette\Configurator
 
 		// create container
 		$container = parent::createContainer();
-
-
-		// register robotLoader and configurator
-		if ($this->robotLoader) {
-			$container->addService("robotLoader", $this->robotLoader);
-		}
-		$container->addService("configurator", $this);
-
-		// add default routes
+		
+		// add Configurator to Container
+		$container->addService('configurator', $this);
+		
+		// setup default Route for Router
 		$container->getService('router')->offsetSet(NULL, new Route('index.php', 'Homepage:default', Route::ONE_WAY));
 
 		return $container;
@@ -132,14 +128,13 @@ class Configurator extends Nette\Configurator
 
 
 	/**
-	 * Enable robotLoader.
+	 * Enable robot loader
 	 */
 	public function enableRobotLoader()
 	{
 		$this->robotLoader = $this->createRobotLoader();
 		$this->robotLoader
-				->addDirectory($this->parameters["vendorDir"])
-				->addDirectory($this->parameters["appDir"])
+				->addDirectory($this->parameters['appDir'])
 				->register();
 	}
 
@@ -151,7 +146,7 @@ class Configurator extends Nette\Configurator
 	 */
 	public function enableDebugger($logDirectory = NULL, $email = NULL)
 	{
-		$logDirectory = $logDirectory ?: $this->parameters["logDir"];
+		$logDirectory = $logDirectory ?: $this->parameters['logDir'];
 		
 		parent::enableDebugger($logDirectory, $email);
 	}
