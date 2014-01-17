@@ -12,6 +12,15 @@
 	"support": {
         "issues": "https://github.com/JedenWeb/Framework/issues"
     },
+	"autoload": {
+		"psr-0": {
+			"JedenWeb\\": "src/"
+		},
+		"files": [
+			"src/JedenWeb/common/exceptions.php",
+			"src/JedenWeb/loader.php"
+		]
+	},
 	"require": {
 		"php" : ">=5.3",
 		"nette/nette": ">=2.1"
