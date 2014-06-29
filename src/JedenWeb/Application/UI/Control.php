@@ -36,7 +36,7 @@ abstract class Control extends Nette\Application\UI\Control
 
 
 	/**
-	 * @param type $obj
+	 * @param type
 	 * @throws \Nette\InvalidStateException
 	 */
 	protected function attached($obj)
@@ -54,7 +54,7 @@ abstract class Control extends Nette\Application\UI\Control
 	
 	
 	/**
-	 * @param string $name
+	 * @param string
 	 * @return \Nette\ComponentModel\IComponent
 	 */
 	protected function createComponent($name)
@@ -71,7 +71,7 @@ abstract class Control extends Nette\Application\UI\Control
 	/**
 	 * Checks for requirements such as authorization.
 	 *
-	 * @param \Reflector $element
+	 * @param \Reflector
 	 *
 	 * @return void
 	 */
@@ -85,9 +85,9 @@ abstract class Control extends Nette\Application\UI\Control
 	
 	/**
 	 * 
-	 * @param string $message
-	 * @param string $type
-	 * @param bool $withoutSession
+	 * @param string
+	 * @param string
+	 * @param bool
 	 * @return \stdClass
 	 */
 	public function flashMessage($message, $type = 'info', $withoutSession = FALSE)
@@ -110,7 +110,7 @@ abstract class Control extends Nette\Application\UI\Control
 	
 
 	/**
-	 * @param string|NULL $class
+	 * @param string|NULL
 	 *
 	 * @return \Nette\Templating\FileTemplate
 	 */

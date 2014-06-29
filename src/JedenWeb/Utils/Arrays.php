@@ -35,8 +35,8 @@ final class Arrays extends Nette\Object
 
 	/**
 	 * Mirror of Nette\Utils\Arrays
-	 * @param string $name
-	 * @param array $args
+	 * @param string
+	 * @param array
 	 * @return mixed
 	 */
 	public static function __callStatic($name, $args)
@@ -47,9 +47,9 @@ final class Arrays extends Nette\Object
 
 	
 	/**
-	 * @param array $array
-	 * @param mixed $column
-	 * @param mixed $value
+	 * @param array
+	 * @param mixed
+	 * @param mixed
 	 * @return mixed
 	 */
 	public static function keyBySubcolumn($array, $column, $value)
@@ -65,8 +65,8 @@ final class Arrays extends Nette\Object
 
 	/**
 	 * Returns array of $column from multi array
-	 * @param type $array
-	 * @param type $column
+	 * @param type
+	 * @param type
 	 * @return type
 	 */
 	public static function fetchColumn($array, $column)
@@ -82,9 +82,9 @@ final class Arrays extends Nette\Object
 	
 	/**
 	 * Returns array of $key => $value from multi array
-	 * @param array $array
-	 * @param string $key
-	 * @param string $value
+	 * @param array
+	 * @param string
+	 * @param string
 	 * @return array
 	 */
 	public static function fetchPairs($array, $key, $value)
@@ -99,9 +99,9 @@ final class Arrays extends Nette\Object
 
 
 	/**
-	 * @param array $array
-	 * @param array|string $columns
-	 * @param bool $append
+	 * @param array
+	 * @param array|string
+	 * @param bool
 	 *
 	 * @return array
 	 */
@@ -140,9 +140,9 @@ final class Arrays extends Nette\Object
 
 	/**
 	 * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
-	 * @param mixed $array
-	 * @param mixed $subkey
-	 * @param int $sortType
+	 * @param mixed
+	 * @param mixed
+	 * @param int
 	 * @return mixed
 	 */
 	public static function sortBySubkey(&$array, $subkey, $sortType = SORT_ASC) {
@@ -158,8 +158,8 @@ final class Arrays extends Nette\Object
 
 
 	/**
-	 * @param array $array
-	 * @param callable $callback
+	 * @param array
+	 * @param callable
 	 * @return array
 	 */
 	public static function flatMap(array $array, $callback = NULL)
@@ -179,8 +179,8 @@ final class Arrays extends Nette\Object
 
 
 	/**
-	 * @param array $array
-	 * @param callable $callback
+	 * @param array
+	 * @param callable
 	 * @return array
 	 */
 	public static function flatFilter(array $array, $filter = NULL)
@@ -195,8 +195,8 @@ final class Arrays extends Nette\Object
 
 
 	/**
-	 * @param array|\Traversable $array
-	 * @param callback $callback
+	 * @param array|\Traversable
+	 * @param callback
 	 * @return array
 	 */
 	public static function flatMapAssoc($array, $callback)
@@ -222,7 +222,7 @@ final class Arrays extends Nette\Object
 
 
 	/**
-	 * @param array $arr
+	 * @param array
 	 * @param bool $strict Throws exception when keys collide
 	 * @return array
 	 * @throws JedenWeb\InvalidStateException
@@ -248,9 +248,9 @@ final class Arrays extends Nette\Object
 
 	
 	/**
-	 * @param array $arr
-	 * @param array $key
-	 * @param callable $callback
+	 * @param array
+	 * @param array
+	 * @param callable
 	 * @return mixed
 	 */
 	public static function callOnRef(& $arr, $key, $callback)
@@ -266,8 +266,8 @@ final class Arrays extends Nette\Object
 	
 	/**
 	 * Diff two arrays by key and preserves them
-	 * @param array $array1
-	 * @param array $array2
+	 * @param array
+	 * @param array
 	 */
 	public static function diffKeys(array $array1, array $array2)
 	{
@@ -283,9 +283,9 @@ final class Arrays extends Nette\Object
 
 
 	/**
-	 * @param array $arr
-	 * @param string $start
-	 * @param string $end
+	 * @param array
+	 * @param string
+	 * @param string
 	 * @return array
 	 */
 	public static function sliceAssoc(array $arr, $start, $end = NULL)
@@ -309,8 +309,8 @@ final class Arrays extends Nette\Object
 
 
 	/**
-	 * @param array $one
-	 * @param array $two
+	 * @param array
+	 * @param array
 	 *
 	 * @return array
 	 */

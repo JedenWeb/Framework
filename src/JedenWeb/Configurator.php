@@ -26,7 +26,7 @@ class Configurator extends Nette\Configurator
 
 
 	/**
-	 * @param array $params
+	 * @param array
 	 */
 	public function __construct($params = array())
 	{
@@ -37,7 +37,7 @@ class Configurator extends Nette\Configurator
 
 
 	/**
-	 * @param array $parameters
+	 * @param array
 	 * @return array
 	 */
 	protected function getDefaultParameters($parameters = array())
@@ -141,8 +141,8 @@ class Configurator extends Nette\Configurator
 
 
 	/**
-	 * @param string $logDirectory
-	 * @param string $email
+	 * @param string
+	 * @param string
 	 */
 	public function enableDebugger($logDirectory = NULL, $email = NULL)
 	{

@@ -31,7 +31,7 @@ class Json extends Nette\Object
 
 	/**
 	 * Returns the JSON representation of a value.
-	 * @param mixed $value
+	 * @param mixed
 	 * @return string
 	 */
 	public static function encode($value, $pretty = self::FORMAT_COMPACT)
@@ -48,7 +48,7 @@ class Json extends Nette\Object
 	/**
 	 * Decodes a JSON string.
 	 * @param string $json JSON string or filename
-	 * @param int $options
+	 * @param int
 	 * @return mixed
 	 */
 	public static function decode($json, $options = 0)
@@ -67,9 +67,9 @@ class Json extends Nette\Object
 	 * Formats JSON
 	 * @see http://au.php.net/manual/en/function.json-encode.php#80339
 	 *
-	 * @param string $json
-	 * @param object $jsonObj
-	 * @param string $tab
+	 * @param string
+	 * @param object
+	 * @param string
 	 *
 	 * @return string
 	 */

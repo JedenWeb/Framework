@@ -13,8 +13,8 @@ class CompilerExtension extends Nette\DI\CompilerExtension
 {
 
 	/**
-	 * @param string $name
-	 * @param string $installer
+	 * @param string
+	 * @param string
 	 * @return \Nette\DI\ServiceDefinition
 	 */
 	public function addMacro($name, $installer)
@@ -34,8 +34,8 @@ class CompilerExtension extends Nette\DI\CompilerExtension
 
 
 	/**
-	 * @param string $class
-	 * @param string $name
+	 * @param string
+	 * @param string
 	 */
 	protected function addHelper($name, $installer)
 	{

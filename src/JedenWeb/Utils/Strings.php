@@ -24,8 +24,8 @@ final class Strings extends Nette\Object
 
 	/**
 	 * Mirror of Nette\Utils\Arrays
-	 * @param string $name
-	 * @param array $args
+	 * @param string
+	 * @param array
 	 * @return mixed
 	 */
 	public static function __callStatic($name, $args)
@@ -36,9 +36,9 @@ final class Strings extends Nette\Object
 	
 	
 	/**
-	 * @param string $needle
-	 * @param string $haystack
-	 * @param int $offset
+	 * @param string
+	 * @param string
+	 * @param int
 	 * @return int|FALSE
 	 */
 	public static function strpos($needle, $haystack, $offset = 1)
@@ -59,9 +59,9 @@ final class Strings extends Nette\Object
 	
 	/**
 	 * 
-	 * @param string $needle
-	 * @param string $haystack
-	 * @param int $offset
+	 * @param string
+	 * @param string
+	 * @param int
 	 * @return int|FALSE
 	 */
 	public static function strrpos($needle, $haystack, $offset = 1)

@@ -11,7 +11,7 @@ class Validators extends Nette\Utils\Validators
 {
 
 	/**
-	 * @param string|int $number
+	 * @param string|int
 	 * @return boolean
 	 */
 	public static function isCreditCard($number)

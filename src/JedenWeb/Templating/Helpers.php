@@ -16,8 +16,8 @@ class Helpers extends Nette\Object
 
 
 	/**
-	 * @param string $name
-	 * @param callable $factory
+	 * @param string
+	 * @param callable
 	 */
 	public function addHelper($name, $factory)
 	{

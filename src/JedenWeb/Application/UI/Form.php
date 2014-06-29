@@ -34,7 +34,7 @@ class Form extends Nette\Application\UI\Form
 
 	
 	/**
-	 * @param \Nette\ComponentModel\Container $obj
+	 * @param \Nette\ComponentModel\Container
 	 */
 	protected function attached($obj)
 	{
@@ -153,8 +153,8 @@ class Form extends Nette\Application\UI\Form
 
 	/**
 	 * @author Filip Procházka
-	 * @param array|\Kdyby\Events\Event|\Traversable $listeners
-	 * @param mixed $arg
+	 * @param array|\Kdyby\Events\Event|\Traversable
+	 * @param mixed
 	 */
 	protected function dispatchEvent($listeners, $arg = NULL)
 	{
@@ -191,7 +191,7 @@ class Form extends Nette\Application\UI\Form
 	
 	/**
 	 * @author Jiří Šifalda
-	 * @param array $defaults
+	 * @param array
 	 */
 	public function restore(array $defaults = array())
 	{
@@ -203,8 +203,8 @@ class Form extends Nette\Application\UI\Form
 	
 	/**
 	 * @author Jiří Šifalda
-	 * @param array|\Nette\Forms\Traversable $values
-	 * @param bool $erase
+	 * @param array|\Nette\Forms\Traversable
+	 * @param bool
 	 * @return \Nette\Forms\Container
 	 */
 	public function setDefaults($values, $erase = false)

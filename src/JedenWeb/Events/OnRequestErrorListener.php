@@ -12,8 +12,8 @@ class OnRequestErrorListener extends Nette\Object implements \Kdyby\Events\Subsc
 {
 	
 	/**
-	 * @param \Nette\Application\Application $application
-	 * @param \Nette\Application\Request $request
+	 * @param \Nette\Application\Application
+	 * @param \Nette\Application\Request
 	 */
 	public function onRequest(Application\Application $application, Application\Request $request)
 	{

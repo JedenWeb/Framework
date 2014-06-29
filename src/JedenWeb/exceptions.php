@@ -51,9 +51,9 @@ class MemberAccessException extends \LogicException
 {
 
 	/**
-	 * @param string $type
-	 * @param string|object $class
-	 * @param string $property
+	 * @param string
+	 * @param string|object
+	 * @param string
 	 *
 	 * @return \JedenWeb\MemberAccessException
 	 */
@@ -66,7 +66,7 @@ class MemberAccessException extends \LogicException
 
 
 	/**
-	 * @param string|object $class
+	 * @param string|object
 	 *
 	 * @return \JedenWeb\MemberAccessException
 	 */
@@ -79,9 +79,9 @@ class MemberAccessException extends \LogicException
 
 
 	/**
-	 * @param string $type
-	 * @param string|object $class
-	 * @param string $property
+	 * @param string
+	 * @param string|object
+	 * @param string
 	 *
 	 * @return \JedenWeb\MemberAccessException
 	 */
@@ -94,7 +94,7 @@ class MemberAccessException extends \LogicException
 
 
 	/**
-	 * @param string|object $class
+	 * @param string|object
 	 *
 	 * @return \JedenWeb\MemberAccessException
 	 */
@@ -107,7 +107,7 @@ class MemberAccessException extends \LogicException
 
 
 	/**
-	 * @param string|object $class
+	 * @param string|object
 	 *
 	 * @return MemberAccessException
 	 */
@@ -120,8 +120,8 @@ class MemberAccessException extends \LogicException
 
 
 	/**
-	 * @param object|string $class
-	 * @param string $method
+	 * @param object|string
+	 * @param string
 	 *
 	 * @return \JedenWeb\MemberAccessException
 	 */
@@ -149,7 +149,7 @@ class FileNotFoundException extends IOException
 {
 
 	/**
-	 * @param string $file
+	 * @param string
 	 *
 	 * @return \JedenWeb\FileNotWritableException
 	 */
@@ -169,7 +169,7 @@ class FileNotWritableException extends IOException
 {
 
 	/**
-	 * @param string $file
+	 * @param string
 	 * @return \JedenWeb\FileNotWritableException
 	 */
 	public static function fromFile($file)
@@ -188,7 +188,7 @@ class DirectoryNotFoundException extends IOException
 {
 
 	/**
-	 * @param string $directory
+	 * @param string
 	 *
 	 * @return \JedenWeb\DirectoryNotWritableException
 	 */
@@ -208,7 +208,7 @@ class DirectoryNotWritableException extends IOException
 {
 
 	/**
-	 * @param string $directory
+	 * @param string
 	 * @return \JedenWeb\DirectoryNotWritableException
 	 */
 	public static function fromDir($directory)
@@ -241,9 +241,9 @@ class UnexpectedValueException extends \UnexpectedValueException
 {
 
 	/**
-	 * @param mixed $list
-	 * @param string|object $class
-	 * @param string $property
+	 * @param mixed
+	 * @param string|object
+	 * @param string
 	 *
 	 * @return \JedenWeb\UnexpectedValueException
 	 */
@@ -256,8 +256,8 @@ class UnexpectedValueException extends \UnexpectedValueException
 
 
 	/**
-	 * @param string|object $class
-	 * @param string $property
+	 * @param string|object
+	 * @param string
 	 *
 	 * @return \JedenWeb\UnexpectedValueException
 	 */
@@ -270,8 +270,8 @@ class UnexpectedValueException extends \UnexpectedValueException
 
 
 	/**
-	 * @param string|object $class
-	 * @param string $property
+	 * @param string|object
+	 * @param string
 	 *
 	 * @return \JedenWeb\UnexpectedValueException
 	 */

@@ -20,7 +20,7 @@ class FilterRoute extends Nette\Application\Routers\Route
 
 
     /**
-     * @param \Nette\Http\IRequest $httpRequest
+     * @param \Nette\Http\IRequest
      * @return \Nette\Application\Request|NULL
      */
     public function match(\Nette\Http\IRequest $httpRequest)
@@ -40,8 +40,8 @@ class FilterRoute extends Nette\Application\Routers\Route
 
 
     /**
-     * @param \Nette\Application\Request $appRequest
-     * @param Nette\Web\Uri $refUri
+     * @param \Nette\Application\Request
+     * @param Nette\Web\Uri
      * @return string
      */
     public function constructUrl(\Nette\Application\Request $appRequest, \Nette\Http\Url $refUri)
@@ -57,9 +57,9 @@ class FilterRoute extends Nette\Application\Routers\Route
 
 
     /**
-     * @param string $param
-     * @param callable $in
-     * @param callable $out
+     * @param string
+     * @param callable
+     * @param callable
      * @return FilterRoute
      */
     public function addFilter($param, $in, $out = NULL)
@@ -85,7 +85,7 @@ class FilterRoute extends Nette\Application\Routers\Route
 
 
     /**
-     * @param \Nette\Application\Request $appRequest
+     * @param \Nette\Application\Request
      * @return array
      */
     private function getRequestParams(\Nette\Application\Request $appRequest)
@@ -118,8 +118,8 @@ class FilterRoute extends Nette\Application\Routers\Route
 
 
     /**
-     * @param \Nette\Application\Request $appRequest
-     * @param array $params
+     * @param \Nette\Application\Request
+     * @param array
      * @return \Nette\Application\Request
      */
     private function setRequestParams(\Nette\Application\Request $appRequest, array $params)
@@ -150,9 +150,9 @@ class FilterRoute extends Nette\Application\Routers\Route
 
 
     /**
-     * @param array $params
-     * @param \Nette\Application\Request $request
-     * @param string $way
+     * @param array
+     * @param \Nette\Application\Request
+     * @param string
      */
     private function doFilterParams($params, \Nette\Application\Request $request, $way)
     {

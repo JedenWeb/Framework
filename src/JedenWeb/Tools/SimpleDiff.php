@@ -17,8 +17,8 @@ class SimpleDiff extends Nette\Object
 {
 
 	/**
-	 * @param array $old
-	 * @param array $new
+	 * @param array
+	 * @param array
 	 * @return array
 	 */
     public function diff(array $old, array $new)

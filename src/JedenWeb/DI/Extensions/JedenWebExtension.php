@@ -42,7 +42,7 @@ class JedenWebExtension extends JedenWeb\DI\CompilerExtension
 
 
 	/**
-	 * @param Nette\PhpGenerator\ClassType $class
+	 * @param Nette\PhpGenerator\ClassType
 	 */
 	public function afterCompile(Nette\PhpGenerator\ClassType $class)
 	{

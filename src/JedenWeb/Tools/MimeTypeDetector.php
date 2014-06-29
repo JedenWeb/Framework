@@ -474,8 +474,8 @@ final class MimeTypeDetector extends Nette\Object
 
 
 	/**
-	 * @param string $extension
-	 * @param bool $need
+	 * @param string
+	 * @param bool
 	 *
 	 * @return string
 	 * @throws JedenWeb\InvalidArgumentException
@@ -492,8 +492,8 @@ final class MimeTypeDetector extends Nette\Object
 
 
 	/**
-	 * @param string $mimeType
-	 * @param bool $need
+	 * @param string
+	 * @param bool
 	 *
 	 * @return string
 	 * @throws JedenWeb\InvalidArgumentException

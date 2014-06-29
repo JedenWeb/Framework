@@ -19,7 +19,7 @@ class UserStorage extends Nette\Http\UserStorage
 	
 	/**
 	 * Checks if the identity is still valid.
-	 * @param \Nette\Security\IIdentity $identity
+	 * @param \Nette\Security\IIdentity
 	 * @return bool
 	 */
 	protected function isIdentityValid(Nette\Security\IIdentity $identity)
@@ -31,7 +31,7 @@ class UserStorage extends Nette\Http\UserStorage
 	
 	/**
 	 * Returns and initializes $this->sessionSection.
-	 * @param bool $need
+	 * @param bool
 	 * @return Nette\Http\SessionSection
 	 */
 	protected function getSessionSection($need)
@@ -49,7 +49,7 @@ class UserStorage extends Nette\Http\UserStorage
 	
 	/**
 	 * Performs user invalidation
-	 * @param Nette\Http\SessionSection $section
+	 * @param Nette\Http\SessionSection
 	 */
 	protected function invalidateUser(Nette\Http\SessionSection $section)
 	{

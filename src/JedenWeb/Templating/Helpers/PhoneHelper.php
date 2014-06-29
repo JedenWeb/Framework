@@ -18,8 +18,8 @@ class PhoneHelper extends Nette\Object
 	
 	
 	/**
-	 * @param string $s
-	 * @param string $country
+	 * @param string
+	 * @param string
 	 * @return string
 	 */
 	public static function phone($s, $country = 'cz', $prefix = '+') {

@@ -11,7 +11,7 @@ class PluralHelper extends Nette\Object
 {	
 	
 	/**
-	 * @param string $s
+	 * @param string
 	 * @return string
 	 */
 	public static function plural($n) {

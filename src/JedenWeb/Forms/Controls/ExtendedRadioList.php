@@ -50,7 +50,7 @@ class ExtendedRadioList extends Nette\Forms\Controls\BaseControl
 	
 	/**
      * Setter pro $descriptions
-     * @param array $desc
+     * @param array
      * @return void
      */
 	public function setDescriptions(array $desc)

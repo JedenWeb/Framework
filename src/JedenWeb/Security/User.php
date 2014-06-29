@@ -26,8 +26,8 @@ class User extends Nette\Security\User
 {
 	
 	/**
-	 * @param \Nette\Reflection\ClassType|\Nette\Reflection\Method $element
-	 * @param string $message
+	 * @param \Nette\Reflection\ClassType|\Nette\Reflection\Method
+	 * @param string
 	 *
 	 * @throws \Nette\Application\ForbiddenRequestException
 	 * @throws \JedenWeb\UnexpectedValueException
@@ -52,7 +52,7 @@ class User extends Nette\Security\User
 	
 	
 	/**
-	 * @param \Reflector $element
+	 * @param \Reflector
 	 * @throws ForbiddenRequestException
 	 */
 	private function checkLogged(\Reflector $element, $message = NULL)
@@ -71,7 +71,7 @@ class User extends Nette\Security\User
 	
 	
 	/**
-	 * @param \Reflector $element
+	 * @param \Reflector
 	 * @throws ForbiddenRequestException
 	 */
 	private function checkRole(\Reflector $element, $message = NULL)
@@ -102,7 +102,7 @@ class User extends Nette\Security\User
 	
 	
 	/**
-	 * @param \Reflector $element
+	 * @param \Reflector
 	 * @throws JedenWeb\UnexpectedValueException
 	 */
 	private function checkPermission(\Reflector $element, $message = NULL)
@@ -123,9 +123,9 @@ class User extends Nette\Security\User
 	
 	
 	/**
-	 * @param string $resource
-	 * @param string $privilege
-	 * @param string $message
+	 * @param string
+	 * @param string
+	 * @param string
 	 *
 	 * @throws \Nette\Application\ForbiddenRequestException
 	 */

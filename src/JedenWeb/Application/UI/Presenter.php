@@ -18,7 +18,7 @@ class Presenter extends Nette\Application\UI\Presenter
 
 	/**
 	 * @author  Jiří Šifalda
-	 * @param string $name
+	 * @param string
 	 * @return \Nette\Application\UI\Multiplier|\Nette\ComponentModel\IComponent
 	 */
 	protected function createComponent($name)
@@ -47,7 +47,7 @@ class Presenter extends Nette\Application\UI\Presenter
 	/**
 	 * Checks for requirements such as authorization.
 	 *
-	 * @param \Reflector $element
+	 * @param \Reflector
 	 *
 	 * @return void
 	 */
@@ -61,9 +61,9 @@ class Presenter extends Nette\Application\UI\Presenter
 	
 	/**
 	 * 
-	 * @param string $message
-	 * @param string $type
-	 * @param bool $withoutSession
+	 * @param string
+	 * @param string
+	 * @param bool
 	 * @return \stdClass
 	 */
 	public function flashMessage($message, $type = 'info', $withoutSession = FALSE)
@@ -108,7 +108,7 @@ class Presenter extends Nette\Application\UI\Presenter
 
 
 	/**
-	 * @param string $module
+	 * @param string
 	 * @return boolean
 	 */
 	public function isModuleCurrent($module)
