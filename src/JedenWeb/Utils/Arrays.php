@@ -22,15 +22,12 @@ final class Arrays extends Nette\Object
 {
 
 	/**
-	 * Static class - cannot be instantiated.
-	 *
 	 * @throws \JedenWeb\StaticClassException
 	 */
 	final public function __construct()
 	{
 		throw new JedenWeb\StaticClassException;
 	}
-
 
 
 	/**
@@ -45,7 +42,6 @@ final class Arrays extends Nette\Object
 	}
 
 
-	
 	/**
 	 * @param array
 	 * @param mixed
@@ -59,9 +55,8 @@ final class Arrays extends Nette\Object
 				return $k;
 			}
 		}
-	}	
-	
-	
+	}
+
 
 	/**
 	 * Returns array of $column from multi array
@@ -77,9 +72,8 @@ final class Arrays extends Nette\Object
 		}
 		return $ret;
 	}
-	
-	
-	
+
+
 	/**
 	 * Returns array of $key => $value from multi array
 	 * @param array
@@ -94,8 +88,7 @@ final class Arrays extends Nette\Object
 			$ret[$row[$key]] = $row[$value];
 		}
 		return $ret;
-	}	
-
+	}
 
 
 	/**
@@ -113,11 +106,11 @@ final class Arrays extends Nette\Object
 
 		$grouped = array();
 		foreach ($array as $item) {
-			
+
 			$keys = array_map(function ($key) use ($item) {
 				return is_object($item) ? $item->$key : $item[$key];
 			}, $columns);
-			
+
 			$ref =& Nette\Utils\Arrays::getRef($grouped, $keys);
 			if ($append) {
 				if (!is_array($ref)) {
@@ -134,7 +127,7 @@ final class Arrays extends Nette\Object
 		return $grouped;
 	}
 
-	
+
 //	uasort($res, function ($a, $b) { return $a['position'] - $b['position']; }); # sort with preserving keys
 
 
@@ -154,7 +147,6 @@ final class Arrays extends Nette\Object
 		}
 		return $array;
 	}
-
 
 
 	/**
@@ -177,7 +169,6 @@ final class Arrays extends Nette\Object
 	}
 
 
-
 	/**
 	 * @param array
 	 * @param callable
@@ -191,7 +182,6 @@ final class Arrays extends Nette\Object
 
 		return array_filter(self::flatMap($array), callback($filter));
 	}
-
 
 
 	/**
@@ -220,7 +210,6 @@ final class Arrays extends Nette\Object
 	}
 
 
-
 	/**
 	 * @param array
 	 * @param bool $strict Throws exception when keys collide
@@ -246,7 +235,6 @@ final class Arrays extends Nette\Object
 	}
 
 
-	
 	/**
 	 * @param array
 	 * @param array
@@ -261,9 +249,8 @@ final class Arrays extends Nette\Object
 
 		return $callback(Nette\Utils\Arrays::getRef($arr, $key));
 	}
-	
-	
-	
+
+
 	/**
 	 * Diff two arrays by key and preserves them
 	 * @param array
@@ -278,8 +265,7 @@ final class Arrays extends Nette\Object
 			}
 		}
 		return $res;
-	}	
-
+	}
 
 
 	/**
@@ -305,7 +291,6 @@ final class Arrays extends Nette\Object
 		}
 		return $sliced;
 	}
-
 
 
 	/**

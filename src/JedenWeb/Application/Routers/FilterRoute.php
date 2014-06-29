@@ -18,7 +18,6 @@ class FilterRoute extends Nette\Application\Routers\Route
     private $filters = array();
 
 
-
     /**
      * @param \Nette\Http\IRequest
      * @return \Nette\Application\Request|NULL
@@ -38,7 +37,6 @@ class FilterRoute extends Nette\Application\Routers\Route
     }
 
 
-
     /**
      * @param \Nette\Application\Request
      * @param Nette\Web\Uri
@@ -53,7 +51,6 @@ class FilterRoute extends Nette\Application\Routers\Route
 
         return NULL;
     }
-
 
 
     /**
@@ -73,7 +70,6 @@ class FilterRoute extends Nette\Application\Routers\Route
     }
 
 
-
     /**
      * @return array
      */
@@ -81,7 +77,6 @@ class FilterRoute extends Nette\Application\Routers\Route
     {
         return $this->filters;
     }
-
 
 
     /**
@@ -116,7 +111,6 @@ class FilterRoute extends Nette\Application\Routers\Route
     }
 
 
-
     /**
      * @param \Nette\Application\Request
      * @param array
@@ -146,7 +140,6 @@ class FilterRoute extends Nette\Application\Routers\Route
 
         return $appRequest;
     }
-
 
 
     /**

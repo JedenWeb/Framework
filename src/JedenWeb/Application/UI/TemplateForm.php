@@ -12,12 +12,10 @@ class TemplateForm extends Form
 	protected $template;
 
 
-
 	public function __construct()
 	{
 		parent::__construct();
 	}
-
 
 
 	/**
@@ -30,7 +28,6 @@ class TemplateForm extends Form
 	}
 
 
-
 	/**
 	 * @return \Nette\Templating\ITemplate
 	 */
@@ -39,7 +36,6 @@ class TemplateForm extends Form
 		$template = clone $this->getPresenter()->getTemplate();
 		return $template->setFile($this->getTemplateFile());
 	}
-
 
 
 	/**
@@ -53,7 +49,6 @@ class TemplateForm extends Form
 
 		return $this->template;
 	}
-
 
 
 	public function render()

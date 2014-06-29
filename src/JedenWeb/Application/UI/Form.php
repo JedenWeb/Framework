@@ -24,15 +24,12 @@ require_once __DIR__ . '/../../Forms/extensions.php';
 class Form extends Nette\Application\UI\Form
 {
 
-	/**
-	 */
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
 
-	
 	/**
 	 * @param \Nette\ComponentModel\Container
 	 */
@@ -49,28 +46,24 @@ class Form extends Nette\Application\UI\Form
 
 		parent::attached($obj);
 	}
-	
-	
-	
+
+
 	/**
 	 * Method called before controls are attached
 	 */
 	protected function beforeSetup() {}
 
 
-	
 	/**
 	 * Method where controls should be attached
 	 */
 	protected function setup() {}
 
 
-	
 	/**
 	 * Method called after controls are attached
 	 */
-	protected function afterSetup() {}	
-	
+	protected function afterSetup() {}
 
 
 	/**
@@ -83,7 +76,6 @@ class Form extends Nette\Application\UI\Form
 	{
 		return $this->lookupPath('Nette\Application\UI\Presenter', TRUE);
 	}
-
 
 
 	/**
@@ -121,7 +113,6 @@ class Form extends Nette\Application\UI\Form
 	}
 
 
-
 	/**
 	 * Fires send/click events.
 	 * @return void
@@ -149,7 +140,6 @@ class Form extends Nette\Application\UI\Form
 		}
 	}
 
-	
 
 	/**
 	 * @author Filip Procházka
@@ -162,13 +152,13 @@ class Form extends Nette\Application\UI\Form
 		$listeners = array_shift($args);
 
 		if ($listeners instanceof Kdyby\Events\Event) {
-			
+
 			return $listeners->dispatch($args);
 
 		}
-		
+
 		foreach ((array) $listeners as $handler) {
-			
+
 			if ($handler instanceof Nette\Application\UI\Link) {
 
 				/** @var \Nette\Application\UI\Link $handler */
@@ -188,7 +178,6 @@ class Form extends Nette\Application\UI\Form
 	}
 
 
-	
 	/**
 	 * @author Jiří Šifalda
 	 * @param array
@@ -198,9 +187,8 @@ class Form extends Nette\Application\UI\Form
 		$this->setDefaults($defaults, true);
 		$this->setValues($defaults, true);
 	}
-	
-	
-	
+
+
 	/**
 	 * @author Jiří Šifalda
 	 * @param array|\Nette\Forms\Traversable
@@ -221,7 +209,7 @@ class Form extends Nette\Application\UI\Form
 					}
 
 				}
-				
+
 				return $value;
 			}, $values);
 		}

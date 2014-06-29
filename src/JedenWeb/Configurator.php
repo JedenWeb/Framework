@@ -24,7 +24,6 @@ class Configurator extends Nette\Configurator
 	protected $compiler;
 
 
-
 	/**
 	 * @param array
 	 */
@@ -33,7 +32,6 @@ class Configurator extends Nette\Configurator
 		$this->parameters = $this->getDefaultParameters($params);
 		$this->setTempDirectory($this->parameters['tempDir']);
 	}
-
 
 
 	/**
@@ -55,7 +53,6 @@ class Configurator extends Nette\Configurator
 	}
 
 
-
 	/**
 	 * @return \Nette\DI\Container
 	 */
@@ -69,10 +66,7 @@ class Configurator extends Nette\Configurator
 	}
 
 
-
 	/**
-	 * Loads configuration from file and process it.
-	 *
 	 * @return \Nette\DI\Container
 	 */
 	public function createContainer()
@@ -83,23 +77,18 @@ class Configurator extends Nette\Configurator
 			}
 		}
 
-
-		// create container
 		$container = parent::createContainer();
-		
-		// add Configurator to Container
 		$container->addService('configurator', $this);
-		
-		// setup default Route for Router
-		$container->getService('router')->offsetSet(NULL, new Route('index.php', 'Homepage:default', Route::ONE_WAY));
+
+		$container->getService('router')
+			->offsetSet(NULL, new Route('index.php', 'Homepage:default', Route::ONE_WAY));
 
 		return $container;
 	}
 
 
-
 	/**
-	 * @return Compiler
+	 * @return \Nette\DI\Compiler
 	 */
 	protected function createCompiler()
 	{
@@ -109,7 +98,6 @@ class Configurator extends Nette\Configurator
 
 		return $this->compiler;
 	}
-
 
 
 	/**
@@ -126,10 +114,6 @@ class Configurator extends Nette\Configurator
 	}
 
 
-
-	/**
-	 * Enable robot loader
-	 */
 	public function enableRobotLoader()
 	{
 		$this->robotLoader = $this->createRobotLoader();
@@ -139,7 +123,6 @@ class Configurator extends Nette\Configurator
 	}
 
 
-
 	/**
 	 * @param string
 	 * @param string
@@ -147,14 +130,13 @@ class Configurator extends Nette\Configurator
 	public function enableDebugger($logDirectory = NULL, $email = NULL)
 	{
 		$logDirectory = $logDirectory ?: $this->parameters['logDir'];
-		
+
 		parent::enableDebugger($logDirectory, $email);
 	}
 
 
-
 	/**
-	 * @return Compiler
+	 * @return \Nette\DI\Compiler
 	 */
 	public function getCompiler()
 	{

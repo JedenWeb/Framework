@@ -12,7 +12,6 @@ class Helpers extends Nette\Object
 
 	/** @var \Nette\DI\Container */
 	protected $helpers = array();
-	
 
 
 	/**
@@ -23,7 +22,6 @@ class Helpers extends Nette\Object
 	{
 		$this->helpers[$name] = $factory;
 	}
-
 
 
 	/**

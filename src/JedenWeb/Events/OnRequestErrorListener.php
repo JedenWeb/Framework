@@ -10,7 +10,7 @@ use Nette\Application;
  */
 class OnRequestErrorListener extends Nette\Object implements \Kdyby\Events\Subscriber
 {
-	
+
 	/**
 	 * @param \Nette\Application\Application
 	 * @param \Nette\Application\Request
@@ -22,7 +22,7 @@ class OnRequestErrorListener extends Nette\Object implements \Kdyby\Events\Subsc
 
 		if(($pos = strrpos($presenter, ':')) !== FALSE) {
 			$module = substr($presenter, 0, $pos);
-			
+
 			try {
 				$errorPresenter =  "$module:Error";
 				$errorPresenterClass = $application->presenterFactory->createPresenter($errorPresenter);
@@ -33,9 +33,8 @@ class OnRequestErrorListener extends Nette\Object implements \Kdyby\Events\Subsc
 
 		$application->errorPresenter = $errorPresenter;
 	}
-	
-	
-	
+
+
 	/**
 	 * @return array
 	 */
@@ -43,5 +42,5 @@ class OnRequestErrorListener extends Nette\Object implements \Kdyby\Events\Subsc
 	{
 		return array('onRequest');
 	}
-	
+
 }

@@ -5,7 +5,6 @@ namespace JedenWeb\Tools;
 use Nette;
 
 
-
 /**
  * Class of the SimpleDiff PHP library by Paul Butler
  *
@@ -42,7 +41,6 @@ class SimpleDiff extends Nette\Object
             array_slice($new, $nmax, $maxlen),
             $this->diff(array_slice($old, $omax + $maxlen), array_slice($new, $nmax + $maxlen)));
     }
-
 
 
 	/**

@@ -31,7 +31,7 @@ Container::extensionMethod('addEmail', function(Container $container, $name, $la
 Container::extensionMethod('addUrl', function(Container $container, $name, $label = NULL, $cols = NULL, $maxLength = NULL) {
 	$item = $container->addText($name, $label, $cols, $maxLength);
 	$item->setAttribute('type', "url")->addCondition(Form::FILLED)->addRule(Form::URL);
-	return $item;	
+	return $item;
 });
 
 

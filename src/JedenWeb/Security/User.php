@@ -24,11 +24,10 @@ use Nette\Security\IAuthorizator;
  */
 class User extends Nette\Security\User
 {
-	
+
 	/**
 	 * @param \Nette\Reflection\ClassType|\Nette\Reflection\Method
 	 * @param string
-	 *
 	 * @throws \Nette\Application\ForbiddenRequestException
 	 * @throws \JedenWeb\UnexpectedValueException
 	 * @return bool
@@ -43,14 +42,13 @@ class User extends Nette\Security\User
 			return FALSE;
 		}
 		$message = is_string($element->getAnnotation('secured')) ? $element->getAnnotation('secured') : NULL;
-		
+
 		$this->checkLogged($element, $message);
 		$this->checkRole($element, $message);
 		$this->checkPermission($element, $message);
 	}
-	
-	
-	
+
+
 	/**
 	 * @param \Reflector
 	 * @throws ForbiddenRequestException
@@ -61,15 +59,14 @@ class User extends Nette\Security\User
 			if (is_string($element->getAnnotation($annotation))) {
 				$message = $element->getAnnotation($annotation);
 			}
-			
+
 			if (!$this->isLoggedIn()) {
 				throw new ForbiddenRequestException($message ?: ($this->getId() ? "User ". "'$this->id'" : 'User') . " is not logged in.");
 			}
 		}
 	}
-	
-	
-	
+
+
 	/**
 	 * @param \Reflector
 	 * @throws ForbiddenRequestException
@@ -82,7 +79,7 @@ class User extends Nette\Security\User
 				$message = $roles['message'];
 				unset($roles['message']);
 			}
-			
+
 			$success = FALSE;
 			foreach ($roles as $role) {
 				if ($this->isInRole($role)) {
@@ -90,7 +87,7 @@ class User extends Nette\Security\User
 					break;
 				}
 			}
-			
+
 			if (!$success) {
 				throw new ForbiddenRequestException($message ?: 
 					($this->getId() ? "User ". "'$this->id'" : 'User') . " is not in any of these roles - ".implode(', ', $roles)."."
@@ -98,9 +95,8 @@ class User extends Nette\Security\User
 			}
 		}
 	}
-	
-	
-	
+
+
 	/**
 	 * @param \Reflector
 	 * @throws JedenWeb\UnexpectedValueException
@@ -113,15 +109,14 @@ class User extends Nette\Security\User
 				$message = $permission['message'];
 				unset($permission['message']);
 			}
-			
+
 			$resource = array_shift($permission) ?: IAuthorizator::ALL;
 			$privilege = array_shift($permission) ?: IAuthorizator::ALL;
 			$this->needAllowed($resource, $privilege, $message);
 		}
 	}
-	
-	
-	
+
+
 	/**
 	 * @param string
 	 * @param string
@@ -135,5 +130,5 @@ class User extends Nette\Security\User
 			throw new ForbiddenRequestException($message ?: "User is not allowed to " . ($privilege ? $privilege : "access") . " the resource" . ($resource ? " '$resource'" : NULL) . ".");
 		}
 	}
-	
+
 }

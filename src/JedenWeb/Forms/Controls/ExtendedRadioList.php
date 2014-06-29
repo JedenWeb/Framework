@@ -25,7 +25,7 @@ class ExtendedRadioList extends Nette\Forms\Controls\BaseControl
 	private $descriptions = array();
    
    
-	
+
    /**
     * Oproti RadioList je konstruktor rozsireny o treti parametr - pole objektu s popisky
     * TODO: zavest pro popisky rozhrani?
@@ -37,17 +37,17 @@ class ExtendedRadioList extends Nette\Forms\Controls\BaseControl
 	public function __construct($label = NULL, array $items = NULL, array $descriptions = NULL)
 	{
 		parent::__construct($label);
-		
+
 		$this->control->type = 'radio';
 		$this->container = Html::el('');
 		$this->separator = Html::el('br');
-		
+
 		if ($items !== NULL) $this->setItems($items);
-		
+
 		if ($descriptions !== NULL) $this->setDescriptions($descriptions);
 	}
    
-	
+
 	/**
      * Setter pro $descriptions
      * @param array
@@ -110,7 +110,7 @@ class ExtendedRadioList extends Nette\Forms\Controls\BaseControl
 	{
 		return $this->container;
 	}
-	
+
 
 	/**
      * Vraci strukturu controlu k vykresleni

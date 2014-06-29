@@ -14,9 +14,8 @@ class UserStorage extends Nette\Http\UserStorage
 
 	/** Log-out reason */
 	const IDENTITY_CHANGED = 16;
-	
-	
-	
+
+
 	/**
 	 * Checks if the identity is still valid.
 	 * @param \Nette\Security\IIdentity
@@ -25,10 +24,9 @@ class UserStorage extends Nette\Http\UserStorage
 	protected function isIdentityValid(Nette\Security\IIdentity $identity)
 	{
 		return TRUE; // dummy implementation of Identity validation
-	}	
- 
-	
-	
+	}
+
+
 	/**
 	 * Returns and initializes $this->sessionSection.
 	 * @param bool
@@ -45,8 +43,7 @@ class UserStorage extends Nette\Http\UserStorage
 		return $section;
 	}
 
-	
-	
+
 	/**
 	 * Performs user invalidation
 	 * @param Nette\Http\SessionSection
@@ -61,5 +58,5 @@ class UserStorage extends Nette\Http\UserStorage
 		unset($section->expireTime, $section->expireDelta, $section->expireIdentity,
 			$section->expireBrowser, $section->browserCheck, $section->authTime);
 	}
-	
+
 }

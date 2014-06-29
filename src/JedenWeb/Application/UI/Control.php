@@ -12,31 +12,25 @@ abstract class Control extends Nette\Application\UI\Control
 
 	/** @var bool */
 	private $startupCheck;
-	
+
 	/** @var array */
 	private $_flashes = array();
 
 
-
-	/**
-	 */
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
 
-	/**
-	 */
 	protected function startup()
 	{
 		$this->startupCheck = TRUE;
 	}
 
 
-
 	/**
-	 * @param type
+	 * @param \Nette\Application\UI\PresenterComponent
 	 * @throws \Nette\InvalidStateException
 	 */
 	protected function attached($obj)
@@ -51,8 +45,8 @@ abstract class Control extends Nette\Application\UI\Control
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * @param string
 	 * @return \Nette\ComponentModel\IComponent
@@ -66,13 +60,12 @@ abstract class Control extends Nette\Application\UI\Control
 
 		return parent::createComponent($name);
 	}
-	
-	
+
+
 	/**
 	 * Checks for requirements such as authorization.
 	 *
 	 * @param \Reflector
-	 *
 	 * @return void
 	 */
 	public function checkRequirements($element)
@@ -80,11 +73,10 @@ abstract class Control extends Nette\Application\UI\Control
 		if ($element instanceof \Reflector) {
 			$this->getPresenter()->getUser()->protectElement($element);
 		}
-	}	
-	
-	
+	}
+
+
 	/**
-	 * 
 	 * @param string
 	 * @param string
 	 * @param bool
@@ -106,8 +98,8 @@ abstract class Control extends Nette\Application\UI\Control
 		$this->getTemplate()->flashes = array_merge((array)$messages, $this->_flashes);
 
 		return $flash;
-	}	
-	
+	}
+
 
 	/**
 	 * @param string|NULL

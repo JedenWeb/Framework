@@ -21,7 +21,7 @@ class Validators extends Nette\Utils\Validators
 		}
 
 		$s = str_split($s);
-		
+
 		for ($i = 1; $i <= 15; $i+=2) {
 			$digits[$i] = ($s[$i-1] * 2);
 			$digits[$i+1] = $s[$i];

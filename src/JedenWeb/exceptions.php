@@ -1,17 +1,16 @@
 <?php
 
+namespace JedenWeb;
+
 /**
  * @author Jan Tvrdík
  */
-
-namespace JedenWeb;
 
 /**
  * The exception that is thrown when the value of an argument is
  * outside the allowable range of values as defined by the invoked method.
  */
 class ArgumentOutOfRangeException extends \InvalidArgumentException {}
-
 
 
 /**
@@ -21,12 +20,10 @@ class ArgumentOutOfRangeException extends \InvalidArgumentException {}
 class InvalidStateException extends \RuntimeException {}
 
 
-
 /**
  * The exception that is thrown when a requested method or operation is not implemented.
  */
 class NotImplementedException extends \LogicException {}
-
 
 
 /**
@@ -36,12 +33,10 @@ class NotImplementedException extends \LogicException {}
 class NotSupportedException extends \LogicException {}
 
 
-
 /**
  * The exception that is thrown when a requested method or operation is deprecated.
  */
 class DeprecatedException extends NotSupportedException {}
-
 
 
 /**
@@ -64,7 +59,6 @@ class MemberAccessException extends \LogicException
 	}
 
 
-
 	/**
 	 * @param string|object
 	 *
@@ -75,7 +69,6 @@ class MemberAccessException extends \LogicException
 		$class = is_object($class) ? get_class($class) : $class;
 		return new static("Cannot write to a class '$class' property without name.");
 	}
-
 
 
 	/**
@@ -92,7 +85,6 @@ class MemberAccessException extends \LogicException
 	}
 
 
-
 	/**
 	 * @param string|object
 	 *
@@ -105,7 +97,6 @@ class MemberAccessException extends \LogicException
 	}
 
 
-
 	/**
 	 * @param string|object
 	 *
@@ -116,7 +107,6 @@ class MemberAccessException extends \LogicException
 		$class = is_object($class) ? get_class($class) : $class;
 		return new static("Call to class '$class' method without name.");
 	}
-
 
 
 	/**
@@ -134,12 +124,10 @@ class MemberAccessException extends \LogicException
 }
 
 
-
 /**
  * The exception that is thrown when an I/O error occurs.
  */
 class IOException extends \RuntimeException {}
-
 
 
 /**
@@ -161,7 +149,6 @@ class FileNotFoundException extends IOException
 }
 
 
-
 /**
  * The exception that is thrown when writing to a file that is not writable.
  */
@@ -178,7 +165,6 @@ class FileNotWritableException extends IOException
 	}
 
 }
-
 
 
 /**
@@ -200,7 +186,6 @@ class DirectoryNotFoundException extends IOException
 }
 
 
-
 /**
  * The exception that is thrown when writing to a directory that is not writable.
  */
@@ -219,19 +204,16 @@ class DirectoryNotWritableException extends IOException
 }
 
 
-
 /**
  * The exception that is thrown when an argument does not match with the expected value.
  */
 class InvalidArgumentException extends \InvalidArgumentException {}
 
 
-
 /**
  * The exception that is thrown when an illegal index was requested.
  */
 class OutOfRangeException extends \OutOfRangeException {}
-
 
 
 /**
@@ -254,7 +236,6 @@ class UnexpectedValueException extends \UnexpectedValueException
 	}
 
 
-
 	/**
 	 * @param string|object
 	 * @param string
@@ -266,7 +247,6 @@ class UnexpectedValueException extends \UnexpectedValueException
 		$class = is_object($class) ? get_class($class) : $class;
 		return new static("Class property $class::\$$property is not an instance of Doctrine\\Common\\Collections\\Collection.");
 	}
-
 
 
 	/**
@@ -282,7 +262,6 @@ class UnexpectedValueException extends \UnexpectedValueException
 	}
 
 }
-
 
 
 /**

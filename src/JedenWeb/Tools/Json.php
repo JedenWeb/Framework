@@ -16,17 +16,13 @@ class Json extends Nette\Object
 	const FORMAT_COMPACT = FALSE;
 
 
-
 	/**
-	 * Static class - cannot be instantiated.
-	 *
 	 * @throws JedenWeb\StaticClassException
 	 */
 	final public function __construct()
 	{
 		throw new JedenWeb\StaticClassException;
 	}
-
 
 
 	/**
@@ -44,7 +40,6 @@ class Json extends Nette\Object
 	}
 
 
-
 	/**
 	 * Decodes a JSON string.
 	 * @param string $json JSON string or filename
@@ -60,7 +55,6 @@ class Json extends Nette\Object
 
 		return Nette\Utils\Json::decode($json, $options);
 	}
-
 
 
 	/**

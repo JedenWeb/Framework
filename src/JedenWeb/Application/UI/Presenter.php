@@ -15,7 +15,6 @@ class Presenter extends Nette\Application\UI\Presenter
 	private $_flashes = array();
 
 
-
 	/**
 	 * @author  Jiří Šifalda
 	 * @param string
@@ -26,7 +25,7 @@ class Presenter extends Nette\Application\UI\Presenter
 		$method = 'createComponent' . ucfirst($name);
 		if (method_exists($this, $method)) {
 			$this->checkRequirements($this->getReflection()->getMethod($method));
-			
+
 			if (\Nette\Reflection\Method::from($this, $method)->hasAnnotation('multiple')) {
 				$presenter = $this;
 				return new \Nette\Application\UI\Multiplier(function ($id) use ($presenter, $method) {
@@ -42,13 +41,12 @@ class Presenter extends Nette\Application\UI\Presenter
 
 		return parent::createComponent($name);
 	}
-	
-	
+
+
 	/**
 	 * Checks for requirements such as authorization.
 	 *
 	 * @param \Reflector
-	 *
 	 * @return void
 	 */
 	public function checkRequirements($element)
@@ -57,10 +55,9 @@ class Presenter extends Nette\Application\UI\Presenter
 			$this->getUser()->protectElement($element);
 		}
 	}
-	
-	
+
+
 	/**
-	 * 
 	 * @param string
 	 * @param string
 	 * @param bool
@@ -83,15 +80,11 @@ class Presenter extends Nette\Application\UI\Presenter
 
 		return $flash;
 	}
-	
 
 
 	/*********************** rendering ***********************/
 
-	
 
-	/**
-	 */
 	protected function beforeRender()
 	{
 		parent::beforeRender();
@@ -102,9 +95,7 @@ class Presenter extends Nette\Application\UI\Presenter
 	}
 
 
-
-	/***********************  ***********************/
-
+	/**********************************************/
 
 
 	/**

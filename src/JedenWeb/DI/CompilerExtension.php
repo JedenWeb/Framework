@@ -20,15 +20,15 @@ class CompilerExtension extends Nette\DI\CompilerExtension
 	public function addMacro($name, $installer)
 	{
 		$container = $this->getContainerBuilder();
-		
+
 		$macro = $container->addDefinition($name = $this->prefix($name))
 			->setClass(substr($installer, 0, strpos($installer, '::')))
 			->setFactory($installer, array('@nette.latte'))
 			->addTag('latte.macro');
-		
+
 		$container->getDefinition('nette.latte')
 			->addSetup($installer . '(?->compiler)', array('@self'));
-		
+
 		return $macro;
 	}
 

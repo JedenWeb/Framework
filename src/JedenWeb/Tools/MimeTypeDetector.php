@@ -429,16 +429,13 @@ final class MimeTypeDetector extends Nette\Object
 	);
 
 
-
 	/**
-	 * Static class - cannot be instantiated.
 	 * @throws JedenWeb\StaticClassException
 	 */
 	final public function __construct()
 	{
 		throw new JedenWeb\StaticClassException;
 	}
-
 
 
 	/**
@@ -458,7 +455,6 @@ final class MimeTypeDetector extends Nette\Object
 	}
 
 
-
 	/**
 	 * Returns the MIME content type of file.
 	 *
@@ -470,7 +466,6 @@ final class MimeTypeDetector extends Nette\Object
 	{
 		return Nette\Utils\MimeTypeDetector::fromString($data);
 	}
-
 
 
 	/**
@@ -488,7 +483,6 @@ final class MimeTypeDetector extends Nette\Object
 
 		return $mime ?: NULL;
 	}
-
 
 
 	/**

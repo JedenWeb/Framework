@@ -26,7 +26,7 @@ class JedenWebExtension extends JedenWeb\DI\CompilerExtension
 	{
 		$container = $this->getContainerBuilder();
 		$config = $this->getConfig($this->defaults);
-		
+
 		# security
 		$container->getDefinition('user')
 			->setClass('JedenWeb\Security\User');
@@ -34,7 +34,7 @@ class JedenWebExtension extends JedenWeb\DI\CompilerExtension
 		# helpers
 		$loader = $container->addDefinition($this->prefix("helpers"))
 			->setClass("JedenWeb\Templating\Helpers");
-		
+
 		foreach ($config['helpers'] as $name => $helper) {
 			$loader->addSetup('addHelper', array($name, $helper));
 		}
