@@ -21,10 +21,10 @@
 		]
 	},
 	"require": {
-		"php" : ">=5.3",
-		"nette/nette": ">=2.1"
+		"php" : "~5.3",
+		"nette/nette": "~2.1"
 	},
 	"require-dev": {
-		"nette/tester": "dev-master"
+		"nette/tester": "~1.2"
 	}
 }
