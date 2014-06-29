@@ -13,27 +13,6 @@ class CompilerExtension extends Nette\DI\CompilerExtension
 {
 
 	/**
-	 * @param string $tag
-	 * @return array
-	 */
-	protected function getSortedServices($tag)
-	{
-		$container = $this->getContainerBuilder();
-
-		$items = array();
-		foreach ($container->findByTag($tag) as $def => $meta) {
-			$priority = isset($meta['priority']) ? $meta['priority'] : (int) $meta;
-			$items[$priority][] = $def;
-		}
-
-		krsort($items);
-
-		return \Nette\Utils\Arrays::flatten($items);
-	}
-
-
-
-	/**
 	 * @param string $name
 	 * @param string $installer
 	 * @return \Nette\DI\ServiceDefinition
@@ -52,7 +31,6 @@ class CompilerExtension extends Nette\DI\CompilerExtension
 		
 		return $macro;
 	}
-
 
 
 	/**

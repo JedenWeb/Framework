@@ -22,17 +22,10 @@ class JedenWebExtension extends JedenWeb\DI\CompilerExtension
 	);
 
 
-
-	/**
-	 */
 	public function loadConfiguration()
 	{
 		$container = $this->getContainerBuilder();
 		$config = $this->getConfig($this->defaults);
-
-		# application
-		$container->getDefinition('application')
-			->addSetup('!headers_sent() && header(?);', array('X-Powered-By: Nette Framework & JedenWeb'));
 		
 		# security
 		$container->getDefinition('user')
